@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://bravowhale.com/tags" prefix="BW" %>
+<%@ taglib uri="http://benchmark.com/tags" prefix="BW" %>
 <!DOCTYPE HTML>
 <html>
   <head>
