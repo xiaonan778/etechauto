@@ -1,4 +1,4 @@
-package com.etech.benchmark.page;
+package com.etech.benchmark.backadmin.page;
 
 import java.util.Collection;
 import java.util.Map;

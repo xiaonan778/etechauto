@@ -41,6 +41,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.etech.benchmark.backadmin.info.service.BmTreeService;
+import com.etech.benchmark.backadmin.model.ResultEntity;
+import com.etech.benchmark.backadmin.model.ResultEntityLinkedHashMapImpl;
 import com.etech.benchmark.backadmin.sys.service.DictionaryService;
 import com.etech.benchmark.constant.Constants;
 import com.etech.benchmark.data.info.model.BmExcel;
@@ -52,8 +54,6 @@ import com.etech.benchmark.util.DateUtil;
 import com.etech.benchmark.util.ExcelUtil;
 import com.etech.benchmark.util.FileUtil;
 import com.etech.benchmark.util.StringUtil;
-import com.etech.benchmark.web.entity.ResultEntity;
-import com.etech.benchmark.web.entity.ResultEntityLinkedHashMapImpl;
 
 
 /** 

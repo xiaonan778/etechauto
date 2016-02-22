@@ -6,11 +6,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.etech.benchmark.backadmin.page.Page;
 import com.etech.benchmark.backadmin.sys.service.PermissionService;
 import com.etech.benchmark.data.sys.dao.PermissionDao;
 import com.etech.benchmark.data.sys.model.Permission;
 import com.etech.benchmark.exception.ServiceException;
-import com.etech.benchmark.page.Page;
 import com.etech.benchmark.util.StringUtil;
 
 @Service

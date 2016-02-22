@@ -11,7 +11,7 @@ package com.etech.benchmark.data.ums.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.etech.benchmark.model.AtomModel;
+import com.etech.benchmark.backadmin.model.AtomModel;
 
 /**
  * @Description

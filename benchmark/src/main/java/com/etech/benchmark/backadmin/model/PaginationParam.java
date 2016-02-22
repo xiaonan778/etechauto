@@ -1,4 +1,4 @@
-package com.etech.benchmark.web.entity;
+package com.etech.benchmark.backadmin.model;
 
 
 public abstract class PaginationParam extends BaseQueryParam {

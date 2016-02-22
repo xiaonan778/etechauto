@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.etech.benchmark.backadmin.model.ResultEntity;
+import com.etech.benchmark.backadmin.model.ResultEntityHashMapImpl;
+import com.etech.benchmark.backadmin.page.Page;
 import com.etech.benchmark.backadmin.sys.model.RoleParam;
 import com.etech.benchmark.backadmin.sys.model.UserRoleParam;
 import com.etech.benchmark.backadmin.sys.service.RolePermissionRefService;
@@ -31,11 +34,8 @@ import com.etech.benchmark.data.sys.model.Role;
 import com.etech.benchmark.data.sys.model.RolePermissionRef;
 import com.etech.benchmark.data.sys.model.UserRoleRef;
 import com.etech.benchmark.data.ums.model.User;
-import com.etech.benchmark.page.Page;
 import com.etech.benchmark.util.RequestUtil;
 import com.etech.benchmark.util.StringUtil;
-import com.etech.benchmark.web.entity.ResultEntity;
-import com.etech.benchmark.web.entity.ResultEntityHashMapImpl;
 
 @Controller
 @RequestMapping(value = "/role")

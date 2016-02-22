@@ -1,4 +1,4 @@
-package com.etech.benchmark.web.entity;
+package com.etech.benchmark.backadmin.model;
 
 public abstract interface ResultEntity {
     public static final String KW_STATUS_SUCCESS = "S";

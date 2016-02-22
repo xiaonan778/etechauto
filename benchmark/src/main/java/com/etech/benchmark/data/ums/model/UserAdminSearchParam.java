@@ -1,6 +1,6 @@
 package com.etech.benchmark.data.ums.model;
 
-import com.etech.benchmark.web.entity.PaginationParam;
+import com.etech.benchmark.backadmin.model.PaginationParam;
 
 /**
  * 

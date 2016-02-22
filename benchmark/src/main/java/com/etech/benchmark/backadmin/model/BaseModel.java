@@ -1,4 +1,4 @@
-package com.etech.benchmark.model;
+package com.etech.benchmark.backadmin.model;
 
 import java.io.Serializable;
 
