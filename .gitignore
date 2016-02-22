@@ -8,5 +8,5 @@ bin/
 .classpath
 .settings/
 target/
-
+WEB-INF/classes/
 
