@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+  xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+  xmlns:util="http://www.springframework.org/schema/util" xmlns:lang="http://www.springframework.org/schema/lang"
+  xsi:schemaLocation="  
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd  
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd  
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd  
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+<!-- 项目classpath -->
+<context:property-placeholder ignore-resource-not-found="false" location="classpath*:/jdbc.properties" />
+<util:properties id="appconfig" location="classpath:config.properties"/>
+<!-- 服务器  linux-->
+<!--<context:property-placeholder ignore-resource-not-found="false" location="file:/opt/config/jdbc.properties" />
+<util:properties id="appconfig" location="file:/opt/config/config.properties"/>--> 
+<!-- 服务器  windows-->
+<!--<context:property-placeholder ignore-resource-not-found="false" location="file:///E://config/jdbc.properties" />
+<util:properties id="appconfig" location="file:///E://config/config.properties"/>-->
+
+ 
+  
+  <context:component-scan base-package="com.etech.benchmark.*">
+    <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+  </context:component-scan>
+  
+  <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+    <property name="driverClass" value="${jdbc.driver}" />
+    <property name="jdbcUrl" value="${jdbc.url}" />
+    <property name="user" value="${jdbc.username}" />
+    <property name="password" value="${jdbc.password}" />
+    <property name="maxPoolSize" value="${jdbc.maxPoolSize}" />
+    <property name="minPoolSize" value="${jdbc.minPoolSize}" />
+    <property name="initialPoolSize" value="${jdbc.initialPoolSize}" />
+    <property name="maxIdleTime" value="${jdbc.maxIdleTime}" />
+    <property name="idleConnectionTestPeriod" value="${jdbc.idleConnectionTestPeriod}" />
+  </bean>
+  
+  <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <property name="dataSource" ref="dataSource" />
+    <property name="configLocation" value="classpath:sqlmap-config.xml" />
+    <property name="typeAliasesPackage" value="com.etech.benchmark.data.*.model" />
+    <property name="mapperLocations" value="classpath*:com/etech/benchmark/data/*/mapper/*.xml" />
+    <property name="plugins">
+        <array>
+        	<ref bean="paginationInterceptor"/>
+        </array>
+    </property>
+  </bean>
+  
+  <bean id="paginationInterceptor" class="com.github.miemiedev.mybatis.paginator.OffsetLimitInterceptor">
+	  <property name="properties">  
+         <props>
+            <prop key="dialectClass">com.github.miemiedev.mybatis.paginator.dialect.MySQLDialect</prop>
+        </props>
+	  </property>
+  </bean>
+	
+  <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+	 <constructor-arg index="0" ref="sqlSessionFactory" />
+  </bean>
+
+  <bean id="sqlSessionDaoSupport" class="com.etech.benchmark.data.SqlSessionDaoSupport">
+	 <constructor-arg index="0" ref="sqlSessionTemplate" />
+  </bean>
+  
+  
+   <!-- 与金保接口数据直接写入金保数据库 -->
+	<!-- <bean id="dataSourceJB" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${jdbc.driver}" />
+		<property name="jdbcUrl" value="${jdbc.jb.url}" />
+		<property name="user" value="${jdbc.jb.username}" />
+		<property name="password" value="${jdbc.jb.password}" />
+		<property name="maxPoolSize" value="${jdbc.maxPoolSize}" />
+		<property name="minPoolSize" value="${jdbc.minPoolSize}" />
+		<property name="initialPoolSize" value="${jdbc.initialPoolSize}" />
+		<property name="maxIdleTime" value="${jdbc.maxIdleTime}" />
+		<property name="idleConnectionTestPeriod" value="${jdbc.idleConnectionTestPeriod}" />
+	</bean>
+
+	<bean id="sqlSessionFactoryJB" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceJB" />
+		<property name="configLocation" value="classpath:sqlmap-config.xml" />
+		<property name="typeAliasesPackage" value="com.etech.benchmark.api.data.model" />
+		<property name="mapperLocations" value="classpath*:com/etech/benchmark/api/data/mapper/*.xml" />
+		<property name="plugins">
+			<array>
+				<ref bean="paginationInterceptor" />
+			</array>
+		</property>
+	</bean>
+	
+	  <bean id="sqlSessionTemplateJB" class="org.mybatis.spring.SqlSessionTemplate">
+		 <constructor-arg index="0" ref="sqlSessionFactoryJB" />
+	  </bean>
+	
+	  <bean id="sqlSessionDaoSupportJB" class="com.etech.benchmark.api.data.sqlSessionDaoSupportJB">
+		 <constructor-arg index="0" ref="sqlSessionTemplateJB" />
+	  </bean> -->
+  
+	
+	<!-- transaction manager, use JtaTransactionManager for global tx -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<aop:config>
+		<aop:pointcut id="productServiceMethods" expression="execution(* com.etech.benchmark.*.*.service.*.*(..)) || execution(* com.etech.benchmark.data.dao.*.*Dao.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="productServiceMethods" />
+	</aop:config>
+	
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="get*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="find*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="page*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+
+  <!-- -->
+  <tx:annotation-driven />
+  
+  <!-- 启动对@AspectJ注解的支持 -->
+  <aop:aspectj-autoproxy proxy-target-class="true" />
+  <aop:config proxy-target-class="true"></aop:config>
+
+  <bean id="springContextUtil" class="com.etech.benchmark.util.SpringContextUtil" />
+
+  <bean class="org.springframework.web.client.RestTemplate" />
+</beans>
