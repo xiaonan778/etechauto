@@ -32,12 +32,14 @@
             });
     		$("#importForm").ajaxSubmit({
                 type: "POST",
-                url: _path + "/report/searchByAlpha",
+                url: _path + "/report/dataImport",
                 dataType: "json",
                 success: function(data){
                 	bravoui.ui.msg.waiting.remove();
                 	if (data.msg == "success") {
                 		$("#excel").val("");
+                		$("#tableName").val("");
+                		$("#tableName").trigger("chosen:updated");
                 		bravoui.ui.msg.alert("导入成功！");
                 	} else {
                 		alert( data.msg );
