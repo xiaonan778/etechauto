@@ -21,15 +21,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.etech.benchmark.backadmin.model.ResultEntity;
-import com.etech.benchmark.backadmin.model.ResultEntityHashMapImpl;
-import com.etech.benchmark.backadmin.page.Page;
 import com.etech.benchmark.backadmin.sys.model.RoleParam;
 import com.etech.benchmark.backadmin.sys.model.UserRoleParam;
 import com.etech.benchmark.backadmin.sys.service.RolePermissionRefService;
 import com.etech.benchmark.backadmin.sys.service.RoleService;
 import com.etech.benchmark.backadmin.sys.service.UserRoleRefService;
 import com.etech.benchmark.constant.Constants;
+import com.etech.benchmark.data.model.ResultEntity;
+import com.etech.benchmark.data.model.ResultEntityHashMapImpl;
+import com.etech.benchmark.data.page.Page;
 import com.etech.benchmark.data.sys.model.Role;
 import com.etech.benchmark.data.sys.model.RolePermissionRef;
 import com.etech.benchmark.data.sys.model.UserRoleRef;

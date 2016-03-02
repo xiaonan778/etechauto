@@ -34,8 +34,8 @@ public class Constants {
 	
 	
 	public class DataDictionary{
-		/**支付方法**/
 		public final static String EXML = "EXML"; //Excel模版
+		public final static String REPORT = "REPORT"; //数据导入标识
 	}
 	
 	/** 有效 **/

@@ -15,8 +15,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.etech.benchmark.backadmin.page.Page;
 import com.etech.benchmark.data.DaoSupport;
+import com.etech.benchmark.data.page.Page;
 import com.etech.benchmark.data.sys.dao.SysDataDao;
 import com.etech.benchmark.data.sys.model.SysData;
 

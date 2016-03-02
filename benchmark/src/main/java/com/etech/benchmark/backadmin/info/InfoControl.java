@@ -41,12 +41,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.etech.benchmark.backadmin.info.service.BmTreeService;
-import com.etech.benchmark.backadmin.model.ResultEntity;
-import com.etech.benchmark.backadmin.model.ResultEntityLinkedHashMapImpl;
 import com.etech.benchmark.backadmin.sys.service.DictionaryService;
 import com.etech.benchmark.constant.Constants;
 import com.etech.benchmark.data.info.model.BmExcel;
 import com.etech.benchmark.data.info.model.BmTree;
+import com.etech.benchmark.data.model.ResultEntity;
+import com.etech.benchmark.data.model.ResultEntityLinkedHashMapImpl;
 import com.etech.benchmark.data.sys.model.SysDataDictionary;
 import com.etech.benchmark.data.ums.model.User;
 import com.etech.benchmark.exception.ServiceException;

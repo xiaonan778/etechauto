@@ -7,7 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.session.Configuration;
 import org.mybatis.spring.SqlSessionTemplate;
 
-import com.etech.benchmark.backadmin.page.Page;
+import com.etech.benchmark.data.page.Page;
 
 
 public interface DaoSupport {

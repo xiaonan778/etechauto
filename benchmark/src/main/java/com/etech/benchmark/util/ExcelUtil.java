@@ -6,7 +6,9 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.poi.hssf.usermodel.HSSFDataFormat;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
@@ -17,6 +19,8 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import com.etech.benchmark.exception.UtilException;
 
 public class ExcelUtil {
     
@@ -300,6 +304,24 @@ public class ExcelUtil {
         } else {
             return result.toString();
         }
+    }
+    
+    public static Map<String, Object> rowToMap(Row title, Row row) throws UtilException {
+        Map<String, Object> map = new HashMap<String, Object>();
+        int titleCol = title.getLastCellNum();
+        int col = row.getLastCellNum();
+        if (titleCol > col) {
+            throw new UtilException("Excel标题列数错误");
+        }
+        for (int i = 0; i < titleCol; i++) {
+            Cell cell = row.getCell(i);
+            Cell titleCell = title.getCell(i);
+            String titleValue = getCellValue(titleCell);
+            String  value = getCellValue(cell);
+            map.put(titleValue, value);
+        }
+        map.put("id", StringUtil.createUUID());
+        return map;
     }
 }
 

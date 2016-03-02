@@ -1,6 +1,6 @@
 package com.etech.benchmark.backadmin.sys.model;
 
-import com.etech.benchmark.backadmin.model.PaginationParam;
+import com.etech.benchmark.data.model.PaginationParam;
 
 
 /**

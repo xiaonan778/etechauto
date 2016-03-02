@@ -3,7 +3,7 @@ package com.etech.benchmark.data.ums.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.etech.benchmark.backadmin.page.Page;
+import com.etech.benchmark.data.page.Page;
 import com.etech.benchmark.data.ums.model.User;
 
 
