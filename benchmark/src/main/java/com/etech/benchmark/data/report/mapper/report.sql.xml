@@ -28,8 +28,12 @@
         </foreach>
     </insert>
     
-    <select id="getMaxTorque" parameterType="java.util.Map" statementType="STATEMENT" resultType="java.util.Map">
-        select max(TORQUE) as torque, alpha from ${tablename} where ALPHA &gt; ${alpha_min} and ALPHA &lt; ${alpha_max} LIMIT 1
+    <select id="getMaxTorqueByAlpha" parameterType="java.util.Map" statementType="STATEMENT" resultType="java.util.Map">
+        select max(TORQUE) as torque, alpha from ${tablename} where ALPHA &gt;= ${alpha_min} and ALPHA &lt;= ${alpha_max} LIMIT 1
     </select> 
+    
+    <select id="listByAlpha"  parameterType="java.util.Map" statementType="STATEMENT" resultType="java.util.Map">
+        select torque, alpha, speed from ${tablename} where ALPHA &gt;= ${alpha_min} and ALPHA &lt;= ${alpha_max}
+    </select>
     
 </mapper> 

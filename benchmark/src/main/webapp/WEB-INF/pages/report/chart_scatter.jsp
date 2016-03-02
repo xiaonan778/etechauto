@@ -37,7 +37,7 @@
 						<li><i class="icon-home home-icon"></i> <a href="${path}/">首页</a>
 						</li>
 						<li class="active">数据报表</li>
-						<li class="active">柱状图</li>
+						<li class="active">散点图</li>
 					</ul>
 					<!-- .breadcrumb -->
 				</div>
@@ -92,7 +92,7 @@
                     
 					<div class="row">
 						<div class="col-md-12 text-center">
-								<div id="chart_bar" style="width: 90%;min-width: 600px;max-width: 95%;height: 480px;margin:0 auto;"></div>
+								<div id="chart_scatter" style="width: 90%;min-width: 600px;max-width: 95%;height: 480px;margin:0 auto;"></div>
 						</div>
 					</div>
 				</div>
@@ -113,15 +113,15 @@
 				}
 			});
 			require(
-			        [ 'echarts', 'echarts/themes/blue', 'echarts/chart/bar' ],
+			        [ 'echarts', 'echarts/themes/shine', 'echarts/chart/scatter' ],
 	                function(ec, theme) {
-			        	var report_bar = ec.init(document.getElementById('chart_bar'), theme);
-						report_bar.showLoading({
+			        	var report_scatter = ec.init(document.getElementById('chart_scatter'), theme);
+						report_scatter.showLoading({
 						    text : '正在努力的读取数据中...',
 						});
-						option_bar = {
+						option_scatter = {
 						    title : {
-						        text : "TORQUE",
+						        text : "TORQUE & SPEED",
 						        itemGap : 10,
 						        x : 'center',
 						        textStyle : {
@@ -135,40 +135,53 @@
 						        y : 100
 						    },
 						    tooltip : {
-						        trigger : 'axis',
-						        axisPointer : {
-						            type : 'shadow'
-						        },
-						        formatter : '{b}<br/> {a}: {c}Nm  '
-						    },
-						    
-						    xAxis : [ {
-						        type : 'category',
-						        boundaryGap : true,
-						        data : ['']
-						    } ],
-						    yAxis : [ {
-						        type : 'value',
-						        axisLabel : {
-						            formatter : '{value} Nm'
+						        trigger: 'axis',
+						        showDelay : 0,
+						        formatter : function (params) {
+						            if (params.value.length > 1) {
+						                return params.seriesName + ' :<br/>'
+						                   + params.value[0] + ' rpm   ' 
+						                   + params.value[1] + ' Nm';
+						            } 
+						        },  
+						        axisPointer:{
+						            show: true,
+						            type : 'cross',
+						            lineStyle: {
+						                type : 'dashed',
+						                width : 1
+						            }
 						        }
-						    } ],
+						    },
+						    xAxis : [ {
+					            type : 'value',
+					            scale:true,
+					            axisLabel : {
+					                formatter: '{value} rpm'
+					            }
+					        } ],
+						    yAxis : [ {
+					            type : 'value',
+					            scale:true,
+					            axisLabel : {
+					                formatter: '{value} Nm'
+					            }
+					        }],
 						    series : [ {
-						        name : 'TORQUE',
-						        smooth: true,
-                                type : 'bar',
+						        name : '',
+                                type : 'scatter',
 						        data : []
 						    } ]
 						};
-						report_bar.setOption(option_bar);
+						report_scatter.setOption(option_scatter);
 						// send request data.
 						if (window.addEventListener) {
 	                        window.addEventListener("resize", function() {
-	                            report_bar.resize();
+	                            report_scatter.resize();
 	                        });
 	                    } else {
 	                        window.attachEvent("resize", function() {
-	                            report_bar.resize();
+	                            report_scatter.resize();
 	                        });
 	                    }
 						
@@ -180,25 +193,38 @@
 				            }
 				            $("#searchform").ajaxSubmit({
 				                type: "GET",
-				                url: _path + "/report/getMaxTorqueByAlpha",
+				                url: _path + "/report/listByAlpha",
 				                dataType: "json",
 				                success: function(data){
 				                    if (data.status == "S" && data.result && data.result.length > 0 ) {
 				                    	
-				                        var labels = [];
-				                        var values = [];
 				                        var result = data.result;
+				                        var legend = {
+				                            x: 80,
+				                            y: 60,
+				                            data:[]
+				                        };
 				                        for (var i = 0; i < result.length; i++) {
-				                            labels.push(result[i].tableName);
-				                            values.push(result[i].torque ? result[i].torque : 0);
+				                        	var item = result[i];
+				                        	var itemArray = [];
+				                        	if (item.list && item.list.length > 0) {
+				                        		for (var j =0; j < item.list.length; j++) {
+				                        			var record = item.list[j];
+				                        			itemArray.push([record.speed, record.torque]);
+				                        		}
+				                        		option_scatter.series.push({
+	                                                name: item.type,
+	                                                type: 'scatter',
+	                                                data: itemArray
+	                                            });
+				                        		legend.data.push(item.type);
+				                        	}
 				                        }
-				                        option_bar.xAxis[0].data = labels;
-				                        option_bar.series[0].data = values;
-				                        report_bar.clear();
-				                        report_bar.setOption(option_bar);
-				                        report_bar.hideLoading();
-				                    } else {
-				                    }
+				                        option_scatter.legend = legend;
+				                        report_scatter.clear();
+				                        report_scatter.setOption(option_scatter);
+				                        report_scatter.hideLoading();
+				                    } 
 				                },  
 				                error : function(xhr, msg, error) {  
 				                    if ("timeout" == msg || "parsererror" == msg) {

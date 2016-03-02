@@ -1,5 +1,6 @@
 package com.etech.benchmark.data.report.dao;
 
+import java.util.List;
 import java.util.Map;
 
 public interface ReportDao {
@@ -11,4 +12,6 @@ public interface ReportDao {
     public int insert(Map<String, Object> map);
     
     public Map<String, Object> getMaxTorqueByAlpha(Map<String, Object> params);
+    
+    public <E, K, V> List<E> listByAlpha(Map<String, Object> params);
 }

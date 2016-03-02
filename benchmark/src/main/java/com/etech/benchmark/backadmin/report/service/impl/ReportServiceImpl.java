@@ -1,6 +1,7 @@
 package com.etech.benchmark.backadmin.report.service.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -58,4 +59,10 @@ public class ReportServiceImpl implements ReportService {
         return reportDao.getMaxTorqueByAlpha(params);
     }
     
+    @Override
+    public <E, K, V> List<E> listByAlpha(Map<String, Object> params, String tableName) {
+        params.put("tablename", tableName);
+        
+        return reportDao.listByAlpha(params);
+    }
 }

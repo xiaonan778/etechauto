@@ -1,5 +1,6 @@
 package com.etech.benchmark.data.report.dao.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,12 @@ public class ReportDaoImpl  implements ReportDao {
 
     @Override
     public Map<String, Object> getMaxTorqueByAlpha(Map<String, Object> params) {
-        return dao.get(PREFIX + ".getMaxTorque", params);
+        return dao.get(PREFIX + ".getMaxTorqueByAlpha", params);
+    }
+    
+    @Override
+    public <E, K, V> List<E> listByAlpha(Map<String, Object> params) {
+        return dao.find(PREFIX + ".listByAlpha", params);
     }
 
 }
