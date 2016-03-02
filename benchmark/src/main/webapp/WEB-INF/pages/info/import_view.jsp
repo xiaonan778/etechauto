@@ -85,7 +85,7 @@
 				    <div class="alert alert-info">
                          <i class="icon-hand-right"></i> 请上传Excel文件
                     </div>
-                    <form id="fileForm" enctype="multipart/form-data">
+                    <form id="fileForm" enctype="multipart/form-data" style="min-height: 400px;">
                      <div class="row">
                             <div class="col-md-12">
                                 <div class="col-md-6">
