@@ -2,7 +2,7 @@ package com.etech.benchmark.backadmin.sys.model;
 
 import java.util.Date;
 
-import com.etech.benchmark.data.model.PaginationParam;
+import com.etech.benchmark.model.PaginationParam;
 
 
 public class PermissionParam extends PaginationParam {

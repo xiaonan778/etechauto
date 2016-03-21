@@ -11,6 +11,8 @@ public interface ReportDao {
     
     public int insert(Map<String, Object> map);
     
+    public int  addTableColumn(List<Object> columns);
+    
     public Map<String, Object> getMaxTorqueByAlpha(Map<String, Object> params);
     
     public <E, K, V> List<E> listByAlpha(Map<String, Object> params);

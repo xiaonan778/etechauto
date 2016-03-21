@@ -17,30 +17,20 @@ $().ready(function() {
 //			hidden : true,
 			dataAttribute : "id",
 			dataType : "long",
-			width : "5%"
+			width : "15%"
 				
 		}, {
 			title : "名称",
 			dataAttribute : "name",
-			width : "5%"
+			width : "15%"
 		}, {
 			title : "对应",
 			dataAttribute : "memo",
 			width : "10%"
 		}, {
-			title : "最小值",
-			dataAttribute : "min",
-			dataType : "long",
-			width : "5%"
-		}, {
-			title : "最大值",
-			dataAttribute : "max",
-			dataType : "long",
-			width : "5%"
-		},{
-			title : "规则",
+			title : "表名",
 			dataAttribute : "rule",
-			width : "55%"
+			width : "35%"
 		}, {
 			title : "排序",
 			dataAttribute : "sort",
@@ -48,10 +38,10 @@ $().ready(function() {
 		}, {
 			title : "状态",
 			dataAttribute : "status",
-			width : "5%"
+			width : "10%"
 		}, {
 			title : "操作",
-			width : "5%",
+			width : "10%",
 			style : "operation-column",
 			renderer : operation
 		} ],

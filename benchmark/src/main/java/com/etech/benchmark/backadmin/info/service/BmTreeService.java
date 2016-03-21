@@ -3,7 +3,7 @@ package com.etech.benchmark.backadmin.info.service;
 import java.util.List;
 import java.util.Map;
 
-import com.etech.benchmark.data.info.model.BmExcel;
+import com.etech.benchmark.data.info.model.BmFile;
 import com.etech.benchmark.data.info.model.BmTree;
 import com.etech.benchmark.exception.ServiceException;
 
@@ -32,11 +32,11 @@ public interface BmTreeService {
 
     Map<String, Object> getConditions(String treeId);
 
-	boolean insertExcel(BmExcel bmExcel);
+	boolean insertFile(BmFile bmFile);
 
 	boolean deleteFile(String treeId);
 	  	
-	BmExcel findOneFileById(String treeId);
+	BmFile findOneFileById(String treeId);
 	
 	<E> List<E> pageExcelAll();
 

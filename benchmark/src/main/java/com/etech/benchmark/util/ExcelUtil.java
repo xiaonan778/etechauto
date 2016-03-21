@@ -316,7 +316,7 @@ public class ExcelUtil {
         for (int i = 0; i < titleCol; i++) {
             Cell cell = row.getCell(i);
             Cell titleCell = title.getCell(i);
-            String titleValue = getCellValue(titleCell);
+            String titleValue = getCellValue(titleCell).toUpperCase();
             String  value = getCellValue(cell);
             map.put(titleValue, value);
         }

@@ -25,12 +25,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.etech.benchmark.backadmin.sys.model.PermissionParam;
 import com.etech.benchmark.backadmin.sys.service.PermissionService;
 import com.etech.benchmark.constant.Constants;
-import com.etech.benchmark.data.model.ResultEntity;
-import com.etech.benchmark.data.model.ResultEntityHashMapImpl;
-import com.etech.benchmark.data.page.Page;
 import com.etech.benchmark.data.sys.model.Permission;
 import com.etech.benchmark.data.ums.model.User;
 import com.etech.benchmark.exception.ServiceException;
+import com.etech.benchmark.model.Page;
+import com.etech.benchmark.model.ResultEntity;
+import com.etech.benchmark.model.ResultEntityHashMapImpl;
 
 
 @Controller

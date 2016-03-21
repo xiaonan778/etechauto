@@ -35,4 +35,9 @@ public class ReportDaoImpl  implements ReportDao {
         return dao.find(PREFIX + ".listByAlpha", params);
     }
 
+    @Override
+    public int addTableColumn(List<Object> columns) {
+        return dao.insert(PREFIX + ".addTableColumn", columns);
+    }
+
 }

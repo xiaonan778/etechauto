@@ -29,11 +29,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.etech.benchmark.backadmin.sys.service.SysMenuService;
 import com.etech.benchmark.constant.Constants;
-import com.etech.benchmark.data.model.ResultEntity;
-import com.etech.benchmark.data.model.ResultEntityLinkedHashMapImpl;
 import com.etech.benchmark.data.sys.model.SysMenu;
 import com.etech.benchmark.data.ums.model.User;
 import com.etech.benchmark.exception.ServiceException;
+import com.etech.benchmark.model.ResultEntity;
+import com.etech.benchmark.model.ResultEntityLinkedHashMapImpl;
 
 @Controller
 @RequestMapping("/menu")

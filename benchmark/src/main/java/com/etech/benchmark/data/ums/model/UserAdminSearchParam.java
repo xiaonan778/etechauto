@@ -1,6 +1,6 @@
 package com.etech.benchmark.data.ums.model;
 
-import com.etech.benchmark.data.model.PaginationParam;
+import com.etech.benchmark.model.PaginationParam;
 
 /**
  * 

@@ -57,7 +57,7 @@
 	                                         <div class="input-group-addon">数据标识：</div>
 	                                          <div style="margin-left: 10px;">
                                              <c:forEach items="${tableList }" var="one">
-                                                 <span style="display: inline-block;margin-right: 15px;"><input  type="checkbox" id="tableName" name="tableName" value="${one.name }"/>${one.name}</span>
+                                                 <span style="display: inline-block;margin-right: 15px;"><input  type="checkbox" id="tableName" name="tableName" value="${one.rule }"/>${one.name}</span>
                                              </c:forEach>
                                              </div>
 	                                     </div>

@@ -18,17 +18,6 @@
   <!-- 补充 CSS -->
   <link href="${path}/css/main.css" rel="stylesheet">
   
-<%--   <!-- Ztree CSS -->
-  <link href="${path}/resources/ztree/3.5.17/css/zTreeStyle/zTreeStyle.css" rel="stylesheet"> --%>
-  
-  <!-- Jquery-ui-bootstrap JS -->
-  <link href="${path}/resources/jquery-ui-bootstrap/0.5/css/custom-theme/jquery-ui-1.9.2.custom.css" rel="stylesheet">
-  
-  <!-- model css -->
-  <%-- <link rel="stylesheet" href="${path}/resources/reveal/reveal.css"> --%>
-  <!-- 模态窗口 -->
- <%--  <script src="${path }/resources/reveal/jquery.reveal.js" ></script> --%>
-  
   <!-- bootstrap-select CSS -->
   <link href="${path}/css/bootstrap-select.css" rel="stylesheet">
   <!-- bootstrap-select JS -->
@@ -46,12 +35,6 @@
   <!-- JQuery-validation JS -->
   <script src="${path}/resources/jquery-validation/1.11.1/jquery.validate.min.js"></script>
   <script src="${path}/resources/jquery-validation/1.11.1/messages_bs_zh.js"></script>
-  
-<%--   <!-- Ztree JS -->
-  <script src="${path}/resources/ztree/3.5.17/js/jquery.ztree.core-3.5.js"></script> --%>
-  
-  <!-- Jquery-ui-bootstrap JS -->
-  <script src="${path}/resources/jquery-ui-bootstrap/0.5/js/jquery-ui-1.9.2.custom.min.js"></script>
   
   <!-- 地区控件 -->
   <script src="${path}/scripts/plugins/area/jquery.area.js"></script>
@@ -77,10 +60,7 @@
   <script src="${path}/resources/ace/js/ace.min.js"></script>
   
   <script src="${path }/resources/echarts-2.2.1/echarts.js" ></script>
-  <script src="${path }/scripts/common/common.js" ></script>
   
-   <link rel="stylesheet" type="text/css" href="${path }/css/report/select.css" />
-      <script src="${path}/resources/plugins/select/select.js"></script>
-  <!-- ajax提交默认设置 -->
-  <%-- <script src="${path }/scripts/common/ajaxdefault.js" ></script> --%>
+  <link rel="stylesheet" type="text/css" href="${path }/css/report/select.css" />
+  <script src="${path}/resources/plugins/select/select.js"></script>
   

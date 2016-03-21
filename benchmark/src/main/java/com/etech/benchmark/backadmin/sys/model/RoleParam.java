@@ -1,6 +1,6 @@
 package com.etech.benchmark.backadmin.sys.model;
 
-import com.etech.benchmark.data.model.PaginationParam;
+import com.etech.benchmark.model.PaginationParam;
 
 /**
  * 角色查询参数

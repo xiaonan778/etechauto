@@ -66,15 +66,15 @@
 			                      <div class="form-group">
 			                        <div class="input-group">
 			                          <div class="input-group-addon">ID</div>
-			                          <input class="form-control" id="id" name="id" value="${dicdata.id }" <c:if test="${action eq 'EDIT' }">readonly</c:if> />
+			                          <input class="form-control" id="id" name="id" value="${dicdata.id }" readonly  />
 			                        </div>
 			                      </div>
 			                    </div>
 			                    <div class="col-md-6">
                                   <div class="form-group">
                                     <div class="input-group">
-                                      <div class="input-group-addon">规则</div>
-                                      <input class="form-control" id="rule" name="rule" value="${dicdata.rule }" />
+                                      <div class="input-group-addon">表名</div>
+                                      <input class="form-control" id="rule" name="rule" value="${dicdata.rule }"  <c:if test="${action eq 'EDIT' }">readonly</c:if>  />
                                     </div>
                                   </div>
                                 </div>
@@ -97,6 +97,7 @@
 			                      </div>
 			                    </div>                    
 			                  </div>
+			                  <!-- 
 			                  <div class="row">
 			                    <div class="col-md-6">
 			                      <div class="form-group">
@@ -114,7 +115,8 @@
 			                        </div>
 			                      </div>
 			                    </div>                    
-			                  </div>   
+			                  </div> 
+			                   -->  
 			                   <div class="row">
 			                    <div class="col-md-6">
 			                      <div class="form-group">

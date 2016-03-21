@@ -12,7 +12,6 @@ import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 
-//import com.etech.benchmark.backadmin.log.OperationLogLevel;
 import com.etech.benchmark.backadmin.ums.service.UserService;
 import com.etech.benchmark.data.ums.model.User;
 
@@ -26,7 +25,7 @@ public class MyFormAuthentic extends FormAuthenticationFilter{
 	protected boolean onLoginSuccess(AuthenticationToken token, Subject subject,
             ServletRequest request, ServletResponse response) throws Exception {
 		
-//        LOG.log(OperationLogLevel.OPERATION, getUsername(request)+" 登录成功");
+	    LOG.info(getUsername(request)+" 登录成功");
         User user = userService.getByUsername(getUsername(request), 1);
         long now = System.currentTimeMillis();
         user.setLastLoginTime(new Date(now));
@@ -38,7 +37,7 @@ public class MyFormAuthentic extends FormAuthenticationFilter{
 	@Override
 	protected boolean onLoginFailure(AuthenticationToken token, AuthenticationException e,
 	              ServletRequest request, ServletResponse response) {
-//		LOG.log(OperationLogLevel.OPERATION, getUsername(request)+" 登录失败,失败原因为："+e.getMessage());
+		LOG.error(getUsername(request)+" 登录失败,失败原因为："+e.getMessage());
 		setFailureAttribute(request, e);
 		//login failed, let request continue back to the login page:
 		return true;

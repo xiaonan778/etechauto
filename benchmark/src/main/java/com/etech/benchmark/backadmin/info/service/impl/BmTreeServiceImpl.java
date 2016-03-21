@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.etech.benchmark.backadmin.info.service.BmTreeService;
-import com.etech.benchmark.data.info.dao.BmExcelDao;
+import com.etech.benchmark.data.info.dao.BmFileDao;
 import com.etech.benchmark.data.info.dao.BmTreeDao;
-import com.etech.benchmark.data.info.model.BmExcel;
+import com.etech.benchmark.data.info.model.BmFile;
 import com.etech.benchmark.data.info.model.BmTree;
 import com.etech.benchmark.exception.ServiceException;
 
@@ -18,7 +18,7 @@ import com.etech.benchmark.exception.ServiceException;
 public class BmTreeServiceImpl implements BmTreeService {
     
     @Autowired private BmTreeDao bmTreeDao;
-    @Autowired private BmExcelDao bmExcelDao;
+    @Autowired private BmFileDao bmExcelDao;
     
     @Override
     public int insert(BmTree bmTree) throws ServiceException {
@@ -76,8 +76,10 @@ public class BmTreeServiceImpl implements BmTreeService {
 	}
 		
 	@Override
-	public boolean insertExcel(BmExcel bmExcel) {
-		return bmExcelDao.insertExcel(bmExcel);
+	public boolean insertFile(BmFile bmFile) {
+	    
+	    
+		return bmExcelDao.insertExcel(bmFile);
 	}
 
 	@Override
@@ -88,7 +90,7 @@ public class BmTreeServiceImpl implements BmTreeService {
 	}
 
 	@Override
-	public BmExcel findOneFileById(String treeId) {
+	public BmFile findOneFileById(String treeId) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("id", treeId);
 		return bmExcelDao.findOne(params);

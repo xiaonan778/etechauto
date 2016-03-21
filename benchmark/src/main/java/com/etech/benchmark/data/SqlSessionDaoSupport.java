@@ -7,8 +7,8 @@ import java.util.Map;
 import org.apache.ibatis.session.Configuration;
 import org.mybatis.spring.SqlSessionTemplate;
 
-import com.etech.benchmark.data.page.Page;
-import com.etech.benchmark.data.page.PageContainer;
+import com.etech.benchmark.model.Page;
+import com.etech.benchmark.model.PageContainer;
 import com.etech.benchmark.util.SqlHelper;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;

@@ -11,10 +11,10 @@ import org.springframework.stereotype.Service;
 
 import com.etech.benchmark.backadmin.ums.service.PasswordHelper;
 import com.etech.benchmark.backadmin.ums.service.UserService;
-import com.etech.benchmark.data.page.Page;
 import com.etech.benchmark.data.ums.dao.UserDao;
 import com.etech.benchmark.data.ums.model.User;
 import com.etech.benchmark.exception.ServiceException;
+import com.etech.benchmark.model.Page;
 import com.etech.benchmark.util.StringUtil;
 
 @Service(value = "adminUserService")

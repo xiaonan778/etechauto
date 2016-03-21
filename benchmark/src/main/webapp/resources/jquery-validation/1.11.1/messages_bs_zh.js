@@ -46,4 +46,7 @@ jQuery.validator.addMethod("isLowercaseNum", function(value, element) {
     return this.optional(element) || (englishNum.test(value));
 }, "只能输入小写字母和数字");
 
-
+jQuery.validator.addMethod("isTableName", function(value, element) {   
+    var englishNum =  /^[a-zA-Z]+[0-9a-zA-Z_]+$/;
+    return this.optional(element) || (englishNum.test(value));
+}, "只能字母开头，其他为字母、数字或下划线");

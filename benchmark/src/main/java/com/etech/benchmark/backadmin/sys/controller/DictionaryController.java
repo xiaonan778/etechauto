@@ -22,11 +22,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.etech.benchmark.backadmin.sys.model.RoleParam;
 import com.etech.benchmark.backadmin.sys.service.DictionaryService;
-import com.etech.benchmark.data.model.ResultEntity;
-import com.etech.benchmark.data.model.ResultEntityHashMapImpl;
-import com.etech.benchmark.data.page.Page;
 import com.etech.benchmark.data.sys.model.SysData;
 import com.etech.benchmark.data.sys.model.SysDataDictionary;
+import com.etech.benchmark.model.Page;
+import com.etech.benchmark.model.ResultEntity;
+import com.etech.benchmark.model.ResultEntityHashMapImpl;
 import com.etech.benchmark.util.StringUtil;
 
 

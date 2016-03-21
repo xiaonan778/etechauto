@@ -6,9 +6,9 @@ import java.util.Set;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import com.etech.benchmark.data.page.Page;
 import com.etech.benchmark.data.ums.model.User;
 import com.etech.benchmark.exception.ServiceException;
+import com.etech.benchmark.model.Page;
 
 public interface UserService {
     /**

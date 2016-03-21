@@ -17,9 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.etech.benchmark.data.DaoSupport;
-import com.etech.benchmark.data.page.Page;
 import com.etech.benchmark.data.sys.dao.SysDataDictionaryDao;
 import com.etech.benchmark.data.sys.model.SysDataDictionary;
+import com.etech.benchmark.model.Page;
 
 /** 
  * @Description 

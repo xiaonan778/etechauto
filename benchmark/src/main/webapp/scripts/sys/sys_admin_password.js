@@ -62,7 +62,7 @@ function submitPasswordData(){
 		var password = $('#password').val();
 		var id = $('#id').val();
 		var url = _path+"/sys/admin/passwordChange";
-		var data ={id:id,password:password}
+		var data ={id:id,password:password};
 	    if(!lock){
 			lock=true;
 			 $.ajax({

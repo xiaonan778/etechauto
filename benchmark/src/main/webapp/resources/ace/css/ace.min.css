@@ -2009,7 +2009,7 @@ ul.attachment-list>li{margin-bottom:3px}
 .step-content .active{display:block}
 .wizard-actions{text-align:right}
 @media only screen and (max-width:767px){.wizard-steps li .step{width:30px;height:30px;line-height:24px;border-width:3px}.wizard-steps li:before,.wizard-steps li:after{border-width:3px}.wizard-steps li.complete .step:before{line-height:24px;font-size:13px}.wizard-steps li:before{top:16px}.step-content .step-pane{padding:4px 4px 6px}}
-.tree{padding-left:9px;overflow-x:hidden;overflow-y:auto;position:relative}
+.tree{padding-left:9px;overflow-x:hidden;overflow-y:hidden;position:relative}
 .tree:before{display:inline-block;content:"";position:absolute;top:-20px;bottom:16px;left:0;border:1px dotted #67b2dd;border-width:0 0 0 1px;z-index:1}
 .tree .tree-folder{width:auto;min-height:20px;cursor:pointer}
 .tree .tree-folder .tree-folder-header{position:relative;height:20px;line-height:20px}

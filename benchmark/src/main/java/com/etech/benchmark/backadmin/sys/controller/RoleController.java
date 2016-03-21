@@ -27,13 +27,13 @@ import com.etech.benchmark.backadmin.sys.service.RolePermissionRefService;
 import com.etech.benchmark.backadmin.sys.service.RoleService;
 import com.etech.benchmark.backadmin.sys.service.UserRoleRefService;
 import com.etech.benchmark.constant.Constants;
-import com.etech.benchmark.data.model.ResultEntity;
-import com.etech.benchmark.data.model.ResultEntityHashMapImpl;
-import com.etech.benchmark.data.page.Page;
 import com.etech.benchmark.data.sys.model.Role;
 import com.etech.benchmark.data.sys.model.RolePermissionRef;
 import com.etech.benchmark.data.sys.model.UserRoleRef;
 import com.etech.benchmark.data.ums.model.User;
+import com.etech.benchmark.model.Page;
+import com.etech.benchmark.model.ResultEntity;
+import com.etech.benchmark.model.ResultEntityHashMapImpl;
 import com.etech.benchmark.util.RequestUtil;
 import com.etech.benchmark.util.StringUtil;
 
