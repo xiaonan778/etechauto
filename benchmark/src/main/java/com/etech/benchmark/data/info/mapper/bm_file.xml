@@ -80,5 +80,9 @@
   <update id="updateExcelCondition" parameterType="map">
   	   update bm_excel set `condition` = (select getParentList(#{treeId}) `condition`) where tree_id = #{treeId}
   </update>
-	
+  
+  <select id="getExcelByTreeId" resultType="com.etech.benchmark.data.info.model.BmFile">
+        select * from bm_excel where treeId = #{treeId} and type like 'xls'
+  </select>
+  
 </mapper>

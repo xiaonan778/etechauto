@@ -1,5 +1,6 @@
 package com.etech.benchmark.data.report.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +39,13 @@ public class ReportDaoImpl  implements ReportDao {
     @Override
     public int addTableColumn(List<Object> columns) {
         return dao.insert(PREFIX + ".addTableColumn", columns);
+    }
+
+    @Override
+    public int getTableSchemaCount(String tableName) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("tableName", tableName);
+        return dao.get(PREFIX + ".getTableSchemaCount", params);
     }
 
 }

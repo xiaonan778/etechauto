@@ -28,6 +28,7 @@
         </foreach>
     </insert>
     
+    
     <insert id="addTableColumn" parameterType="java.util.List"  >
         insert into report_table_schema (
             id, table_fk, tableName, columnName, unit
@@ -37,6 +38,10 @@
             (#{item.id}, #{item.table_fk}, #{item.tableName}, #{item.columnName}, #{item.unit} )
         </foreach>
     </insert>
+    
+    <select id="getTableSchemaCount" parameterType="map"  resultType="int">
+        select count(1) from report_table_schema where  tableName = #{tableName}
+    </select>
     
     <select id="getMaxTorqueByAlpha" parameterType="java.util.Map" statementType="STATEMENT" resultType="java.util.Map">
         select max(TORQUE) as torque, alpha from ${tablename} where ALPHA &gt;= ${alpha_min} and ALPHA &lt;= ${alpha_max} LIMIT 1

@@ -70,4 +70,11 @@ public class BmTreeDaoImpl implements BmTreeDao {
         return dao.find(PREFIX + ".find", params);
     }
 
+    @Override
+    public List<BmTree> searchBykeywords(String keywords) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("keywords", keywords);
+        return dao.find(PREFIX + ".searchBykeywords", params);
+    }
+
 }

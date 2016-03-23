@@ -148,15 +148,30 @@ public class ExcelUtil {
         return rowList;
     }
     
+    /**
+     * 判断文件是否是Excel
+     * @param filename
+     * @return
+     */
     public static boolean isExcel(String filename){
     	// 获取扩展名
         String ext = filename.substring(filename.lastIndexOf(".") + 1);
-        if("xls".equals(ext)||"xlsx".equals(ext)){
+        if ("xls".equals(ext)||"xlsx".equals(ext)) {
         	return true;
-        }else return false;
+        } else {
+            return false;
+        }
     }
     
-    
+    /**
+     * 读取excel某一行数据
+     * @param in
+     * @param filename
+     * @param sheetIndex
+     * @param rowIndex
+     * @return
+     * @throws IOException
+     */
 	public static Row readRow(InputStream in, String filename,int sheetIndex,int rowIndex) throws IOException {
 
 		// 获取扩展名
@@ -306,7 +321,15 @@ public class ExcelUtil {
         }
     }
     
-    public static Map<String, Object> rowToMap(Row title, Row row) throws UtilException {
+    /**
+     * excel 一行数据转成map,  附带 id 和 treeId
+     * @param title
+     * @param row
+     * @param treeId
+     * @return
+     * @throws UtilException
+     */
+    public static Map<String, Object> rowToMap(Row title, Row row, String fileId) throws UtilException {
         Map<String, Object> map = new HashMap<String, Object>();
         int titleCol = title.getLastCellNum();
         int col = row.getLastCellNum();
@@ -321,6 +344,31 @@ public class ExcelUtil {
             map.put(titleValue, value);
         }
         map.put("id", StringUtil.createUUID());
+        map.put("fileId",  fileId);
+        return map;
+    }
+    
+    /**
+     *  excel 一行数据转成map
+     * @param title
+     * @param row
+     * @return
+     * @throws UtilException
+     */
+    public static Map<String, Object> rowToMap(Row title, Row row) throws UtilException {
+        Map<String, Object> map = new HashMap<String, Object>();
+        int titleCol = title.getLastCellNum();
+        int col = row.getLastCellNum();
+        if (titleCol > col) {
+            throw new UtilException("Excel标题列数错误");
+        }
+        for (int i = 0; i < titleCol; i++) {
+            Cell cell = row.getCell(i);
+            Cell titleCell = title.getCell(i);
+            String titleValue = getCellValue(titleCell).toUpperCase();
+            String  value = getCellValue(cell);
+            map.put(titleValue, value);
+        }
         return map;
     }
 }

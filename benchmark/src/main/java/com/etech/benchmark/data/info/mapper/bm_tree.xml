@@ -132,4 +132,8 @@
     order by sorter;
   </select>
   
+  <select id="searchBykeywords" parameterType="map" resultType="com.etech.benchmark.data.info.model.BmTree">
+        select * from bm_tree where name like concat('%',  #{keywords}, '%' );
+  </select>
+  
 </mapper> 

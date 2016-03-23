@@ -155,7 +155,7 @@ public class InfoController {
                 node.put("id", treeNode.getId());
                 node.put("pId", treeNode.getParent_fk());
                 node.put("name", treeNode.getName());
-                node.put("treeFlag", false);
+                node.put("treeFlag", true);
                 result.put("node", node);
                 result.put("status", ResultEntity.KW_STATUS_SUCCESS);
             } catch (ServiceException e) {
@@ -163,13 +163,14 @@ public class InfoController {
             }
         } else if ( "2".equals(addType) || "3".equals(addType) ) {  // 上传Excel 或 其他文件
             String filePath = "";
-            int son_id = 0;
             if (myfile != null) {
                 String filename = myfile.getOriginalFilename();
                 // 获取扩展名
                 String ext = filename.substring(filename.lastIndexOf(".") + 1);
+                String fileId = StringUtil.createUUID();
+                int dic = 0;
                 if (ExcelUtil.isExcel(filename) && "2".equals(addType) ) {
-                    
+                    dic =template;
                     try {
                         Row rowTitle = ExcelUtil.readRow(myfile.getInputStream(), filename, 0, 0);
                         SysDataDictionary tableInfo = dicService.findSysDataDicById(template);
@@ -183,12 +184,14 @@ public class InfoController {
                         for ( int j = 0; j < rowList.size(); j++) {
                             if (j <= 1 ) {
                                 if (j == 1) {
-                                    Map<String, Object> unit = ExcelUtil.rowToMap(rowTitle, rowList.get(1));
-                                    reportService.addTableColumn(unit, tableInfo.getId(), tableName);
+                                    if (reportService.getTableSchemaCount(tableName) == 0 ) {
+                                        Map<String, Object> unit = ExcelUtil.rowToMap(rowTitle, rowList.get(1));
+                                        reportService.addTableColumn(unit, tableInfo.getId(), tableName);
+                                    }
                                 }
                                 continue;
                             }
-                            Map<String, Object> params = ExcelUtil.rowToMap(rowTitle, rowList.get(j));
+                            Map<String, Object> params = ExcelUtil.rowToMap(rowTitle, rowList.get(j), fileId);
                             reportService.creatTable(params, tableName);
                             
                             reportService.insert(params, tableName);
@@ -203,10 +206,10 @@ public class InfoController {
                 filePath = FileUtil.upload(myfile, Constants.UPLOAD_PATH);
                 //insert bm_tree            
                 BmFile bmFile = new BmFile();
-                bmFile.setId(StringUtil.createUUID());
+                bmFile.setId(fileId);
                 bmFile.setName(filename);
                 bmFile.setTree_id(treeId);
-                bmFile.setDic_id(son_id);
+                bmFile.setDic_id(dic);
                 bmFile.setSave_path(filePath);
                 bmFile.setType(ext);
                 bmFile.setCondition(bmTreeService.getConditions(treeId).get("conditions").toString());

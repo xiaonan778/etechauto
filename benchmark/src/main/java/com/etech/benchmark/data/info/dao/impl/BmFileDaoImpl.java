@@ -55,5 +55,12 @@ public class BmFileDaoImpl implements BmFileDao {
 		 dao.update(PREFIX +  ".updateExcelCondition", params);
 	}
 
+    @Override
+    public List<BmFile> getExcelByTreeId(String treeId) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("treeId", treeId);
+        return dao.find(PREFIX + ".getExcelByTreeId", params);
+    }
+
 
 }

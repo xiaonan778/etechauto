@@ -24,5 +24,8 @@ public interface BmFileDao {
 	<E> List<E> page(Map<String, Object> params);
 
 	void updateExcelCondition(Map<String, Object> params);
+	
+	
+	List<BmFile> getExcelByTreeId (String treeId);
     
 }

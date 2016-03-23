@@ -15,4 +15,6 @@ public interface ReportService {
     
     public int  addTableColumn(Map<String, Object> params, int table_fk, String tableName);
     
+    public int getTableSchemaCount(String tableName);
+    
 }

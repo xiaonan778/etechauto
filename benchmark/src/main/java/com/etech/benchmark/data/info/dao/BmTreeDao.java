@@ -27,5 +27,8 @@ public interface BmTreeDao {
     Map<String, Object> getBmTreePermissionById(String id);
     
     <E> List<E> find(Map<String, Object> params);
+    
+    
+   List<BmTree> searchBykeywords (String keywords);
 
 }

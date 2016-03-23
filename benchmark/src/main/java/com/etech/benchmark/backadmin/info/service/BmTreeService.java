@@ -27,6 +27,8 @@ public interface BmTreeService {
     Map<String, Object> getBmTreePermissionById(String id);
     
     <E> List<E> find(Map<String, Object> params) throws ServiceException;
+    
+    List<BmTree> searchBykeywords (String keywords);
 
     <E> List<E> findExcelAll();
 
@@ -41,4 +43,6 @@ public interface BmTreeService {
 	<E> List<E> pageExcelAll();
 
 	void updateExcelCondition(String id);
+	
+	List<BmFile> getExcelByTreeId (String treeId);
 }

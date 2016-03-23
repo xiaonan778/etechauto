@@ -18,7 +18,7 @@ import com.etech.benchmark.exception.ServiceException;
 public class BmTreeServiceImpl implements BmTreeService {
     
     @Autowired private BmTreeDao bmTreeDao;
-    @Autowired private BmFileDao bmExcelDao;
+    @Autowired private BmFileDao bmFileDao;
     
     @Override
     public int insert(BmTree bmTree) throws ServiceException {
@@ -67,46 +67,56 @@ public class BmTreeServiceImpl implements BmTreeService {
 
 	@Override
 	public <E> List<E> findExcelAll() {
-		return bmExcelDao.find(null);
+		return bmFileDao.find(null);
 	}
 
 	@Override
 	public Map<String, Object> getConditions(String treeId) {
-		return bmExcelDao.getConditions(treeId);
+		return bmFileDao.getConditions(treeId);
 	}
 		
 	@Override
 	public boolean insertFile(BmFile bmFile) {
 	    
 	    
-		return bmExcelDao.insertExcel(bmFile);
+		return bmFileDao.insertExcel(bmFile);
 	}
 
 	@Override
 	public boolean deleteFile(String treeId) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("id", treeId);
-		return bmExcelDao.deleteFile(params);
+		return bmFileDao.deleteFile(params);
 	}
 
 	@Override
 	public BmFile findOneFileById(String treeId) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("id", treeId);
-		return bmExcelDao.findOne(params);
+		return bmFileDao.findOne(params);
 	}
 
 	@Override
 	public <E> List<E> pageExcelAll() {
-		return bmExcelDao.page(null);
+		return bmFileDao.page(null);
 	}
 
 	@Override
 	public void updateExcelCondition(String treeId) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("treeId", treeId);
-		bmExcelDao.updateExcelCondition(params);
+		bmFileDao.updateExcelCondition(params);
 	}
+
+    @Override
+    public List<BmTree> searchBykeywords(String keywords) {
+        return bmTreeDao.searchBykeywords(keywords);
+    }
+
+    @Override
+    public List<BmFile> getExcelByTreeId(String treeId) {
+        return bmFileDao.getExcelByTreeId(treeId);
+    }
 
 
 }

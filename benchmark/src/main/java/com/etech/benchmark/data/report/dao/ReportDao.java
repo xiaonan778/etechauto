@@ -16,4 +16,6 @@ public interface ReportDao {
     public Map<String, Object> getMaxTorqueByAlpha(Map<String, Object> params);
     
     public <E, K, V> List<E> listByAlpha(Map<String, Object> params);
+    
+    public int getTableSchemaCount(String tableName);
 }

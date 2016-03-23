@@ -73,9 +73,6 @@ public class ReportServiceImpl implements ReportService {
         List<Object> columns = new ArrayList<Object>();
         Set<String> keys = params.keySet();
         for (String key : keys) {
-            if ("id".equals(key)) {
-                continue;
-            }
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("id", StringUtil.createUUID());
             map.put("table_fk", table_fk);
@@ -86,5 +83,10 @@ public class ReportServiceImpl implements ReportService {
         }
         
         return reportDao.addTableColumn(columns);
+    }
+
+    @Override
+    public int getTableSchemaCount(String tableName) {
+        return reportDao.getTableSchemaCount(tableName);
     }
 }
