@@ -32,8 +32,9 @@ public class FileUtil {
 		SimpleDateFormat formater = new SimpleDateFormat("yyyyMMdd");
 		String date = formater.format(new Date());
 		String folderUrl = getFolder(path,date);
-		url = date + "/" +getRandomName( fileName);
-		File outFile = new File(folderUrl + File.separatorChar + getRandomName( fileName) );
+		String randomName = getRandomName( fileName);
+		url = date + "/" +randomName;
+		File outFile = new File(folderUrl + File.separatorChar + randomName );
 		try {
 			file.transferTo(outFile);
 			return url;
