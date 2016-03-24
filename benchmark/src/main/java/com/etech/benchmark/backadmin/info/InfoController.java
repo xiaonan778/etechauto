@@ -42,6 +42,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.etech.benchmark.backadmin.info.service.BmTreeService;
 import com.etech.benchmark.backadmin.report.service.ReportService;
+import com.etech.benchmark.backadmin.report.service.TableSchemaService;
 import com.etech.benchmark.backadmin.sys.service.DictionaryService;
 import com.etech.benchmark.constant.Constants;
 import com.etech.benchmark.data.info.model.BmFile;
@@ -76,8 +77,13 @@ public class InfoController {
 	 private DictionaryService dicService;
 	 @Autowired  
      private ReportService reportService;
+	 @Autowired  
+	 private TableSchemaService tableSchemaService;
 	 
-	 
+	 /**
+	  * 文件查找
+	  * @return
+	  */
 	@RequestMapping("/listall")
     public String listall(){
         return "info/info_list";
@@ -105,7 +111,13 @@ public class InfoController {
         ResponseEntity<Map<String, Object>> entity = new ResponseEntity<Map<String, Object>>(result, header, HttpStatus.OK);
         return entity;
     }
-	 
+	
+	/**
+	 * 删除文件
+	 * @param response
+	 * @param treeId
+	 * @return
+	 */
 	@RequestMapping("/{treeId}/deleteFile")
 	public ResponseEntity<String> deleteFile(HttpServletResponse response,@PathVariable String treeId){
 		JSONObject result = new JSONObject();
@@ -124,7 +136,7 @@ public class InfoController {
 	}
 	 
 	/**
-	 * 文件上传
+	 * 文件上传 或 新增树节点
 	 * @param myfiles
 	 * @param response
 	 * @param treeId
@@ -184,9 +196,9 @@ public class InfoController {
                         for ( int j = 0; j < rowList.size(); j++) {
                             if (j <= 1 ) {
                                 if (j == 1) {
-                                    if (reportService.getTableSchemaCount(tableName) == 0 ) {
+                                    if ( !tableSchemaService.checkTableSchemaIfExists(tableName) ) {
                                         Map<String, Object> unit = ExcelUtil.rowToMap(rowTitle, rowList.get(1));
-                                        reportService.addTableColumn(unit, tableInfo.getId(), tableName);
+                                        tableSchemaService.addReportTableColumn(unit, tableInfo.getId(), tableName);
                                     }
                                 }
                                 continue;
@@ -385,8 +397,6 @@ public class InfoController {
     }
     
     /***********************************************************************************************************************
-     * *********************************************************************************************************************
-     * *********************************************************************************************************************
      **********************************************************************************************************************/
     /**
      * 多级树形结构
@@ -466,63 +476,5 @@ public class InfoController {
          }
          
     }
-    
-    /***************导入读取规则*************************/
-    
-	 /** 
-	 * @Description 导入规则界面
-	 * @author DCJ  
-	 */
-
-	@RequestMapping("/toImport")
-	public String toImport(Model model) {
-		List<SysDataDictionary> dicList = dicService.findDictionaryByCode(Constants.DataDictionary.EXML);
-		model.addAttribute("dicList",dicList);
-		return "info/import_view";
-	}
-	
-	 /** 
-	 * @Description 读取模版excel
-	 * @author DCJ  
-	 */
-	@RequestMapping("/fileRead/{id}")
-	public ResponseEntity<String> fileRead(@RequestParam("excel") MultipartFile[] myfiles, HttpServletResponse response,@PathVariable Integer id){
-		JSONObject result = new JSONObject();
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        response.setCharacterEncoding("UTF-8");
-		for (int i = 0; i < myfiles.length; i++) {
-			MultipartFile file = myfiles[i];
-			String filename = file.getOriginalFilename();
-			if (!file.isEmpty()) {
-				try {
-					Row rowTitle = ExcelUtil.readRow(file.getInputStream(), filename, 0, 0);
-					if(rowTitle==null){
-						result.put("msg", "无数据或不是Excel文件!");
-						return new ResponseEntity<String>(result.toString(), headers, HttpStatus.OK);
-					}
-					Row rowUnit= ExcelUtil.readRow(file.getInputStream(), filename, 0, 1);
-				    dicService.updRuleById(id,formatRow(rowTitle),formatRow(rowUnit));
-				} catch (IOException e) {
-					logger.error(e.getMessage());
-				}
-			}
-		}
-		result.put("msg", "success");
-		return new ResponseEntity<String>(result.toString(), headers, HttpStatus.OK);
-	}
-	
-	private String formatRow(Row row){
-		String format = "";
-		if(row!=null){
-			int size = row.getLastCellNum();
-		    for (int i = 0; i < size; i++) {
-		    	String cell = ExcelUtil.getCellValue(row.getCell(i));
-		    	format = i==0?cell:format+", "+cell;
-			}
-		}
-		logger.info("formatRow:"+format);
-		return format;
-	}
 	 
 }

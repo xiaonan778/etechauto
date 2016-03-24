@@ -1,6 +1,5 @@
 package com.etech.benchmark.backadmin.report.service.impl;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.etech.benchmark.backadmin.report.service.ReportService;
 import com.etech.benchmark.data.report.dao.ReportDao;
-import com.etech.benchmark.util.StringUtil;
 
 @Service
 public class ReportServiceImpl implements ReportService {
@@ -68,25 +66,4 @@ public class ReportServiceImpl implements ReportService {
         return reportDao.listByAlpha(params);
     }
 
-    @Override
-    public int addTableColumn(Map<String, Object> params, int table_fk, String tableName) {
-        List<Object> columns = new ArrayList<Object>();
-        Set<String> keys = params.keySet();
-        for (String key : keys) {
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("id", StringUtil.createUUID());
-            map.put("table_fk", table_fk);
-            map.put("tableName", tableName);
-            map.put("columnName", key);
-            map.put("unit", params.get(key));
-            columns.add(map);
-        }
-        
-        return reportDao.addTableColumn(columns);
-    }
-
-    @Override
-    public int getTableSchemaCount(String tableName) {
-        return reportDao.getTableSchemaCount(tableName);
-    }
 }

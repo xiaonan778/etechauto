@@ -13,8 +13,4 @@ public interface ReportService {
     
     public <E, K, V> List<E> listByAlpha(Map<String, Object> params, String tableName);
     
-    public int  addTableColumn(Map<String, Object> params, int table_fk, String tableName);
-    
-    public int getTableSchemaCount(String tableName);
-    
 }
