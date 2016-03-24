@@ -82,7 +82,7 @@
   </update>
   
   <select id="getExcelByTreeId" resultType="com.etech.benchmark.data.info.model.BmFile">
-        select * from bm_excel where treeId = #{treeId} and type like 'xls'
+        select * from bm_excel where tree_id = #{treeId} and type like 'xls%'
   </select>
   
 </mapper>

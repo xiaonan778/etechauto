@@ -10,8 +10,11 @@ public class SysDataDictionary {
     private Integer min;
 
     private Integer max;
-
-    private String rule;      // 屏蔽规则 
+    
+    /**
+     * 设置为 table name
+     */
+    private String rule; 
     
     private String memo;
 

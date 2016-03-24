@@ -23,4 +23,8 @@
                 WHERE table_name = #{tableName}
     </select>
     
+    <select id="listColumnByTableFk" parameterType="map"  resultType="string" >
+        select  columnName  from  report_table_schema  where  table_fk = #{table_fk};
+    </select>
+    
 </mapper> 

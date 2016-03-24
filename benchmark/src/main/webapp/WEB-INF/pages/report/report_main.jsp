@@ -6,7 +6,7 @@
   <head>
     <jsp:include page="../common/meta.jsp" />
     <jsp:include page="../common/resources.jsp" />
-
+    <script type="text/javascript" src="${path }/scripts/report/report_main.js"></script>
   </head>
   
   <body class="navbar-fixed">

@@ -6,9 +6,15 @@ public class BmFile {
     private String id;
 
     private String name;
-
+    
+    /**
+     * 所在树节点
+     */
     private String tree_id;
-
+    
+    /**
+     * 默认为0， 若导入文件为excel， 此字段代表导入的模板
+     */
     private Integer dic_id;
     
     private String save_path;

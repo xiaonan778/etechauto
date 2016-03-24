@@ -1,6 +1,7 @@
 package com.etech.benchmark.backadmin.report.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.etech.benchmark.backadmin.info.service.BmTreeService;
 import com.etech.benchmark.backadmin.report.service.ReportService;
+import com.etech.benchmark.backadmin.report.service.TableSchemaService;
 import com.etech.benchmark.backadmin.sys.service.DictionaryService;
 import com.etech.benchmark.constant.Constants;
 import com.etech.benchmark.data.info.model.BmFile;
@@ -31,6 +33,7 @@ import com.etech.benchmark.data.info.model.BmTree;
 import com.etech.benchmark.data.sys.model.SysDataDictionary;
 import com.etech.benchmark.model.ResultEntity;
 import com.etech.benchmark.model.ResultEntityHashMapImpl;
+import com.etech.benchmark.util.StringUtil;
 
 @Controller
 @RequestMapping("/report")
@@ -43,6 +46,8 @@ public class ReportController {
     private ReportService reportService;
     @Autowired  
     private BmTreeService bmTreeService;
+    @Autowired  
+    private TableSchemaService tableSchemaService;
     
     /**
      * 柱状图
@@ -167,25 +172,44 @@ public class ReportController {
      * @return
      */
     @RequestMapping(value="/searchKeywords", method=RequestMethod.GET)
-    public ResponseEntity<Object> searchKeywords (@RequestParam String keywords) {
+    public ResponseEntity<Object> searchKeywords (@RequestParam String keywords,  HttpServletRequest request) {
         ResultEntity result = null;
         List<BmTree> treeList =  bmTreeService.searchBykeywords(keywords);
         if (treeList != null && treeList.size() > 0) {
             Set<Integer> templateList = new HashSet<Integer>();
+            List<BmFile> excelList =  new ArrayList<>();
             for (BmTree tree : treeList) {
                 String treeId = tree.getId();
-                List<BmFile> excelList =  bmTreeService.getExcelByTreeId(treeId);
-                if (excelList != null && excelList.size() >0) {
-                    for (BmFile file : excelList) {
+                List<BmFile> excelTempList =  bmTreeService.getExcelByTreeId(treeId);
+                if (excelTempList != null && excelTempList.size() >0) {
+                    excelList.addAll(excelTempList);
+                    for (BmFile file : excelTempList) {
                         int dic = file.getDic_id();
                         templateList.add(dic);
                     }
                 }
             }
+            Set<String> columnSet = new HashSet<>();
             for (int dicId : templateList ) {
                 SysDataDictionary dict = dicService.findSysDataDicById(dicId);
+                String tableName = dict.getRule();
+                if (!StringUtil.isEmpty(tableName)) {
+                    if ( tableSchemaService.checkTableIfExists(tableName) ) {
+                        List<String> columnTempList =  tableSchemaService.listColumnByTableFk(dicId);
+                        if (columnSet.size() == 0) {
+                            columnSet.addAll( columnTempList );
+                        } else {
+                            columnSet.retainAll(columnTempList);
+                        }
+                    }
+                }
             }
-            
+            List<String> columnList = new ArrayList<>();
+            columnList.addAll(columnSet);
+            Collections.sort(columnList);
+            result = new ResultEntityHashMapImpl(ResultEntity.KW_STATUS_SUCCESS,  "success");
+            result.addObject("excelList", excelList);
+            result.addObject("columnList", columnList);
         } else {
             result = new ResultEntityHashMapImpl(ResultEntity.KW_STATUS_FAIL,  "查无结果");
         }

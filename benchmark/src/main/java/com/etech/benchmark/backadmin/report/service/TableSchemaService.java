@@ -1,5 +1,6 @@
 package com.etech.benchmark.backadmin.report.service;
 
+import java.util.List;
 import java.util.Map;
 
 public interface TableSchemaService {
@@ -24,5 +25,12 @@ public interface TableSchemaService {
      * @return
      */
     public boolean checkTableIfExists (String tableName);
+    
+    /**
+     * 列出一张表的字段信息
+     * @param table_fk
+     * @return
+     */
+    public  List<String> listColumnByTableFk (int table_fk);
     
 }

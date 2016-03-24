@@ -46,4 +46,9 @@ public class TableSchemaServiceImpl implements TableSchemaService {
         return tableSchemaDao.checkTableIfExists(tableName);
     }
 
+    @Override
+    public List<String> listColumnByTableFk(int table_fk) {
+        return tableSchemaDao.listColumnByTableFk(table_fk);
+    }
+
 }

@@ -45,4 +45,11 @@ public class TableSchemaDaoImpl implements TableSchemaDao {
         }
     }
 
+    @Override
+    public List<String> listColumnByTableFk(int table_fk) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("table_fk", table_fk);
+        return dao.find(PREFIX + ".listColumnByTableFk", params);
+    }
+
 }
