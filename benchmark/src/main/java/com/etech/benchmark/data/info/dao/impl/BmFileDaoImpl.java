@@ -62,5 +62,12 @@ public class BmFileDaoImpl implements BmFileDao {
         return dao.find(PREFIX + ".getExcelByTreeId", params);
     }
 
+    @Override
+    public List<BmFile> searchByCondition(String keywords) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("keywords", keywords);
+        return dao.find(PREFIX + ".searchByCondition", params);
+    }
+
 
 }

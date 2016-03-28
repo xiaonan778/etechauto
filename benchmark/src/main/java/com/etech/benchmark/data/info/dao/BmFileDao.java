@@ -28,4 +28,10 @@ public interface BmFileDao {
 	
 	List<BmFile> getExcelByTreeId (String treeId);
     
+	/**
+	 * 根据关键字搜索文件
+	 * @param keywords
+	 * @return
+	 */
+	List<BmFile> searchByCondition(String keywords);
 }

@@ -29,7 +29,6 @@ import com.etech.benchmark.backadmin.report.service.TableSchemaService;
 import com.etech.benchmark.backadmin.sys.service.DictionaryService;
 import com.etech.benchmark.constant.Constants;
 import com.etech.benchmark.data.info.model.BmFile;
-import com.etech.benchmark.data.info.model.BmTree;
 import com.etech.benchmark.data.sys.model.SysDataDictionary;
 import com.etech.benchmark.model.ResultEntity;
 import com.etech.benchmark.model.ResultEntityHashMapImpl;
@@ -174,21 +173,14 @@ public class ReportController {
     @RequestMapping(value="/searchKeywords", method=RequestMethod.GET)
     public ResponseEntity<Object> searchKeywords (@RequestParam String keywords,  HttpServletRequest request) {
         ResultEntity result = null;
-        List<BmTree> treeList =  bmTreeService.searchBykeywords(keywords);
-        if (treeList != null && treeList.size() > 0) {
+        List<BmFile> excelList =  bmTreeService.searchByCondition(keywords);
+        if (excelList != null && excelList.size() > 0) {
             Set<Integer> templateList = new HashSet<Integer>();
-            List<BmFile> excelList =  new ArrayList<>();
-            for (BmTree tree : treeList) {
-                String treeId = tree.getId();
-                List<BmFile> excelTempList =  bmTreeService.getExcelByTreeId(treeId);
-                if (excelTempList != null && excelTempList.size() >0) {
-                    excelList.addAll(excelTempList);
-                    for (BmFile file : excelTempList) {
-                        int dic = file.getDic_id();
-                        templateList.add(dic);
-                    }
-                }
+            for (BmFile file : excelList) {
+                int dic = file.getDic_id();
+                templateList.add(dic);
             }
+          
             Set<String> columnSet = new HashSet<>();
             for (int dicId : templateList ) {
                 SysDataDictionary dict = dicService.findSysDataDicById(dicId);

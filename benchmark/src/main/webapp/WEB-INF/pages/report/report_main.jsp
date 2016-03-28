@@ -60,7 +60,7 @@
                     </div><!--/row-->
                     
                     <div class="row">
-                        <div class="col-xs-12">
+                        <div class="col-xs-12" style="max-height: 400px;min-height: 200px;overflow: auto;">
                             <table id="column_data" class="table table-striped table-bordered" style="width:100%;" >       
                             </table>
                         </div>

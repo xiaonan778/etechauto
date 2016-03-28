@@ -28,8 +28,6 @@ public interface BmTreeService {
     
     <E> List<E> find(Map<String, Object> params) throws ServiceException;
     
-    List<BmTree> searchBykeywords (String keywords);
-
     <E> List<E> findExcelAll();
 
     Map<String, Object> getConditions(String treeId);
@@ -45,4 +43,11 @@ public interface BmTreeService {
 	void updateExcelCondition(String id);
 	
 	List<BmFile> getExcelByTreeId (String treeId);
+	
+	/**
+     * 根据关键字搜索文件
+     * @param keywords
+     * @return
+     */
+    List<BmFile> searchByCondition(String keywords);
 }

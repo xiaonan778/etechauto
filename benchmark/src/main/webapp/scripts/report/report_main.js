@@ -19,10 +19,27 @@ $(function(){
 					}
 					excelContent += "<tbody>"; 
 					$("#file_data").html(excelContent);
+				} else {
+					$("#file_data").html("");
+					bravoui.ui.msg.alert("查无结果");
+				}
+				
+				if (data.columnList && data.columnList.length > 0 ) {
+					var columnContent = "<thead><tr><th style='width:35%;'>属性名</th><th>操作</th></tr></thead><tbody>";
+					for (var i = 0; i < data.columnList.length; i++) {
+						var citem = data.columnList[i];
+						columnContent = columnContent + "<tr><td>" +citem + "</td><td></td></tr>";
+					}
+					columnContent += "<tbody>"; 
+					$("#column_data").html(columnContent);
+				} else {
+					$("#column_data").html("");
 				}
 				
 				
 			} else {
+				$("#file_data").html("");
+				$("#column_data").html("");
 				bravoui.ui.msg.alert(data.message);
 			}
 		}).fail(function(xhr,  msg,  error){

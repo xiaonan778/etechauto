@@ -109,13 +109,13 @@ public class BmTreeServiceImpl implements BmTreeService {
 	}
 
     @Override
-    public List<BmTree> searchBykeywords(String keywords) {
-        return bmTreeDao.searchBykeywords(keywords);
+    public List<BmFile> getExcelByTreeId(String treeId) {
+        return bmFileDao.getExcelByTreeId(treeId);
     }
 
     @Override
-    public List<BmFile> getExcelByTreeId(String treeId) {
-        return bmFileDao.getExcelByTreeId(treeId);
+    public List<BmFile> searchByCondition(String keywords) {
+        return bmFileDao.searchByCondition(keywords);
     }
 
 
