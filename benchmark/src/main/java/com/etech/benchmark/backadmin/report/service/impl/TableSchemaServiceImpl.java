@@ -51,4 +51,9 @@ public class TableSchemaServiceImpl implements TableSchemaService {
         return tableSchemaDao.listColumnByTableFk(table_fk);
     }
 
+    @Override
+    public String getUnit(String columnName) {
+        return tableSchemaDao.getUnit(columnName);
+    }
+
 }

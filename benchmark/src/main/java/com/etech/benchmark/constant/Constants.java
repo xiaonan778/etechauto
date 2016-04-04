@@ -38,6 +38,11 @@ public class Constants {
 		public final static String REPORT = "REPORT"; //数据导入标识
 	}
 	
+	public class chart {
+	    public final static String SCATTER = "SCATTER"; // 散点图
+        public final static String BAR = "BAR";  //柱状图
+	}
+	
 	/** 有效 **/
 	public final static Byte VALID = 1;
 	/** 无效 **/

@@ -35,4 +35,9 @@ public class ReportDaoImpl  implements ReportDao {
         return dao.find(PREFIX + ".listByAlpha", params);
     }
 
+    @Override
+    public <E, K, V> List<E> search(Map<String, Object> params) {
+        return dao.find(PREFIX + ".search", params);
+    }
+
 }

@@ -76,8 +76,9 @@ public class StringUtil {
     }
 
     public static boolean isEmpty(String str) {
-        if (str == null)
+        if (str == null) {
             return true;
+        }
         return (str.equals(""));
     }
 

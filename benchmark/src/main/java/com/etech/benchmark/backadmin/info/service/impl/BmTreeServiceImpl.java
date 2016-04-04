@@ -90,13 +90,6 @@ public class BmTreeServiceImpl implements BmTreeService {
 	}
 
 	@Override
-	public BmFile findOneFileById(String treeId) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("id", treeId);
-		return bmFileDao.findOne(params);
-	}
-
-	@Override
 	public <E> List<E> pageExcelAll() {
 		return bmFileDao.page(null);
 	}
@@ -113,6 +106,13 @@ public class BmTreeServiceImpl implements BmTreeService {
         return bmFileDao.getExcelByTreeId(treeId);
     }
 
+    @Override
+    public BmFile findOneFileById(String fileId) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("id", fileId);
+        return bmFileDao.findOne(params);
+    }
+    
     @Override
     public List<BmFile> searchByCondition(String keywords) {
         return bmFileDao.searchByCondition(keywords);

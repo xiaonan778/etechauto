@@ -36,13 +36,23 @@ public interface BmTreeService {
 
 	boolean deleteFile(String treeId);
 	  	
-	BmFile findOneFileById(String treeId);
-	
 	<E> List<E> pageExcelAll();
 
 	void updateExcelCondition(String id);
 	
+	/**
+	 * 获取一个树节点下的文件列表
+	 * @param treeId
+	 * @return
+	 */
 	List<BmFile> getExcelByTreeId (String treeId);
+	
+	/**
+	 * 根据ID获取文件信息
+	 * @param fileId
+	 * @return
+	 */
+	BmFile findOneFileById(String fileId);
 	
 	/**
      * 根据关键字搜索文件

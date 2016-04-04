@@ -66,4 +66,9 @@ public class ReportServiceImpl implements ReportService {
         return reportDao.listByAlpha(params);
     }
 
+    @Override
+    public <E, K, V> List<E> search(Map<String, Object> params) {
+        return reportDao.search(params);
+    }
+
 }

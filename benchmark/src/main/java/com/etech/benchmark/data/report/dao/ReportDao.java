@@ -25,4 +25,11 @@ public interface ReportDao {
     
     public <E, K, V> List<E> listByAlpha(Map<String, Object> params);
     
+    /**
+     * 根据条件筛选数据
+     * @param params
+     * @return
+     */
+    public <E, K, V> List<E> search(Map<String, Object> params);
+    
 }

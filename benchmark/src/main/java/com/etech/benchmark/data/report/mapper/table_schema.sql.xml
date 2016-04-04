@@ -27,4 +27,7 @@
         select  columnName  from  report_table_schema  where  table_fk = #{table_fk};
     </select>
     
+    <select id="getUnit" parameterType="map"  resultType="string">
+        select  unit  from  report_table_schema  where  columnName = #{columnName} limit 1
+    </select>
 </mapper> 

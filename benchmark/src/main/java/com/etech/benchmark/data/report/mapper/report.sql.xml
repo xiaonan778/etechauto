@@ -36,4 +36,11 @@
         select torque, alpha, speed from ${tablename} where ALPHA &gt;= ${alpha_min} and ALPHA &lt;= ${alpha_max}
     </select>
     
+    <select id="search" parameterType="java.util.Map" statementType="STATEMENT" resultType="java.util.Map">
+        select  ${fields}  from ${tableName}  
+        <if test="conditions != null">
+            where ${conditions}
+        </if>
+    </select> 
+    
 </mapper> 

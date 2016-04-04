@@ -52,4 +52,11 @@ public class TableSchemaDaoImpl implements TableSchemaDao {
         return dao.find(PREFIX + ".listColumnByTableFk", params);
     }
 
+    @Override
+    public String getUnit(String columnName) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("columnName", columnName);
+        return dao.get(PREFIX + ".getUnit", params);
+    }
+
 }

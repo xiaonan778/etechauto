@@ -19,6 +19,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,6 +30,7 @@ import com.etech.benchmark.backadmin.report.service.TableSchemaService;
 import com.etech.benchmark.backadmin.sys.service.DictionaryService;
 import com.etech.benchmark.constant.Constants;
 import com.etech.benchmark.data.info.model.BmFile;
+import com.etech.benchmark.data.report.model.ChartFactor;
 import com.etech.benchmark.data.sys.model.SysDataDictionary;
 import com.etech.benchmark.model.ResultEntity;
 import com.etech.benchmark.model.ResultEntityHashMapImpl;
@@ -210,5 +212,105 @@ public class ReportController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         return new ResponseEntity<Object>(result, headers, HttpStatus.OK);
+    }
+    
+    
+    /**
+     * 创建报表
+     * @return
+     */
+    @RequestMapping(value="/buildChart", method=RequestMethod.POST)
+    public ResponseEntity<Object> searchKeywords (@RequestParam("fileId") String[] fileIds, @RequestParam String[] queryAttribute, @ModelAttribute ChartFactor chartFactor,
+            HttpServletRequest request) {
+        ResultEntity result = null;
+        String fields = getFields(chartFactor);
+        Map<String, Object> params = new HashMap<>();
+        List<Object> list = new ArrayList<>();
+        List<String> conditionList = new ArrayList<>();
+        String conditions = convertQueryParameters(queryAttribute, request);
+        for (String fileId : fileIds) {
+            BmFile excel = bmTreeService.findOneFileById(fileId);
+            int tableId = excel.getDic_id();
+            SysDataDictionary sysData = dicService.findSysDataDicById(tableId);
+            String tableName = sysData.getRule();
+            params.put("fields", fields);
+            params.put("tableName", tableName);
+            if ( !StringUtil.isEmpty(conditions)) {
+                params.put("conditions", conditions);
+            }
+            List<Map<String, Object>> data = reportService.search(params);
+            list.add(data);
+            String condition = excel.getCondition();
+            conditionList.add(condition);
+        }
+        
+        result = new ResultEntityHashMapImpl(ResultEntity.KW_STATUS_SUCCESS,  "success");
+        result.addObject("list", list);
+        result.addObject("conditionList", conditionList);
+        result.addObject("chartFactor", chartFactor);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        return new ResponseEntity<Object>(result, headers, HttpStatus.OK);
+    }
+    
+    /**
+     * 拼接查询条件
+     * @param queryAttribute
+     * @param request
+     * @return
+     */
+    private String convertQueryParameters(String[] queryAttribute, HttpServletRequest request) {
+        String conditions = null;
+        for (String attr : queryAttribute) {
+            String rule = request.getParameter(attr + "_rule");
+            if ("1".equals(rule)) {
+                String eq = request.getParameter(attr + "_eq");
+                if ( !StringUtil.isEmpty(eq) ) {
+                    conditions = conditions != null ? conditions + " and " + attr + "='" + eq + "'":  attr + "='" + eq + "'";
+                } else {
+                    continue;
+                }
+            } else if ( "2".equals(rule)) {
+                String gt = request.getParameter(attr + "_gt");
+                String lt = request.getParameter(attr + "_lt");
+                
+                if ( !StringUtil.isEmpty(gt) && StringUtil.isEmpty(lt) ) {
+                    conditions = conditions != null ? conditions + " and " + attr + ">'" + gt + "'":  attr + ">'" + gt + "'";
+                } else if ( StringUtil.isEmpty(gt) && !StringUtil.isEmpty(lt) ) {
+                    conditions = conditions != null ? conditions + " and " + attr + "<'" + lt + "'":  attr + "<'" + lt + "'";
+                } else if ( !StringUtil.isEmpty(gt) && !StringUtil.isEmpty(lt) ) {
+                    conditions = conditions != null ? conditions + " and " + attr + ">'" + gt + "'  and " + attr + "<'" + lt + "'": 
+                        attr + ">'" + gt + "'  and " + attr + "<'" + lt + "'";
+                } else {
+                    continue;
+                }
+            }
+        }
+        
+        return conditions;
+    }
+    
+    /**
+     * 获取查询字段拼接
+     * @param chartFactor
+     * @return
+     */
+    private String getFields (ChartFactor chartFactor) {
+        String result = "";
+        if (chartFactor != null ) {
+            if (StringUtil.notEmpty(chartFactor.getxAxis()) ) {
+                result = chartFactor.getxAxis();
+                chartFactor.setxAxisUnit(tableSchemaService.getUnit(chartFactor.getxAxis()));
+                if (StringUtil.notEmpty(chartFactor.getyAxis()) ) {
+                    result = result + ", " + chartFactor.getyAxis() ;
+                    chartFactor.setyAxisUnit(tableSchemaService.getUnit(chartFactor.getyAxis()));
+                    if (StringUtil.notEmpty(chartFactor.getzAxis()) ) {
+                        chartFactor.setzAxisUnit(tableSchemaService.getUnit(chartFactor.getzAxis()));
+                        result = result + ", " + chartFactor.getzAxis() ;
+                    }
+                }
+            }
+        }
+        return result;
     }
 }

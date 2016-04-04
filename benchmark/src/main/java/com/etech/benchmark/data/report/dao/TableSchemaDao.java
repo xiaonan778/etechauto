@@ -33,4 +33,11 @@ public interface TableSchemaDao {
      * @return
      */
     public  List<String> listColumnByTableFk (int table_fk);
+    
+    /**
+     * 获取单位
+     * @param columnName
+     * @return
+     */
+    public String getUnit(String columnName);
 }
