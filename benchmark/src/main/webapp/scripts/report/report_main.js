@@ -87,11 +87,11 @@ $(function(){
 			var temp = $(this).val();
 			var item = $(this).prev().val();
 			if ( temp == "1") {
-				$("#" + item + "_equals").show();
+				$("#" + item + "_eq").show();
 				$("#" + item + "_gt").hide();
 				$("#" + item + "_lt").hide();
 			} else if ( temp == "2" ) {
-				$("#" + item + "_equals").hide();
+				$("#" + item + "_eq").hide();
 				$("#" + item + "_gt").show();
 				$("#" + item + "_lt").show();
 			}
