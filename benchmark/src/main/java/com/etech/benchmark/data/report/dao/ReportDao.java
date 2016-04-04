@@ -32,4 +32,11 @@ public interface ReportDao {
      */
     public <E, K, V> List<E> search(Map<String, Object> params);
     
+    /**
+     * 根据FileId查找数据
+     * @param params
+     * @return
+     */
+    public <E, K, V> List<E> findAllByFileId(Map<String, Object> params);
+    
 }

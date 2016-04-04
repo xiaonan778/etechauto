@@ -40,4 +40,9 @@ public class ReportDaoImpl  implements ReportDao {
         return dao.find(PREFIX + ".search", params);
     }
 
+    @Override
+    public <E, K, V> List<E> findAllByFileId(Map<String, Object> params) {
+        return dao.find(PREFIX + ".findAllByFileId", params);
+    }
+
 }

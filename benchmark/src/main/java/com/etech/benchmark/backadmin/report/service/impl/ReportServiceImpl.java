@@ -71,4 +71,9 @@ public class ReportServiceImpl implements ReportService {
         return reportDao.search(params);
     }
 
+    @Override
+    public <E, K, V> List<E> findAllByFileId(Map<String, Object> params) {
+        return reportDao.findAllByFileId(params);
+    }
+
 }

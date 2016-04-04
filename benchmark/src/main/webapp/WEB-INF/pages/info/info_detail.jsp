@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -8,8 +9,6 @@
 	<script src="${path }/resources/table/jquery.dataTables.min.js"></script>
 	<script src="${path }/resources/table/dataTables.bootstrap.min.js"></script>
 	<script src="${path }/resources/table/default.js"></script>
-	<script src="${path }/scripts/info/info_list.js"></script>
-	
 	 <style type="text/css">
      
       .opt{
@@ -34,26 +33,30 @@
                             <a href="${path}/">首页</a>
                         </li>
                         <li >信息分类</li>
-                        <li class="active">信息查询</li>
+                        <li ><a href="${path}/info/listall">信息查询</a></li>
+                        <li class="active">Excel数据</li>
                     </ul><!-- .breadcrumb -->
                 </div>
                 <div class="page-content">
                     <div style="height: 40px;"></div>
 			            <div class="row">
 		                <div class="col-xs-12">
-					    <table id="bm_data" class="table table-striped table-bordered" style="width:100%;" >
-					        <thead>
-					            <tr>
-					                <th>名称</th>
-					                <th>模版</th>
-					                <th>文件类型</th>
-					                <th>文件位置</th>
-					                <th>分类条件</th>
-					                <th>添加时间</th>
-					                <th>操作</th>
-					            </tr>
-					        </thead>           
-	                        </table>
+					    <table id="excel_data" class="table table-striped table-bordered" style="width:100%;" >
+					        <c:forEach items="${dataList }"  var="row"  varStatus="status">
+					           <c:if test="${status.index == 0}">
+					               <tr>
+	                                   <c:forEach items="${row }" var="cell">
+	                                       <th>${cell.key }</th>
+	                                   </c:forEach>
+	                               </tr>
+					           </c:if>
+					           <tr>
+					               <c:forEach items="${row }" var="cell">
+					                   <td>${cell.value }</td>
+					               </c:forEach>
+					           </tr>
+					        </c:forEach>
+	                    </table>
 		                </div>
 		                <div id="searchText"></div>
 		            </div><!--/row-->	            

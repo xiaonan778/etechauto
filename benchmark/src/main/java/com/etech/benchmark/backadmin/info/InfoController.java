@@ -89,6 +89,10 @@ public class InfoController {
         return "info/info_list";
     }
 	
+	/**
+	 * 文件列表
+	 * @return
+	 */
 	@RequestMapping(value = "/list")
     public ResponseEntity<Map<String, Object>> getData(){
         Map<String, Object> result = new HashMap<String, Object>();
@@ -96,6 +100,7 @@ public class InfoController {
         List<BmFile> bmList  = bmTreeService.pageExcelAll();
         for (BmFile bmFile : bmList) {
         	Map<String, Object> row = new HashMap<String, Object>();
+        	row.put("id", bmFile.getId());
         	row.put("name", bmFile.getName());
         	row.put("modal", bmFile.getModal());
         	row.put("path", Constants.UPLOAD_PATH+"/"+bmFile.getSave_path());
@@ -111,6 +116,23 @@ public class InfoController {
         ResponseEntity<Map<String, Object>> entity = new ResponseEntity<Map<String, Object>>(result, header, HttpStatus.OK);
         return entity;
     }
+	
+	 /**
+     * Excel 数据详情
+     * @return
+     */
+   @RequestMapping("/detail/{id}")
+   public String showDetail(@PathVariable String id, Model model){
+       BmFile excel = bmTreeService.findOneFileById(id);
+       String tableName = dicService.findSysDataDicById(excel.getDic_id()).getRule();
+       Map<String, Object> params = new HashMap<>();
+       params.put("fileId", id);
+       params.put("tableName", tableName);
+       List<Map<String, Object>> dataList =  reportService.findAllByFileId(params);
+       model.addAttribute("dataList", dataList);
+       return "info/info_detail";
+   }
+	
 	
 	/**
 	 * 删除文件

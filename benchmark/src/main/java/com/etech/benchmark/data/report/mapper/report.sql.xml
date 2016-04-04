@@ -43,4 +43,7 @@
         </if>
     </select> 
     
+    <select id="findAllByFileId"  parameterType="java.util.Map" statementType="STATEMENT" resultType="java.util.Map">
+        select * from ${tableName}   where fileId = '${fileId}'
+    </select>
 </mapper> 
