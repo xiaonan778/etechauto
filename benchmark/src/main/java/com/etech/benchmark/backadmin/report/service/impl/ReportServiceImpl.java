@@ -76,4 +76,28 @@ public class ReportServiceImpl implements ReportService {
         return reportDao.findAllByFileId(params);
     }
 
+    @Override
+    public int updateExcelData(Map<String, Object> params, String tableName) {
+        String[] keys = new String[params.size() - 2];
+        Set<String> fieldSet = params.keySet();
+        int i = 0;
+        for (String field : fieldSet) {
+            if ("id".equals(field)) {
+                continue;
+            }
+            if ("fileId".equals(field)) {
+                continue;
+            }
+            keys[i++] = field;
+        }
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("tablename", tableName);
+        map.put("keys", keys);
+        map.put("params", params);
+        map.put("id", params.get("id"));
+        return reportDao.updateExcelData(map);
+    }
+
+
 }

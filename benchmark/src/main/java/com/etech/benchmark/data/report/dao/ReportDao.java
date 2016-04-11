@@ -39,4 +39,11 @@ public interface ReportDao {
      */
     public <E, K, V> List<E> findAllByFileId(Map<String, Object> params);
     
+    /**
+     * 更新Execl数据
+     * @param params
+     * @return
+     */
+    public int updateExcelData (Map<String, Object> params);
+    
 }

@@ -45,4 +45,9 @@ public class ReportDaoImpl  implements ReportDao {
         return dao.find(PREFIX + ".findAllByFileId", params);
     }
 
+    @Override
+    public int updateExcelData(Map<String, Object> params) {
+        return dao.update(PREFIX + ".updateExcelData", params);
+    }
+
 }

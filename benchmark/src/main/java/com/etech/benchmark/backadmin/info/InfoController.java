@@ -34,6 +34,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,6 +53,7 @@ import com.etech.benchmark.data.ums.model.User;
 import com.etech.benchmark.exception.ServiceException;
 import com.etech.benchmark.exception.UtilException;
 import com.etech.benchmark.model.ResultEntity;
+import com.etech.benchmark.model.ResultEntityHashMapImpl;
 import com.etech.benchmark.model.ResultEntityLinkedHashMapImpl;
 import com.etech.benchmark.util.DateUtil;
 import com.etech.benchmark.util.ExcelUtil;
@@ -130,9 +132,27 @@ public class InfoController {
        params.put("tableName", tableName);
        List<Map<String, Object>> dataList =  reportService.findAllByFileId(params);
        model.addAttribute("dataList", dataList);
+       model.addAttribute("tableName", tableName);
        return "info/info_detail";
    }
-	
+   
+   /**
+    * 更新Execl数据
+    * @param response
+    * @param treeId
+    * @return
+    */
+   @RequestMapping(value="/excel/update", method=RequestMethod.POST)
+   public ResponseEntity<ResultEntity> updateExcelData(@RequestBody Map<String, Object> params){
+       ResultEntity result = null;
+       HttpHeaders headers = new HttpHeaders();
+       headers.setContentType(MediaType.APPLICATION_JSON);
+       String tableName = String.valueOf(params.get("tableName"));
+       params.remove("tableName");
+       reportService.updateExcelData(params, tableName);
+       result = new ResultEntityHashMapImpl(ResultEntity.KW_STATUS_SUCCESS, "更新成功");
+       return new ResponseEntity<ResultEntity>(result, headers, HttpStatus.OK);
+   }
 	
 	/**
 	 * 删除文件
