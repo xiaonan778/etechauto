@@ -59,8 +59,11 @@
 	                    </table>
 	                    
 	                    <div id="tb" style="height:auto">
+					        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="append()">&nbsp;&nbsp;&nbsp;&nbsp;新增&nbsp;&nbsp;<i class="icon-plus"></i></a>
+					        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveData()">&nbsp;&nbsp;&nbsp;&nbsp;删除&nbsp;&nbsp;<i class="icon-remove"></i></a>
 					        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveData()">&nbsp;&nbsp;&nbsp;&nbsp;保存&nbsp;&nbsp;<i class="icon-save"></i></a>
 					        <input type="hidden" value="${tableName }"  id="tableName" />
+					        <input type="hidden" value="${fileId }"  id="fileId" />
 					    </div>
 	                    
 		                </div>
@@ -98,15 +101,36 @@
 	                }
 	        }
 	        
-	        function saveData() {
+	        // 新增数据
+	          function append(){
+	            if (endEditing()){
+	                $('#excel_data').datagrid('appendRow', {});
+	                editIndex = $('#dg').datagrid('getRows').length-1;
+	                $('#excel_data').datagrid('selectRow', editIndex).datagrid('beginEdit', editIndex);
+	            }
+	        }
+	        
+	        // 保存新增或修改的数据
+	          function saveData() {
 	        	var row = $('#excel_data').datagrid('getSelected');
+	        	
 	        	if (row){
 	        		row.tableName = $("#tableName").val();
 	        		$('#excel_data').datagrid('acceptChanges');
-	        		bravoui.ui.msg.waiting({
-	        			title: "正在更新数据",
-	        			msg: "请稍后..."
-	        		});
+	        		alert(JSON.stringify( row ));
+	        		if (row.id) {
+	        			bravoui.ui.msg.waiting({
+	                        title: "正在更新数据",
+	                        msg: "请稍后..."
+	                    });
+	        		} else {
+	        			row.fileId = $("#fileId").val(); 
+	        			bravoui.ui.msg.waiting({
+                            title: "正在新增数据",
+                            msg: "请稍后..."
+                        });
+	        		}
+	        		
 	        	    $.ajax({
 	        	    	url: _path + "/info/excel/update",
 	        	    	type: "POST",

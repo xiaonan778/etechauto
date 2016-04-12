@@ -133,11 +133,12 @@ public class InfoController {
        List<Map<String, Object>> dataList =  reportService.findAllByFileId(params);
        model.addAttribute("dataList", dataList);
        model.addAttribute("tableName", tableName);
+       model.addAttribute("fileId", id);
        return "info/info_detail";
    }
    
    /**
-    * 更新Execl数据
+    * 更新或新增Execl数据
     * @param response
     * @param treeId
     * @return
@@ -149,8 +150,16 @@ public class InfoController {
        headers.setContentType(MediaType.APPLICATION_JSON);
        String tableName = String.valueOf(params.get("tableName"));
        params.remove("tableName");
-       reportService.updateExcelData(params, tableName);
-       result = new ResultEntityHashMapImpl(ResultEntity.KW_STATUS_SUCCESS, "更新成功");
+       String id = String.valueOf( params.get("id") );
+       if (StringUtil.isEmpty(id)) {
+           params.put("id", StringUtil.createUUID());
+           reportService.insert(params, tableName);
+           result = new ResultEntityHashMapImpl(ResultEntity.KW_STATUS_SUCCESS, "新增成功");
+       } else {
+           reportService.updateExcelData(params, tableName);
+           result = new ResultEntityHashMapImpl(ResultEntity.KW_STATUS_SUCCESS, "更新成功");
+       }
+       
        return new ResponseEntity<ResultEntity>(result, headers, HttpStatus.OK);
    }
 	
