@@ -35,7 +35,7 @@
                     <div style="height: 40px;"></div>
 			            <div class="row">
 		                <div class="col-xs-12">
-					    <table id="excel_data"  style="width:100%;height: auto;" title="Excel数据"  data-options="rownumbers:true, singleSelect:true, toolbar: '#tb', onClickRow: onClickRow">
+					    <table id="excel_data"  style="width:100%;height: auto;max-height:500px;" title="Excel数据"  data-options="rownumbers:true, singleSelect:true, toolbar: '#tb', onClickRow: onClickRow">
 					        <c:forEach items="${dataList }"  var="row"  varStatus="status">
 					           <c:if test="${status.index == 0}">
 					               <thead>
@@ -117,8 +117,8 @@
 	        	if (row){
 	        		row.tableName = $("#tableName").val();
 	        		$('#excel_data').datagrid('acceptChanges');
-	        		alert(JSON.stringify( row ));
-	        		if (row.id) {
+	        		//alert(JSON.stringify( row ));
+        		         if (row.id) {
 	        			bravoui.ui.msg.waiting({
 	                        title: "正在更新数据",
 	                        msg: "请稍后..."

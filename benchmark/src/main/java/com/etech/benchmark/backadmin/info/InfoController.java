@@ -264,6 +264,10 @@ public class InfoController {
                     } catch (UtilException e) {
                         logger.error(e.getMessage());
                     }
+                } else if (ExcelUtil.isExcel(filename) && "3".equals(addType)) {
+                    result.put("msg", "导入Excel文件需要选择模板!");
+                    result.put("status", "F");
+                    return new ResponseEntity<String>(result.toString(), headers, HttpStatus.OK);
                 }
 
                 filePath = FileUtil.upload(myfile, Constants.UPLOAD_PATH);
@@ -280,6 +284,7 @@ public class InfoController {
                 bmFile.setCreator_fk(loginUser.getId());
                 if(!bmTreeService.insertFile(bmFile)){
                     result.put("msg", "INSERT BM EXCEL TABLE ERROR!");
+                    result.put("status", "F");
                     return new ResponseEntity<String>(result.toString(), headers, HttpStatus.OK);
                 }
                 Map<String, Object> node = new HashMap<String, Object>();

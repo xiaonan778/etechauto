@@ -186,6 +186,9 @@ public class ReportController {
             Set<String> columnSet = new HashSet<>();
             for (int dicId : templateList ) {
                 SysDataDictionary dict = dicService.findSysDataDicById(dicId);
+                if (dict == null) {
+                    continue;
+                }
                 String tableName = dict.getRule();
                 if (!StringUtil.isEmpty(tableName)) {
                     if ( tableSchemaService.checkTableIfExists(tableName) ) {
