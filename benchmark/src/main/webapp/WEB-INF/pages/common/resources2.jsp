@@ -19,10 +19,7 @@
   <script src="${path}/resources/plugins/datetime/bootstrap-datetimepicker.zh-CN.js"></script>
 
   <!--  js 工具  -->
-  <script src="${path}/scripts/common/fj.js"></script>
-  <script src="${path}/scripts/common/check.js"></script>
   <script src="${path}/scripts/common/util.js"></script>
-  <script src="${path}/scripts/common/json2.js"></script>
   
   <!-- 补充 CSS -->
   <link href="${path}/css/main.css" rel="stylesheet">

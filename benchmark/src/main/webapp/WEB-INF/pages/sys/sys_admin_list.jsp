@@ -12,7 +12,6 @@
     <jsp:include page="../common/meta.jsp" />
     <jsp:include page="../common/resources.jsp" />
     <script src="${path }/scripts/sys/sys_admin_list.js" ></script>
-    <script src="${path }/scripts/plugins/mask/jquery.bravoui.mask.js" ></script>
     <script src="${path }/scripts/plugins/datatable/jquery.bravoui.datatable.js" ></script>
     <script>
     function operation (data, el) {

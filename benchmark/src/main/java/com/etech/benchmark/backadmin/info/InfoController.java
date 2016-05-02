@@ -240,7 +240,7 @@ public class InfoController {
                         String tableName = tableInfo.getRule();
                         if(rowTitle==null){
                             result.put("msg", "无数据或不是Excel文件!");
-                            result.put("status", "F");
+                            result.put("status", ResultEntity.KW_STATUS_FAIL);
                             return new ResponseEntity<String>(result.toString(), headers, HttpStatus.OK);
                         }
                         List<Row>  rowList = ExcelUtil.readExcel(myfile.getInputStream(), filename, 0);
@@ -266,7 +266,7 @@ public class InfoController {
                     }
                 } else if (ExcelUtil.isExcel(filename) && "3".equals(addType)) {
                     result.put("msg", "导入Excel文件需要选择模板!");
-                    result.put("status", "F");
+                    result.put("status", ResultEntity.KW_STATUS_FAIL);
                     return new ResponseEntity<String>(result.toString(), headers, HttpStatus.OK);
                 }
 
@@ -284,7 +284,7 @@ public class InfoController {
                 bmFile.setCreator_fk(loginUser.getId());
                 if(!bmTreeService.insertFile(bmFile)){
                     result.put("msg", "INSERT BM EXCEL TABLE ERROR!");
-                    result.put("status", "F");
+                    result.put("status", ResultEntity.KW_STATUS_FAIL);
                     return new ResponseEntity<String>(result.toString(), headers, HttpStatus.OK);
                 }
                 Map<String, Object> node = new HashMap<String, Object>();

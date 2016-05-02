@@ -9,23 +9,15 @@
   <link href="${path}/css/offcanvas.css" rel="stylesheet">
   <link href="${path}/css/daterangepicker-bs3.css" rel="stylesheet">
   <link href="${path}/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+  
   <script src="${path}/scripts/common/paging.js"></script>
-  <script src="${path}/scripts/common/fj.js"></script>
-  <script src="${path}/scripts/common/check.js"></script>
   <script src="${path}/scripts/common/util.js"></script>
-  <script src="${path}/scripts/common/json2.js"></script>
   
   <!-- 补充 CSS -->
   <link href="${path}/css/main.css" rel="stylesheet">
   
-  <!-- bootstrap-select CSS -->
-  <link href="${path}/css/bootstrap-select.css" rel="stylesheet">
-  <!-- bootstrap-select JS -->
-  <script src="${path}/resources/plugins/silviomoreto-bootstrap/bootstrap-select.min.js"></script>
-  
   <!-- Bootstrap core JS -->
   <script src="${path}/resources/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-  <script src="${path}/resources/plugins/sidebar/offcanvas.js"></script>
   <script src="${path}/resources/plugins/datetime/moment.min.js"></script>
   <script src="${path}/resources/plugins/datetime/daterangepicker.js"></script>
   <script src="${path}/resources/plugins/datetime/bootstrap-datetimepicker.min.js"></script>
@@ -35,9 +27,6 @@
   <!-- JQuery-validation JS -->
   <script src="${path}/resources/jquery-validation/1.11.1/jquery.validate.min.js"></script>
   <script src="${path}/resources/jquery-validation/1.11.1/messages_bs_zh.js"></script>
-  
-  <!-- 地区控件 -->
-  <script src="${path}/scripts/plugins/area/jquery.area.js"></script>
   
   <!-- 提示框控件 -->
   <script src="${path }/scripts/plugins/jquery.bravoui.core.js" ></script>
@@ -60,7 +49,3 @@
   <script src="${path}/resources/ace/js/ace.min.js"></script>
   
   <script src="${path }/resources/echarts-2.2.1/echarts.js" ></script>
-  
-  <link rel="stylesheet" type="text/css" href="${path }/css/report/select.css" />
-  <script src="${path}/resources/plugins/select/select.js"></script>
-  
