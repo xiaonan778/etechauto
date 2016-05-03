@@ -1,4 +1,4 @@
-	$().ready(function() {  
+	$(function() {  
         $('#loginForm').validate({
         errorElement : 'span',  
             errorClass : 'help-block',  
@@ -24,15 +24,15 @@
                 }
             },
              highlight : function(element) {  
-                $(element).closest('.form-group').addClass('has-error');  
+                $(element).closest('span').addClass('has-error');  
             }, 
           
             success : function(label) {  
-                label.closest('.form-group').removeClass('has-error');  
+                label.closest('span').removeClass('has-error');  
                 label.remove();  
             },
             errorPlacement : function(error, element) {  
-                element.parent('div').parent('div').append(error);  
+                element.parent('span').append(error);  
             },
             submitHandler : function(form) {  
                 form.submit();  

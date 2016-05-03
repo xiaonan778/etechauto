@@ -4,7 +4,6 @@
 <head>
 	<jsp:include page="common/meta.jsp" />
 	<jsp:include page="common/resources.jsp" />
-	<script src="${path }/scripts/main/portal.js" ></script>
 	<style type="text/css">
 	   #welcome{
 	      display: block;

@@ -50,6 +50,12 @@ public class IndexController {
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String afterLoginSuccess(HttpServletRequest request, HttpServletResponse response) {
+        return "root";
+    }
+    
+    
+    @RequestMapping(value = "/engine", method = RequestMethod.GET)
+    public String engine(HttpServletRequest request, HttpServletResponse response) {
         return "main";
     }
 

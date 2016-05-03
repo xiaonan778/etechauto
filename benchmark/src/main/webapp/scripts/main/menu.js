@@ -1,8 +1,5 @@
 
 $(function() {
-//	$(document).on("click", "#dashboard", function(){
-//		location.href = _path+"/pmd/dashboard";
-//	});
 	
 	$(document).on("click", "#sidebar-collapse", function(){
 		if(!$("#sidebar").hasClass("menu-min")){
