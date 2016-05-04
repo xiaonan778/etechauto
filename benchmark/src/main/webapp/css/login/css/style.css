@@ -1,0 +1,77 @@
+
+/*--login page--*/
+
+.login-main {
+    width: 40%;
+    margin: 0 auto;
+    background: #FFFFFF;
+    background-size: cover;
+    min-height: 400px;
+    box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.15);
+}
+.login-page {
+    padding: 1.5em 0em;
+}
+.login-head {
+    background: url(../images/login.jpg)no-repeat;
+    background-size: cover;
+    min-height: 150px;
+}
+.login-head h1 {
+    font-size:3em;
+     color:#FFF;
+    padding: 1em 0em 0em 0em;
+    text-align: center;
+    font-family: 'Carrois Gothic', sans-serif;
+}
+.login-block {
+    padding: 4em 2em;
+}
+.login-block input[type="text"], .login-block input[type="password"] {
+    font-size: 0.9em;
+    padding: 10px 20px;
+    width: 100%;
+    color:#8C8C8C;
+    outline: none;
+    border: 1px solid #D3D3D3;   
+     border-radius: 5px;
+	-ms-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-o-border-radius: 5px;
+    background:#F5F5F5;
+    margin: 0em 0em 1.5em 0em;
+}
+
+
+/*--login page end here--*/
+
+@media  (max-width: 1024px){
+    .login-main {
+        width: 50%;
+    }
+}
+
+@media  (max-width: 991px){
+    .login-main {
+        width: 70%;
+    }
+}
+
+@media  (max-width: 640px){
+    .login-main {
+        width: 80%;
+    }
+}
+
+@media  (max-width:480px){
+    .login-main {
+        width: 90%;
+    }
+}
+
+
+
+
+
+
+

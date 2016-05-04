@@ -10,7 +10,7 @@
 	<jsp:include page="../common/resources.jsp" />
 	<script src="${path }/scripts/sys/login.js" ></script>
 	
-	<link href="${path }/resources/template/css/style.css" rel="stylesheet" type="text/css" />
+	<link href="${path }/css/login/css/style.css" rel="stylesheet" type="text/css" media="all" />
 </head>
 <body>
 	<shiro:authenticated>
@@ -30,7 +30,7 @@
                             ${error}
                         </div>
                     </c:if>
-	                <form id="loginForm" class="form-signin"  method="post" role="form"  >
+	                <form id="loginForm" class="form-signin"  method="post"   >
 				        <fieldset>
                               <label class="block clearfix">
                                   <span class="block input-icon input-icon-right">
