@@ -115,6 +115,8 @@ $(function() {
 	 * 生成报表
 	 */
 	$("#createReport").click(function() {
+		
+			$("#chartTab").tab("show");
 			$("#reportFrom").ajaxSubmit({
 					url : _path + "/report/buildChart",
 					type : "POST",

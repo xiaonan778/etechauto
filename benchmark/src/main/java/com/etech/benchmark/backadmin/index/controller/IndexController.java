@@ -56,7 +56,11 @@ public class IndexController {
     
     @RequestMapping(value = "/engine", method = RequestMethod.GET)
     public String engine(HttpServletRequest request, HttpServletResponse response) {
+        return "main2";
+    }
+    
+    @RequestMapping(value = "/main", method = RequestMethod.GET)
+    public String main(HttpServletRequest request, HttpServletResponse response) {
         return "main";
     }
-
 }

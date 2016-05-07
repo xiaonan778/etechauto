@@ -10,7 +10,7 @@
 	<jsp:include page="../common/resources.jsp" />
 	<script src="${path }/scripts/sys/login.js" ></script>
 	
-	<link href="${path }/css/login/css/style.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="${path }/css/login.css" rel="stylesheet" type="text/css" media="all" />
 </head>
 <body>
 	<shiro:authenticated>

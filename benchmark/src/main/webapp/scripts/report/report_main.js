@@ -17,7 +17,7 @@ $(function(){
 			if (data && data.status == "S") {
 				
 				if (data.excelList && data.excelList.length > 0 ) {
-					var excelContent = "<thead><tr><th>文件名</th><th>文件来源</th></tr></thead><tbody>";
+					var excelContent = "<thead><tr><th>文件名</th><th>文件类目</th></tr></thead><tbody>";
 					for (var i = 0; i < data.excelList.length; i++) {
 						var eitem = data.excelList[i];
 						excelContent = excelContent + "<tr><td>" + eitem.name + "</td><td>" + eitem.condition + "<input type='hidden' name='fileId'  value='"+eitem.id +"' /></td></tr>";
@@ -97,8 +97,8 @@ $(function(){
 			}
 		});
 		
-		$("#xAxis").chosen();
-		$("#yAxis").chosen();
+		$("#xAxis").chosen({width: '300px'});
+		$("#yAxis").chosen({width: '300px'});
 	}
 	
 });

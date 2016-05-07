@@ -4,34 +4,30 @@
 <html>
 <head>
 	<jsp:include page="../common/meta.jsp" />
-	<jsp:include page="../common/resources2.jsp" />
+    <jsp:include page="../common/resources2.jsp" />
 	<link rel="stylesheet" href="${path}/resources/zTree/css/metroStyle/metroStyle.css" type="text/css" />
 	<script src="${path}/resources/zTree/js/jquery.ztree.core-3.5.min.js"></script>
 	<script src="${path}/resources/zTree/js/jquery.ztree.exedit-3.5.min.js"></script>
-	<link rel="stylesheet" href="${path}/resources/ace/css/chosen.min.css" />
-	<script type="text/javascript" src="${path}/resources/ace/js/chosen.jquery.min.js"></script>
 	<script src="${path}/scripts/info/tree_view.js"></script>
+	<script type="text/javascript" >
+       $(function(){
+           $("#sys_import").parent().addClass("active");
+       });
+    </script>
 </head>
 
 <body class="navbar-fixed">
-	<jsp:include page="../common/header.jsp" />
-	<div class="main-container">
-		<div class="main-container-inner">
-			<jsp:include page="../common/menu.jsp" />
+	<jsp:include page="../common/header2.jsp" />
+	<!-- Main Container start -->
+    <div class="dashboard-container">
 
-			<div class="main-content" id="mainContent">
-				<div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs">
+        <div class="container">
 
-					<ul class="breadcrumb">
-						<li><i class="icon-home home-icon"></i> <a href="${path}/">首页</a></li>
-						<li class="active">信息分类</li>
-						<li class="active">树形结构</li>
-					</ul>
-					<!-- .breadcrumb -->
-				</div>
+            <jsp:include page="../common/menu2.jsp" />
 
-				<div class="page-content">
-					<div style="height: 40px;"></div>
+            <!-- Dashboard Wrapper Start -->
+            <div class="dashboard-wrapper">
+					<div style="height: 20px;"></div>
 					<div class="panel panel-default">
 						<div class="panel-heading panel-title">
 							<div class="row">
@@ -58,13 +54,14 @@
 					</div>
 					<!--/row-->
 
-				</div>
-				<!-- /.page-content -->
-			</div>
-			<!-- /.main-content -->
-		</div>
-	</div>
-	<!-- /.main-container-inner -->
+		    </div>
+		    <!-- Dashboard Wrapper End -->
+		    <jsp:include page="../common/footer2.jsp" />
+         </div>
+     </div>
+	<!-- Main Container end -->
+	
+	
 	<!-- 弹出层 -->
 	<div id="myModal1" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
 		<div class="modal-dialog">
@@ -136,6 +133,6 @@
 		<!-- /.modal-dialog -->
 	</div>
 	<!--弹出层  结束 -->
-	<jsp:include page="../common/footer.jsp" />
+	
 </body>
 </html>

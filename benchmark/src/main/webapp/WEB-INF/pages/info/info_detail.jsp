@@ -4,7 +4,7 @@
 <html>
 <head>
     <jsp:include page="../common/meta.jsp" />
-    <jsp:include page="../common/resources2.jsp" />
+    <jsp:include page="../common/resources.jsp" />
 	
 	<link rel="stylesheet" href="${path}/resources/easyui/themes/bootstrap/datagrid.css" />
 	<link rel="stylesheet" href="${path}/resources/easyui/themes/bootstrap/pagination.css" />

@@ -3,7 +3,7 @@
 <html>
 <head>
     <jsp:include page="../common/meta.jsp" />
-    <jsp:include page="../common/resources2.jsp" />
+    <jsp:include page="../common/resources.jsp" />
 	<link rel="stylesheet" type="text/css" href="${path }/resources/bootstrap/3.3.0/css/dataTables.bootstrap.min.css">
 	<script src="${path }/resources/table/jquery.dataTables.min.js"></script>
 	<script src="${path }/resources/table/dataTables.bootstrap.min.js"></script>

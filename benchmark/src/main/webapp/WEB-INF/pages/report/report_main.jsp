@@ -5,10 +5,9 @@
 <html>
 <head>
 	<jsp:include page="../common/meta.jsp" />
-	<jsp:include page="../common/resources2.jsp" />
+	<jsp:include page="../common/resources.jsp" />
 	<script src="${path }/resources/echarts-2.2.1/echarts-all.js" ></script>
-	<link type="text/css"  rel="stylesheet"  href="${path }/resources/ace/css/chosen.min.css" />
-    <script type="text/javascript" src="${path }/resources/ace/js/chosen.jquery.min.js"></script>
+	
     <script type="text/javascript" src="${path }/scripts/report/chart_init.js"></script>
 	<script type="text/javascript" src="${path }/scripts/report/report_main.js"></script>
 </head>
