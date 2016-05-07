@@ -43,7 +43,7 @@
 						<div class="col-xs-12">
 							<div class="col-xs-12">
 								<div>
-									<a id="openAll" style="cursor:pointer"><i id="treeFlag" class="icon-plus"></i></a>
+									<a id="openAll" style="cursor:pointer"><i id="treeFlag" class="fa fa-plus"></i></a>
 								</div>
 								<div>
 									<ul id="infoTree" class="ztree"></ul>

@@ -135,10 +135,10 @@ $(function() {
 					treeOpen = "false";
 				}
 				if (treeOpen == "true") {
-					$("#treeFlag").attr("class", "icon-minus");
+					$("#treeFlag").attr("class", "fa fa-minus");
 					treeObj.expandAll(true);
 				} else {
-					$("#treeFlag").attr("class", "icon-plus");
+					$("#treeFlag").attr("class", "fa fa-plus");
 					treeObj.expandAll(false);
 				}
 			} else {
@@ -163,16 +163,16 @@ $(function() {
 	$("#openAll").click(function() {
 		var opt = $(this).children("i");
 		var treeObj = $.fn.zTree.getZTreeObj("infoTree");
-		if (opt.hasClass("icon-plus")) {
-			opt.removeClass("icon-plus").addClass("icon-minus");
+		if (opt.hasClass("fa-plus")) {
+			opt.removeClass("fa-plus").addClass("fa-minus");
 			$.cookie("tree_open", true, {
 				path : '/benchmark/'
 			});
 			treeObj.expandAll(true);
 			return false;
 		}
-		if (opt.hasClass("icon-minus")) {
-			opt.removeClass("icon-minus").addClass("icon-plus");
+		if (opt.hasClass("fa-minus")) {
+			opt.removeClass("fa-minus").addClass("fa-plus");
 			$.cookie("tree_open", false, {
 				path : '/benchmark/'
 			});
