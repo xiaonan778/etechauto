@@ -954,9 +954,7 @@ header .logo img {
 }
 
 @media ( max-width : 767px) {
-	header .logo {
-		width: 100px;
-	}
+
 	header .logo img {
 		max-width: 90px;
 	}
