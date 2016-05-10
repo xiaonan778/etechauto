@@ -30,8 +30,7 @@
 			<div class="dashboard-wrapper">
 
 				<div class="row">
-					<div class="col-md-3"
-						style="min-height: 680px;border-right-style: ridge;">
+					<div class="col-md-3" style="min-height: 500px;">
 						<div class="col-xs-12">
 							<form class="form-inline">
 								<div class="form-group">
@@ -46,7 +45,7 @@
 						</div>
 					</div>
 					<form id="reportFrom">
-						<div class="col-md-9" style="min-height: 680px;">
+						<div class="col-md-9" style="min-height: 500px;border-left-style: ridge;">
 							<ul id="myTab" class="nav nav-tabs">
 								<li class="active"><a href="#reportData" data-toggle="tab">数据展示</a>
 								</li>
@@ -57,11 +56,10 @@
 								<div class="tab-pane fade in active" id="reportData">
 
 									<div class="row">
-										<div class="col-xs-12" style="height: 200px;overflow: auto;">
-											<table id="file_data"
-												class="table table-striped table-bordered"
-												style="width:100%;">
+										<div class="col-xs-12">
+											<table id="file_data" class="table table-striped table-bordered" style="width:100%;">
 											</table>
+											<div id="grid-pager"></div>
 										</div>
 									</div>
 									<!--/row-->
@@ -71,9 +69,7 @@
 									<div class="row">
 										<div class="col-xs-12"
 											style="margin-top: 25px;height: 200px;overflow: auto;">
-											<table id="column_data"
-												class="table table-striped table-bordered"
-												style="width:100%;">
+											<table id="column_data" class="table table-striped table-bordered" style="width:100%;">
 											</table>
 										</div>
 									</div>
@@ -81,9 +77,7 @@
 
 									<div class="row">
 										<div class="col-xs-12" style="margin-top: 25px;height: 200px;">
-											<table id="report_data"
-												class="table table-striped table-bordered"
-												style="width:100%;">
+											<table id="report_data" class="table table-striped table-bordered" style="width:100%;">
 											</table>
 										</div>
 									</div>
@@ -92,8 +86,7 @@
 									<div class="row">
 										<div class="col-xs-12 text-center" id="report_btn"
 											style="margin-bottom: 20px;;height: 100px;display: none;">
-											<button id="createReport" class="btn btn-large btn-primary"
-												type="button">生成报表</button>
+											<button id="createReport" class="btn btn-large btn-primary" type="button">生成报表</button>
 										</div>
 									</div>
 									<!--/row-->
@@ -122,6 +115,6 @@
 		</div>
 	</div>
 	<!-- Main Container end -->
-
+    
 </body>
 </html>

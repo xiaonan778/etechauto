@@ -5,7 +5,7 @@
 <html>
 <head>
     <jsp:include page="../common/meta.jsp" />
-    <jsp:include page="../common/resources.jsp" />
+    <jsp:include page="../common/resources2.jsp" />
     
     <link rel="stylesheet" href="${path}/resources/ace/css/chosen.min.css" />
     <script src="${path}/resources/ace/js/chosen.jquery.min.js"></script>
@@ -16,41 +16,37 @@
     <script src="${path}/resources/easyui/js/jquery.easyui.min.js"></script>
     
     <script src="${path}/scripts/info/tree_edit.js" ></script>
+    
+    <script type="text/javascript" >
+       $(function(){
+           $("#sys_import").parent().addClass("active");
+       });
+    </script>
 </head>
-  
-<body class="navbar-fixed">
-    <jsp:include page="../common/header.jsp" />
-    <div class="main-container">
-        <div class="main-container-inner">  
-            <jsp:include page="../common/menu.jsp" />
-            
-            <div class="main-content" id="mainContent">
-                <div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs">
-            
-                    <ul class="breadcrumb">
-                        <li>
-                            <i class="icon-home home-icon"></i>
-                            <a href="${path}/">首页</a>
-                        </li>
-                        <li><a href="${path}/info/toTree">树形结构</a></li>
-                        <li class="active">新增树节点</li>
-                    </ul><!-- .breadcrumb -->
-                </div>
-            
-                <div class="page-content" style="height: 550px;">
-                    <div style="height: 40px;"></div>
-                    <div class="panel panel-default">
-	                    <div class="panel-heading">
-	                        <table style="width: 99%;">
-	                            <tr>
-	                                <td style="width: 4%;text-align: left;">
-	                                   <a class="btn btn-primary" type="button" href="${path}/info/toTree">返回</a>
-	                                </td>
-	                                <td class="panel-title" style="width: 96%;text-align: center;font-weight:bold">新增树节点</td>
-	                            </tr>
-	                        </table>
-	                    </div>
-	                    <div class="panel-body">
+
+<body>
+    <jsp:include page="../common/header2.jsp" />
+    <!-- Main Container start -->
+    <div class="dashboard-container">
+
+        <div class="container">
+
+            <jsp:include page="../common/menu2.jsp" />
+
+            <!-- Dashboard Wrapper Start -->
+            <div class="dashboard-wrapper">
+                  <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <table style="width: 99%;">
+                                <tr>
+                                    <td style="width: 4%;text-align: left;">
+                                       <a class="btn btn-primary" type="button" href="${path}/info/toTree">返回</a>
+                                    </td>
+                                    <td class="panel-title" style="width: 96%;text-align: center;font-weight:bold">新增树节点</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="panel-body">
                             <form id="tree_edit_form" class="form" style="height: 550px; width: 90%;margin-top: 20px;">
                                 <div class="row">
                                     <div class="col-md-12">
@@ -100,16 +96,16 @@
                                     <button type="button" class="btn btn-primary" id="submit">提交</button>
                                 </div>
                             </form>
-	                    </div>
-	                </div>
-                    
-                </div><!-- /.page-content -->
-            </div><!-- /.main-content -->
-            
-        </div>
-        
-    </div><!-- /.main-container-inner -->
+                        </div>
+                    </div>
+
+            </div>
+            <!-- Dashboard Wrapper End -->
+            <jsp:include page="../common/footer2.jsp" />
+         </div>
+     </div>
+    <!-- Main Container end -->
     
-    <jsp:include page="../common/footer.jsp" />
 </body>
+
 </html>

@@ -16,7 +16,7 @@
     </script>
 </head>
 
-<body class="navbar-fixed">
+<body>
 	<jsp:include page="../common/header2.jsp" />
 	<!-- Main Container start -->
     <div class="dashboard-container">
@@ -31,28 +31,29 @@
 					<div class="panel panel-default">
 						<div class="panel-heading panel-title">
 							<div class="row">
-								<div class="col-xs-6">树形结构</div>
+								<div class="col-xs-6" style="font-weight:bold">树形结构</div>
 								<div class="col-xs-6 text-right action-bar">
 									<a type="button" class="btn btn-primary" href="${path}/info/toAddTree">新增树节点</a>
 								</div>
 							</div>
 						</div>
-					</div>
-
-					<div class="row" style="margin-top:5px;">
-						<div class="col-xs-12">
-							<div class="col-xs-12">
-								<div>
-									<a id="openAll" style="cursor:pointer"><i id="treeFlag" class="fa fa-plus"></i></a>
-								</div>
-								<div>
-									<ul id="infoTree" class="ztree"></ul>
-								</div>
-								<div style="height: 50px;"></div>
-							</div>
+						<div class="panel-body">
+						   <div class="row" style="margin-top:5px;">
+		                        <div class="col-xs-12">
+		                            <div class="col-xs-12">
+		                                <div>
+		                                    <a id="openAll" style="cursor:pointer"><i id="treeFlag" class="fa fa-plus"></i></a>
+		                                </div>
+		                                <div>
+		                                    <ul id="infoTree" class="ztree"></ul>
+		                                </div>
+		                                <div style="height: 50px;"></div>
+		                            </div>
+		                        </div>
+		                    </div>
+		                    <!--/row-->
 						</div>
 					</div>
-					<!--/row-->
 
 		    </div>
 		    <!-- Dashboard Wrapper End -->

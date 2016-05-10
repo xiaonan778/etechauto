@@ -1613,7 +1613,7 @@ ul.appointments li:first-child {
 .dashboard-wrapper {
 	position: relative;
 	background: #f7f7f7;
-	min-height: 680px;
+	min-height: 500px;
 	padding: 15px;
 }
 
