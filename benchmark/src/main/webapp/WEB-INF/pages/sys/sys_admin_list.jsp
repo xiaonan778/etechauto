@@ -88,7 +88,7 @@
                     <div class="panel panel-default">
                          <div class="panel-heading panel-title">
                               <div class="row">
-                                    <div class="col-xs-6 text-left"> 新增用户</div>
+                                    <div class="col-xs-6 text-left"> 账号管理</div>
                                     <div class="col-xs-6 text-right">
                                         <shiro:hasPermission name="sys.administrator:create">                 
 			                                 <a type="button" class="btn btn-primary" href="${path}/sys/admin/toSysAdminAdd" >新增用户</a>
