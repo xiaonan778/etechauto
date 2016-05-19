@@ -7,44 +7,42 @@
 <html>
 <head>
     <jsp:include page="../common/meta.jsp" />
-    <jsp:include page="../common/resources.jsp" />
+    <jsp:include page="../common/resources2.jsp" />
+    
+    <script >
+    $(function(){
+        $("#sys_config").parent().addClass("active");
+    });
+    </script>
 </head>
   
-<body class="navbar-fixed">
-    <jsp:include page="../common/header.jsp" />
-    <div class="main-container">
-        <div class="main-container-inner">  
-            <jsp:include page="../common/menu.jsp" />
-            
-            <div class="main-content" id="mainContent">
-                <div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs">
-            
-                    <ul class="breadcrumb">
-                        <li>
-                            <i class="icon-home home-icon"></i>
-                            <a href="${path}/">首页</a>
-                        </li>
-                        <li class="active">系统配置</li>
-                        <li><a href="${path}/permission/list">权限管理</a></li>
-                        <li class="active">权限详情</li>
-                    </ul><!-- .breadcrumb -->
-                </div>
-            
-                <div class="page-content" style="height: 550px;">
-                    <div style="height: 40px;"></div>
-                    <div class="panel panel-default">
-	                    <div class="panel-heading">
-	                        <table style="width: 99%;">
-	                            <tr>
-	                                <td style="width: 4%;text-align: left;">
-	                                   <a class="btn btn-primary" type="button" href="${path}/permission/list">返回</a>
-	                                </td>
-	                                <td class="panel-title" style="width: 96%;text-align: center;font-weight:bold">权限详情</td>
-	                            </tr>
-	                        </table>
-	                    </div>
-	                    <div class="panel-body">
-	                        <div class="row">
+<body>
+
+    <jsp:include page="../common/header2.jsp" />
+
+    <!-- Main Container start -->
+    <div class="dashboard-container">
+
+        <div class="container">
+
+            <jsp:include page="../common/menu2.jsp" />
+
+            <!-- Dashboard Wrapper Start -->
+            <div class="dashboard-wrapper">
+
+                 <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <table style="width: 99%;">
+                                <tr>
+                                    <td style="width: 4%;text-align: left;">
+                                       <a class="btn btn-primary" type="button" href="${path}/permission/list">返回</a>
+                                    </td>
+                                    <td class="panel-title" style="width: 96%;text-align: center;font-weight:bold">权限详情</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
                               <div class="row">
                                   <div class="col-md-12">
                                       <div class="col-md-6">
@@ -137,17 +135,18 @@
                                          </div>
                                      </div>
                                  </div>
-	                        </div>
-	                    </div>
-	                </div>
-                    
-                </div><!-- /.page-content -->
-            </div><!-- /.main-content -->
-            
+                            </div>
+                        </div>
+                    </div>
+
+            </div>
+            <!-- Dashboard Wrapper End -->
+
+            <jsp:include page="../common/footer2.jsp" />
+
         </div>
-        
-    </div><!-- /.main-container-inner -->
+    </div>
+    <!-- Main Container end -->
     
-    <jsp:include page="../common/footer.jsp" />
 </body>
 </html>

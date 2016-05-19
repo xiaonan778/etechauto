@@ -10,7 +10,7 @@
 <html>
 <head>
     <jsp:include page="../common/meta.jsp" />
-    <jsp:include page="../common/resources.jsp" />
+    <jsp:include page="../common/resources2.jsp" />
     <script src="${path }/scripts/sys/sys_admin_list.js" ></script>
     <script src="${path }/scripts/plugins/datatable/jquery.bravoui.datatable.js" ></script>
     <script>
@@ -46,11 +46,9 @@
         %>
     }
     
-    $(function(){
-        $("#sys_admin").addClass("active");
-        $("#sys").addClass("open");
-        $("#sys").addClass("active");
-    });
+	 $(function(){
+         $("#sys_config").parent().addClass("active");
+     });
     </script>
     <style type="text/css">
         .radioList-horizontal{
@@ -75,87 +73,80 @@
     </style>
 </head>
   
-<body class="navbar-fixed">
-    <jsp:include page="../common/header.jsp" />
-    <div class="main-container">
-        <div class="main-container-inner">  
-            <jsp:include page="../common/menu.jsp" />
-            
-            <div class="main-content" id="mainContent">
-                <div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs">
-            
-                    <ul class="breadcrumb">
-                        <li>
-                            <i class="icon-home home-icon"></i>
-                            <a href="${path}/">首页</a>
-                        </li>
-                        <li class="active">系统配置</li>
-                        <li class="active">系统管理员</li>
-                    </ul><!-- .breadcrumb -->
-                </div>
-            
-                <div class="page-content">
-                    <div style="height: 40px;"></div>
+<body >
+    <jsp:include page="../common/header2.jsp" />
+
+    <!-- Main Container start -->
+    <div class="dashboard-container">
+
+        <div class="container">
+
+            <jsp:include page="../common/menu2.jsp" />
+
+            <!-- Dashboard Wrapper Start -->
+            <div class="dashboard-wrapper">
                     <div class="panel panel-default">
-		                 <div class="panel-heading panel-title">新增用户</div>
-		                 <div class="panel-body">
-		                     <div class="row">
-		                     <form class="form searchform" role="form" id="searchform" name="searchform">
-		                            <div class="row">
-		                                <div class="col-md-12">
-		                                
-		                                    <div class="col-md-3">
-		                                        <div class="form-group">
-		                                            <div class="input-group">
-		                                                <div class="input-group-addon">帐号</div>
+                         <div class="panel-heading panel-title">
+                              <div class="row">
+                                    <div class="col-xs-6 text-left"> 新增用户</div>
+                                    <div class="col-xs-6 text-right">
+                                        <shiro:hasPermission name="sys.administrator:create">                 
+			                                 <a type="button" class="btn btn-primary" href="${path}/sys/admin/toSysAdminAdd" >新增用户</a>
+					                    </shiro:hasPermission>   
+                                    </div>
+                              </div>
+                         </div>
+                         <div class="panel-body">
+                             <div class="row">
+                             <form class="form searchform"  id="searchform" name="searchform">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                        
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon">帐号</div>
                                                         <input class="form-control" type="text" id="username" name="username"  placeholder="请输入帐号">
-		                                            </div>
-		                                        </div>
-		                                    </div>
-		                                    <div class="col-md-3">
-		                                        <div class="form-group">
-		                                            <div class="input-group">
-		                                                <div class="input-group-addon">姓名</div>
-		                                                <input  class="form-control" type="text" id="realname" name="realname"  placeholder="请输入姓名">    
-		                                            </div>
-		                                        </div>
-		                                    </div> 
-		                                    
-		                                    
-		                                    <div class="text-left">
-		                                        <input type="button" id="searchButton" class="btn btn-large btn-primary" value="查询"/>
-		                                        <input type="button" id="resetButton" class="btn btn-primary" value="重置" />
-		                                   </div>
-		                                </div>
-		                            </div>
-		                            </form>
-		                     </div>
-		                 </div>
-		            </div>
-		            
-		            <shiro:hasPermission name="sys.administrator:create">                 
-		                <div class="row">
-		                  <div class="col-md-12 text-right action-bar">
-		                     <a type="button" class="btn btn-primary" href="${path}/sys/admin/toSysAdminAdd" >新增用户</a>
-		                  </div>
-		                </div>
-		            </shiro:hasPermission>   
-		            
-		            
-		            <div class="row" style="margin-top:5px;">
-		                <div class="col-xs-12">
-		                        <table id="tp" class="table table-striped table-hover table-bordered table-responsive">                
-		                        </table>
-		                </div>
-		            </div><!--/row-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon">姓名</div>
+                                                        <input  class="form-control" type="text" id="realname" name="realname"  placeholder="请输入姓名">    
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                            
+                                            
+                                            <div class="text-left">
+                                                <input type="button" id="searchButton" class="btn btn-large btn-primary" value="查询"/>
+                                                <input type="button" id="resetButton" class="btn btn-primary" value="重置" />
+                                           </div>
+                                        </div>
+                                    </div>
+                                    </form>
+                             </div>
+                         </div>
+                    </div>
                     
-                </div><!-- /.page-content -->
-            </div><!-- /.main-content -->
-            
+                    <div class="row" style="margin-top:5px;">
+                        <div class="col-xs-12">
+                                <table id="tp" class="table table-striped table-hover table-bordered table-responsive">                
+                                </table>
+                        </div>
+                    </div><!--/row-->
+                
+
+            </div>
+            <!-- Dashboard Wrapper End -->
+
+            <jsp:include page="../common/footer2.jsp" />
+
         </div>
-        
-    </div><!-- /.main-container-inner -->
-    
-    <jsp:include page="../common/footer.jsp" />
+    </div>
+    <!-- Main Container end -->
+
 </body>
 </html>

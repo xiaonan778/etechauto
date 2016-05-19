@@ -3,18 +3,17 @@
 <html>
 <head>
 <jsp:include page="common/meta.jsp" />
-<jsp:include page="common/resources.jsp" />
+<jsp:include page="common/resources2.jsp" />
 <link rel="stylesheet" type="text/css" href="${path }/resources/imgcss/css/normalize.css" />
 <link rel="stylesheet" type="text/css" href="${path }/resources/imgcss/css/demo.css" />
 <link rel="stylesheet" type="text/css" href="${path }/resources/imgcss/css/set1.css" />
 </head>
 
 <body class="keBody">
-    <jsp:include page="common/header.jsp" />
+    <jsp:include page="common/header2.jsp" />
 	<div class="kePublic">
 		<!--效果html开始-->
 		<div class="container">
-			<h1 class="keTitle"></h1>
 			<div class="content">
 				<div class="grid">
 				
@@ -70,6 +69,18 @@
 		<div class="clear"></div>
 	</div>
 	<div class="keBottom"></div>
+	
+	<script>
+	   function resizeContainer() {
+		   var height = $(window).height();
+		   height = height -80 < 580 ? 580 : height -80;
+		   $(".kePublic").height(height);
+	   }
+	   resizeContainer();
+	   $(window).resize(function(){
+		   resizeContainer();
+	   });
+	</script>
 </body>
 
 </html>

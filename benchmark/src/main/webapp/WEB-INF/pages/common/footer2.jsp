@@ -18,5 +18,15 @@
     });
   });
 
-  
+  function resizeContainer() {
+      var height = $(window).height();
+      var offset = $("footer").offset();
+      if ((offset.top + 80) < height ) {
+          $(".dashboard-wrapper").css({"min-height": height - 240,"overflow": "auto"});
+      }
+  }
+  resizeContainer();
+  $(window).resize(function(){
+      resizeContainer();
+  });
 </script>
