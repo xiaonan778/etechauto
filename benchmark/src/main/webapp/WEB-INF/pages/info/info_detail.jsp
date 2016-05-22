@@ -12,68 +12,61 @@
     
 </head>
   
-<body class="navbar-fixed">
-    <jsp:include page="../common/header.jsp" />
-    <div class="main-container">
-        <div class="main-container-inner">  
-            <jsp:include page="../common/menu.jsp" />
-            
-            <div class="main-content" id="mainContent">
-                <div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs">
-            
-                    <ul class="breadcrumb">
-                        <li>
-                            <i class="icon-home home-icon"></i>
-                            <a href="${path}/">首页</a>
-                        </li>
-                        <li >信息分类</li>
-                        <li ><a href="${path}/info/listall">信息查询</a></li>
-                        <li class="active">Excel数据</li>
-                    </ul><!-- .breadcrumb -->
-                </div>
-                <div class="page-content">
-                    <div style="height: 40px;"></div>
-			            <div class="row">
-		                <div class="col-xs-12">
-					    <table id="excel_data"  style="width:100%;height: auto;max-height:500px;" title="Excel数据"  data-options="rownumbers:true, singleSelect:true, toolbar: '#tb', onClickRow: onClickRow">
-					        <c:forEach items="${dataList }"  var="row"  varStatus="status">
-					           <c:if test="${status.index == 0}">
-					               <thead>
-					               <tr>
-	                                   <c:forEach items="${row }" var="cell">
-	                                       <th  data-options="field:'${cell.key }',editor:'textbox'">${cell.key }</th>
-	                                   </c:forEach>
-	                               </tr>
-	                               </thead>
-					           </c:if>
-					        </c:forEach>
-					        <tbody>
-					        <c:forEach items="${dataList }"  var="row"  varStatus="status">
-                               <tr>
-                                   <c:forEach items="${row }" var="cell">
-                                       <td>${cell.value }</td>
-                                   </c:forEach>
-                               </tr>
-                            </c:forEach>
-                            </tbody>
-	                    </table>
-	                    
-	                    <div id="tb" style="height:auto">
-					        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="append()">&nbsp;&nbsp;&nbsp;&nbsp;新增&nbsp;&nbsp;<i class="icon-plus"></i></a>
-					        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveData()">&nbsp;&nbsp;&nbsp;&nbsp;删除&nbsp;&nbsp;<i class="icon-remove"></i></a>
-					        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveData()">&nbsp;&nbsp;&nbsp;&nbsp;保存&nbsp;&nbsp;<i class="icon-save"></i></a>
-					        <input type="hidden" value="${tableName }"  id="tableName" />
-					        <input type="hidden" value="${fileId }"  id="fileId" />
-					    </div>
-	                    
+<body>
+    <div class="container-fluid">
+        <div class="col-md-12">
+	    <div class="panel panel-default">
+	           <div class="panel-heading">
+	                <div class="panel-title">
+	                    <div class="breadcrumbs" >
+		                    <ul class="breadcrumb">
+		                        <li><strong>${category }</strong></li>
+		                        <li class="active"><strong>${fileName }</strong></li>
+		                    </ul><!-- .breadcrumb -->
 		                </div>
-		                <div id="searchText"></div>
-		            </div><!--/row-->	            
-                </div><!-- /.page-content -->
-            </div><!-- /.main-content -->
-        </div>
-    </div><!-- /.main-container-inner -->
-    <jsp:include page="../common/footer.jsp" />
+	                </div>
+	           </div>
+	           <div class="panel-body">
+	                 <div class="row">
+			         <div class="col-xs-12">
+			         <table id="excel_data"  style="width:100%;height: auto;max-height:700px;"   data-options="rownumbers:true, singleSelect:true, toolbar: '#tb', onClickRow: onClickRow">
+			             <c:forEach items="${dataList }"  var="row"  varStatus="status">
+			                <c:if test="${status.index == 0}">
+			                    <thead>
+			                    <tr>
+			                        <c:forEach items="${row }" var="cell">
+			                            <th  data-options="field:'${cell.key }',editor:'textbox'">${cell.key }</th>
+			                        </c:forEach>
+			                    </tr>
+			                    </thead>
+			                </c:if>
+			             </c:forEach>
+			             <tbody>
+			             <c:forEach items="${dataList }"  var="row"  varStatus="status">
+			                <tr>
+			                    <c:forEach items="${row }" var="cell">
+			                        <td>${cell.value }</td>
+			                    </c:forEach>
+			                </tr>
+			             </c:forEach>
+			             </tbody>
+			         </table>
+			         
+			         <div id="tb" style="height:auto">
+			             <a href="javascript:void(0)" class="easyui-linkbutton" onclick="append()">&nbsp;&nbsp;&nbsp;&nbsp;新增&nbsp;&nbsp;<i class="icon-plus"></i></a>
+			             <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveData()">&nbsp;&nbsp;&nbsp;&nbsp;删除&nbsp;&nbsp;<i class="icon-remove"></i></a>
+			             <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveData()">&nbsp;&nbsp;&nbsp;&nbsp;保存&nbsp;&nbsp;<i class="icon-save"></i></a>
+			             <input type="hidden" value="${tableName }"  id="tableName" />
+			             <input type="hidden" value="${fileId }"  id="fileId" />
+			         </div>
+			         
+			         </div>
+			         <div id="searchText"></div>
+			     </div><!--/row-->  
+	           </div>
+	    </div>
+	    </div>
+    </div>
     
     <script type="text/javascript">
 	        var datagrid = $('#excel_data').datagrid();  

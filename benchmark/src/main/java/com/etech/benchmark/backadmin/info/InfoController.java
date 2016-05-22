@@ -134,6 +134,8 @@ public class InfoController {
        model.addAttribute("dataList", dataList);
        model.addAttribute("tableName", tableName);
        model.addAttribute("fileId", id);
+       model.addAttribute("fileName", excel.getName());
+       model.addAttribute("category", excel.getCondition());
        return "info/info_detail";
    }
    

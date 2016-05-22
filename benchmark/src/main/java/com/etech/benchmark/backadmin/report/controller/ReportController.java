@@ -26,6 +26,7 @@ import com.etech.benchmark.backadmin.info.service.BmTreeService;
 import com.etech.benchmark.backadmin.report.service.ReportService;
 import com.etech.benchmark.backadmin.report.service.TableSchemaService;
 import com.etech.benchmark.backadmin.sys.service.DictionaryService;
+import com.etech.benchmark.constant.Constants;
 import com.etech.benchmark.data.info.model.BmFile;
 import com.etech.benchmark.data.report.model.ChartFactor;
 import com.etech.benchmark.data.sys.model.SysDataDictionary;
@@ -99,6 +100,7 @@ public class ReportController {
             result = new ResultEntityHashMapImpl(ResultEntity.KW_STATUS_SUCCESS,  "success");
             result.addObject("excelList", excelList);
             result.addObject("columnList", columnList);
+            result.addObject("filepath", Constants.FILEPATH_PREFIX);
         } else {
             result = new ResultEntityHashMapImpl(ResultEntity.KW_STATUS_FAIL,  "查无结果");
         }
