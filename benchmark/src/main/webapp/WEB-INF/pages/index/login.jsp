@@ -22,7 +22,7 @@
 	<div class="login-page">
 	    <div class="login-main">    
 	         <div class="login-head">
-	                <h1>Login</h1>
+	                <h1>Bench Mark</h1>
 	            </div>
 	            <div class="login-block">
 	                <c:if test="${not empty error}">
