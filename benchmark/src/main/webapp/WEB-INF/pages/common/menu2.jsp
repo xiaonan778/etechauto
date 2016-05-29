@@ -18,13 +18,19 @@
 			    <shiro:hasPermission name="menu:admin_permission">
 			         <li><a href='${path }/sys/admin/list'>账号管理</a></li>
 			    </shiro:hasPermission>
+			    
 				<shiro:hasPermission name="menu:role_permission">
 				    <li><a href='${path }/role/list'>角色权限</a></li>
 				</shiro:hasPermission>
+				
 				<shiro:hasPermission name=" menu:sys_permission">
 				    <li><a href='${path }/permission/list'>权限管理</a></li>
 				</shiro:hasPermission>
-				<li><a href='#'>模板管理</a></li>
+				
+				<shiro:hasPermission name="menu:dictionary">
+				    <li><a href='${path }/dic/list'>模板管理</a></li>
+				</shiro:hasPermission>
+				
 			</ul>
 		</li>
 	</ul>
