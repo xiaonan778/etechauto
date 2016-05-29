@@ -18,10 +18,12 @@
 				<div class="grid">
 				
 					<figure class="effect-layla">
-						<img src="${path }/images/engine.png" alt="" />
+						<img src="${path }/images/1.png" alt="" />
 						<figcaption>
 							<h2>
-								Engine<br><span>发动机</span>
+								<!-- Engine<br> -->
+								<br>
+								<span>整车</span>
 							</h2>
 							<p></p>
 							<a href="${path }/engine">View more</a>
@@ -29,10 +31,11 @@
 					</figure>
 					
 					<figure class="effect-layla">
-						<img src="${path }/images/wheel.jpg" alt="img03" />
+						<img src="${path }/images/1.png" alt="img03" />
 						<figcaption>
 							<h2>
-								Wheel<br><span>车轮</span>
+								<br>
+								<span>动力总成</span>
 							</h2>
 							<p></p>
 							<a href="javascript:void(0);">View more</a>
@@ -40,10 +43,11 @@
 					</figure>
 					
 					<figure class="effect-layla">
-                        <img src="${path }/images/engine.png" alt="" />
+                        <img src="${path }/images/1.png" alt="" />
                         <figcaption>
                             <h2>
-                                Engine<br><span>发动机</span>
+								<br>
+								<span>底盘</span>
                             </h2>
                             <p></p>
                             <a href="javascript:void(0);">View more</a>
@@ -51,16 +55,38 @@
                     </figure>
                     
                     <figure class="effect-layla">
-                        <img src="${path }/images/wheel.jpg" alt="img03" />
+                        <img src="${path }/images/1.png" alt="img03" />
                         <figcaption>
                             <h2>
-                                Wheel<br><span>车轮</span>
+								<br>
+								<span>内外饰</span>
                             </h2>
                             <p></p>
                             <a href="javascript:void(0);">View more</a>
                         </figcaption>
                     </figure>
-					
+                    <figure class="effect-layla">
+                        <img src="${path }/images/1.png" alt="img03" />
+                        <figcaption>
+                            <h2>
+								<br>
+								<span>安全</span>
+                            </h2>
+                            <p></p>
+                            <a href="javascript:void(0);">View more</a>
+                        </figcaption>
+                    </figure>	
+                    <figure class="effect-layla">
+                        <img src="${path }/images/1.png" alt="img03" />
+                        <figcaption>
+                            <h2>
+								<br>
+								<span>车联网</span>
+                            </h2>
+                            <p></p>
+                            <a href="javascript:void(0);">View more</a>
+                        </figcaption>
+                    </figure>	                    				
 				</div>
 			</div>
 		</div>
