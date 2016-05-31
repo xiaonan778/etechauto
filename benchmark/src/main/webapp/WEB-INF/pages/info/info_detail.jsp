@@ -16,20 +16,20 @@
     <div class="container-fluid">
         <div class="col-md-12">
 	    <div class="panel panel-default">
-	           <div class="panel-heading">
-	                <div class="panel-title">
-	                    <div class="breadcrumbs" >
-		                    <ul class="breadcrumb">
-		                        <li><strong>${category }</strong></li>
-		                        <li class="active"><strong>${fileName }</strong></li>
-		                    </ul><!-- .breadcrumb -->
-		                </div>
-	                </div>
-	           </div>
+
+	          <div class="page-header">
+		            <h1>
+		                ${fileName }
+		                <small>
+		                    <i class="icon-double-angle-right"></i>
+		                    ${category }
+		                </small>
+		            </h1>
+		       </div><!-- /.page-header -->
 	           <div class="panel-body">
 	                 <div class="row">
 			         <div class="col-xs-12">
-			         <table id="excel_data"  style="width:100%;height: auto;max-height:700px;"   data-options="rownumbers:true, singleSelect:true, toolbar: '#tb', onClickRow: onClickRow">
+			         <table id="excel_data"  style="width:100%;height: auto;max-height:500px;display:none;"   data-options="rownumbers:true, singleSelect:true, toolbar: '#tb', onClickRow: onClickRow">
 			             <c:forEach items="${dataList }"  var="row"  varStatus="status">
 			                <c:if test="${status.index == 0}">
 			                    <thead>
@@ -69,6 +69,7 @@
     </div>
     
     <script type="text/javascript">
+            $("#excel_data").css("max-height", $(window).height() - 150 + "px" );
 	        var datagrid = $('#excel_data').datagrid();  
 	        $("#excel_data").datagrid('hideColumn', 'id');        
 	        $("#excel_data").datagrid('hideColumn', 'fileId');  
