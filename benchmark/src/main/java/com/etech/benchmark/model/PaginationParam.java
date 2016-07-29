@@ -8,6 +8,11 @@ public abstract class PaginationParam extends BaseQueryParam {
     private int pageNow;
     private String sorter;
     private String sortOrder;
+    
+    /**
+     * 排序字符串（name.desc）
+     */
+    private String sortString;
 
     public PaginationParam() {
         this.pageStart = 0;
@@ -59,4 +64,13 @@ public abstract class PaginationParam extends BaseQueryParam {
     public void setSortOrder(String sortOrder) {
         this.sortOrder = sortOrder;
     }
+
+    public String getSortString() {
+        return sortString;
+    }
+
+    public void setSortString(String sortString) {
+        this.sortString = sortString;
+    }
+    
 }

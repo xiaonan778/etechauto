@@ -59,14 +59,15 @@ public class DictionaryController {
      * @return
      */
     @RequestMapping(value = "/search", method = RequestMethod.POST)
-    public ResponseEntity<ResultEntity> search(@RequestBody RoleParam param, HttpServletRequest request, UriComponentsBuilder builder) {
+    public ResponseEntity<ResultEntity> search(@RequestBody RoleParam param, HttpServletRequest request) {
         ResultEntity result = null;
         try {
             Page<Map<String, Object>> pageMap = dicService.page( param.getPageNow() + 1, param.getPageSize());
             if (pageMap != null) {
                 result = new ResultEntityHashMapImpl(ResultEntity.KW_STATUS_SUCCESS, "success");
-                result.addObject("list", pageMap.getRows());
-                result.addObject("totalSize", pageMap.getTotal());
+                result.addObject("data", pageMap.getRows());
+                result.addObject("recordsTotal", pageMap.getTotal());
+                result.addObject("recordsFiltered", pageMap.getTotal());
             } else {
                 result = new ResultEntityHashMapImpl(ResultEntity.KW_STATUS_FAIL, "search fail!");
             }
@@ -77,7 +78,6 @@ public class DictionaryController {
         }
         
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(builder.path("/dic/search").buildAndExpand().toUri());
         return new ResponseEntity<ResultEntity>(result, headers, HttpStatus.OK);
     }
     
@@ -97,7 +97,7 @@ public class DictionaryController {
      * 单笔数据
      */ 
     @RequestMapping(value = "/son/search/{id}", method = RequestMethod.POST)
-    public ResponseEntity<ResultEntity> sonsearch(@PathVariable String id, @RequestBody RoleParam param, HttpServletRequest request, UriComponentsBuilder builder) {
+    public ResponseEntity<ResultEntity> sonsearch(@PathVariable String id, @RequestBody RoleParam param, HttpServletRequest request) {
         ResultEntity result = null;
         try {
         	Map<String, Object> params = new HashMap<String, Object>();
@@ -105,8 +105,9 @@ public class DictionaryController {
             Page<Map<String, Object>> pageMap = dicService.sonpage( params ,param.getPageNow() + 1, param.getPageSize());
             if (pageMap != null) {
                 result = new ResultEntityHashMapImpl(ResultEntity.KW_STATUS_SUCCESS, "success");
-                result.addObject("list", pageMap.getRows());
-                result.addObject("totalSize", pageMap.getTotal());
+                result.addObject("data", pageMap.getRows());
+                result.addObject("recordsTotal", pageMap.getTotal());
+                result.addObject("recordsFiltered", pageMap.getTotal());
             } else {
                 result = new ResultEntityHashMapImpl(ResultEntity.KW_STATUS_FAIL, "search fail!");
             }
@@ -117,7 +118,6 @@ public class DictionaryController {
         }
         
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(builder.path("/son/search/"+id).buildAndExpand().toUri());
         return new ResponseEntity<ResultEntity>(result, headers, HttpStatus.OK);
     }
     

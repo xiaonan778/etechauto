@@ -5,55 +5,35 @@ function addHoverDom(treeId, treeNode) {
 	if ($("#editBtn_" + treeNode.tId).length > 0	|| $("#fileBtn_" + treeNode.tId).length > 0) {
 		return;
 	}
-	if (treeNode.treeFlag === true) {
-		// uploadId = treeNode.id;
-		var addStr = "<span style='margin-left: 5px;' class='button add' id='addBtn_" + treeNode.tId + "' title='新增' onfocus='this.blur();'></span>";
-		sObj.after(addStr);
-		var editStr = "<span style='margin-left: 10px;' class='button edit' id='editBtn_" + treeNode.tId + "' title='编辑' onfocus='this.blur();'></span>";
-		sObj.after(editStr);
-		var btn = $("#editBtn_" + treeNode.tId);
-		if (btn) {
-			btn.bind("click", function() {
-				window.location.href = _path + "/info/" + treeNode.id + "/toTreeEdit";
-				return true;
-			});
-		}
-			
-		var addBtn = $("#addBtn_" + treeNode.tId);
-		if (addBtn) {
-			addBtn.bind("click", function() {
-				uploadNode = treeNode;
-				$("#category").val("");
-				$("#uploadFile").val("");
-				//        	 uploadId = treeNode.id;
-				$("#myModal1").modal({
-					backdrop : 'static',
-					keyboard : false
-				});
-				return true;
-			});
-		}
-			
-	} else {
-		var delStr = "<span style='margin-left: 5px;' class='button remove' id='delBtn_" + treeNode.tId + "' title='删除' onfocus='this.blur();'></span>";
-		sObj.after(delStr);
-		var fileStr = "<span style='margin-left: 10px;' class='button file' id='fileBtn_" + treeNode.tId + "' title='打开文件' onfocus='this.blur();'></span>";
-		sObj.after(fileStr);
-		var fileBtn = $("#fileBtn_" + treeNode.tId);
-		if (fileBtn){
-			fileBtn.on("click", function(e) {
-				window.open(treeNode.fileUrl, "_blank");
-			});
-		}
-		var delBtn = $("#delBtn_" + treeNode.tId);
-		//if (delBtn) delBtn.unbind("click").bind("click",{treeNode:treeNode}, remove);
-		if (delBtn) {
-			delBtn.bind("click", {
-				treeNode : treeNode
-			}, remove);
-		}
+	
+	var addStr = "<span style='margin-left: 5px;' class='button add' id='addBtn_" + treeNode.tId + "' title='新增' onfocus='this.blur();'></span>";
+	sObj.after(addStr);
+	var editStr = "<span style='margin-left: 10px;' class='button edit' id='editBtn_" + treeNode.tId + "' title='编辑' onfocus='this.blur();'></span>";
+	sObj.after(editStr);
+	var btn = $("#editBtn_" + treeNode.tId);
+	if (btn) {
+		btn.bind("click", function() {
+			window.location.href = _path + "/info/" + treeNode.id + "/toTreeEdit";
+			return true;
+		});
 	}
+		
+	var addBtn = $("#addBtn_" + treeNode.tId);
+	if (addBtn) {
+		addBtn.bind("click", function() {
+			uploadNode = treeNode;
+			$("#category").val("");
+			
+			$("#myModal1").modal({
+				backdrop : 'static',
+				keyboard : false
+			});
+			return true;
+		});
+	}
+			
 };
+
 function removeHoverDom(treeId, treeNode) {
 	$("#editBtn_" + treeNode.tId).unbind().remove();
 	$("#addBtn_" + treeNode.tId).unbind().remove();
@@ -61,48 +41,26 @@ function removeHoverDom(treeId, treeNode) {
 	$("#delBtn_" + treeNode.tId).unbind().remove();
 };
 
-function addExcel(treeNode, node) {
+function addTreeNode(treeNode, node) {
 	var zTree = $.fn.zTree.getZTreeObj("infoTree");
 	zTree.addNodes(treeNode, node);
 };
 
-function remove(e) {
-	var treeNode = e.data.treeNode;
-	var zTree = $.fn.zTree.getZTreeObj("infoTree");
-	bravoui.ui.msg.confirm({
-		title : "警告",
-		msg : "确认删除该文件?",
-		ok : function() {
-			bravoui.ui.msg.waiting({
-				title : "正在删除",
-				msg : "请稍后..."
-			});
-			$.ajax({
-				type : "POST",
-				contentType : 'application/json;charset=utf-8',
-				url : _path + "/info/" + treeNode.id + "/deleteFile",
-				dataType : 'json',
-				cache : false,
-				success : function(data) {
-					bravoui.ui.msg.waiting.remove();
-					if (data.msg == "success") {
-						//bravoui.ui.msg.alert("删除成功!");
-						zTree.removeNode(treeNode);
-					} else {
-						bravoui.ui.msg.alert(data.msg);
-					}
-				},
-				error : function(data) {
-					bravoui.ui.msg.waiting.remove();
-					bravoui.ui.msg.alert("对不起,删除失败");
-				}
-			});
-		}
-	});
-};
 
 $(function() {
-
+	function zTreeOnClick(event, treeId, treeNode){
+		var pNode = treeNode.getParentNode();
+		var full_name = treeNode.name;
+		while(!!pNode) {
+			full_name = pNode.name + "_" + full_name;;
+		    pNode = pNode.getParentNode();
+		}
+		
+		$("#selectedCategory").val(full_name);
+		$("#categoryName").val(full_name);
+		$("#categoryId").val(treeNode.id);
+	}
+	
 	$.ajax({
 		url : _path + "/info/listTree",
 		type : "POST",
@@ -115,6 +73,9 @@ $(function() {
 						removeHoverDom : removeHoverDom,
 						selectedMulti : true
 					},
+					callback: {
+						onClick: zTreeOnClick 
+					},	
 					check : {
 						enable : false
 					},
@@ -142,7 +103,7 @@ $(function() {
 					treeObj.expandAll(false);
 				}
 			} else {
-				bravoui.ui.msg.alert("加载树结构失败！");
+				bravoui.ui.msg.alert("加载车型结构失败！");
 			}
 
 		},
@@ -182,36 +143,26 @@ $(function() {
 	});
 
 	$("#confirmAdd").click(function() {
-		
-		var flag = $("#addType").val();
-		if (flag == "2" || flag == "3") {
-			if (!$("#uploadFile").val()) {
-				$("#uploadFile").focus();
-				alert("请选择要上传的文件！");
-				return false;
-			}
-		} else if ((flag == "1")) {
-			if (!$("#category").val()) {
-				$("#category").focus();
-				alert("请填写分类名称！");
-				return false;
-			}
+		if (!$("#category").val()) {
+			$("#category").focus();
+			alert("请填写分类名称！");
+			return false;
 		}
 		bravoui.ui.msg.waiting({
 			title: "",
 			msg: "请稍后..."
 		});
-		$("#fileForm").ajaxSubmit({
+		$("#addForm").ajaxSubmit({
 			type : "POST",
-			url : _path + "/info/" + uploadNode.id + "/fileUpload",
+			url : _path + "/info/" + uploadNode.id + "/addCategory",
 			dataType : "json",
 			success : function(data) {
 				bravoui.ui.msg.waiting.remove();
 				if (data.status == "S") {
 					$("#excel").val("");
-					addExcel(uploadNode, data.node);
+					addTreeNode(uploadNode, data.node);
 				} else {
-					bravoui.ui.msg.alert("上传失败！");
+					bravoui.ui.msg.alert("新增失败！");
 				}
 			},
 			error : function(xhr, msg, error) {
@@ -230,28 +181,150 @@ $(function() {
 		});
 	});
 	
-	$("#category2").hide();
-	$("#category3").hide();
-	$("#addType").change(function(){
-		var type = $(this).val();
-		if (type == "1") {
-			$("#category1").show();
-			$("#category2").hide();
-			$("#category3").hide();
-			$("#category").val("");
-			$("#uploadFile").val("");
-		} else if (type == "2") {
-			$("#category1").hide();
-			$("#category2").show();
-			$("#category3").show();
-			$("#category").val("");
-			$("#uploadFile").val("");
-		} else if (type == "3") {
-			$("#category1").hide();
-			$("#category2").show();
-			$("#category3").hide();
-			$("#category").val("");
-			$("#uploadFile").val("");
+	
+	/**
+	 * *****************************************************************************************
+	 * 选择文件 start
+	 * *****************************************************************************************
+	 */
+	$("#fileChooseBtn").click(function(){
+		$("#fileChooseModal").modal("show");
+	});
+	
+	$("input[name='fileType']:radio").change(function(){
+		var fileType = $("input[name='fileType']:checked").val();
+		
+		if (fileType == 1) {
+			$(".fileType1").removeClass("hidden");
+			$(".fileType2").addClass("hidden");
+		} else if (fileType == 2) {
+			$(".fileType1").addClass("hidden");
+			$(".fileType2").removeClass("hidden");
 		}
 	});
+	
+	$(".addFile1").click(function(){
+		copyFile(".fileType1", ".addFile1", ".removeFile1");
+	});
+	$(".removeFile1").click(function(){
+		removeFile(this, ".fileType1");
+	});
+	$(".addFile2").click(function(){
+		copyFile(".fileType2", ".addFile2", ".removeFile2");
+	});
+	$(".removeFile2").click(function(){
+		removeFile(this, ".fileType2");
+	});
+	function copyFile(container, add, remove){
+		var copy = $(container).first().clone();
+		copy.addClass("copy");
+		copy.find("input").val("");
+		copy.find("select").find("option").first().prop("selected", true);
+		copy.find(".hidden").removeClass("hidden");
+		copy.find(add).click(function(){
+			copyFile(container, add, remove);
+		});
+		copy.find(remove).click(function(){
+			removeFile(this, container);
+		});
+		$("#fileContainer").append(copy);
+	}
+	function removeFile(_this, container){
+		if ($(container).length > 1) {
+			$(_this).closest(container).remove();
+		}
+	}
+	
+	
+	$("#chooseConfirmbtn").click(function(){
+		var fileType = $("input[name='fileType']:checked").val();
+		
+		if (fileType == 1) {
+			$(".fileType1").each(function(index, item){
+				var excelFile = $(this).find("#excelFile");
+				if (excelFile.val()) {
+					var file = excelFile.clone();
+					excelFile.after(file);
+					excelFile.addClass("hidden");
+					var template = $(this).find("#template").clone();
+					template.addClass("hidden");
+					var content = "<tr><td>" + template.find("option:selected").text() + "</td><td>Excel</td><td>" + excelFile.val() + "</td><td><a href='javascript:void(0);' class='delRow' >删除</a></td></tr>";
+					content = $(content);
+					$("#tp").find("tbody").append(content);
+					
+					content.find(".delRow").after(excelFile).after(template).click(function(){
+						$(this).closest("tr").remove();
+					});
+				}
+			});
+		} else if (fileType == 2) {
+			$(".fileType2").each(function(index, item){
+				var otherFile = $(this).find("#otherFile");
+				if (otherFile.val()) {
+					var file = otherFile.clone();
+					otherFile.after(file);
+					otherFile.addClass("hidden");
+					var content = "<tr><td>无</td><td>其它</td><td>" + otherFile.val() + "</td><td><a href='javascript:void(0);' class='delRow' >删除</a></td></tr>";
+					content = $(content);
+					$("#tp").find("tbody").append(content);
+					content.find(".delRow").after(otherFile).click(function(){
+						$(this).closest("tr").remove();
+					});
+				}
+			});
+		}
+		$(".copy").remove();
+	});
+	/**
+	 * *****************************************************************************************
+	 * 选择文件 end
+	 * *****************************************************************************************
+	 */
+	
+	
+	// 确认上传
+	$("#uploadBtn").click(function(){
+		
+		if (!$("#categoryId").val()) {
+			bravoui.ui.msg.alert("请选择一个车型");
+			return false;
+		}
+		if ($("#uploadForm").find("input[type='file']").length == 0) {
+			bravoui.ui.msg.alert("请选择文件上传");
+			return false;
+		}
+		
+		$("#uploadForm").ajaxSubmit({
+			url: _path + "/info/data/upload",
+			type: "POST",
+			dataType: "json",
+			success: function(data){
+				bravoui.ui.msg.waiting.remove();
+				if (data.status == "S") {
+					bravoui.ui.msg.alert({
+						msg:data.message,
+						ok: function(){
+							location.reload();
+						}
+						});
+				} else {
+					bravoui.ui.msg.alert(data.message);
+				}
+			},
+			error: function(xhr, msg, error){
+				bravoui.ui.msg.waiting.remove();
+				if (msg == "parsererror") {
+					bravoui.ui.msg.alert({
+                        msg:"连接超时，请重新登录",
+                        ok: function(){
+                            location.reload();
+                        }
+                    });
+				} else {
+					bravoui.ui.msg.alert("Internal Server Error");
+				}
+			}
+		});
+	});
+	
 });

@@ -114,8 +114,8 @@ public class BmTreeServiceImpl implements BmTreeService {
     }
     
     @Override
-    public List<BmFile> searchByCondition(String keywords) {
-        return bmFileDao.searchByCondition(keywords);
+    public List<BmFile> searchByName(String keywords) {
+        return bmFileDao.searchByName(keywords);
     }
 
 

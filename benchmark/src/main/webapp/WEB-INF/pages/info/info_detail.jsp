@@ -73,6 +73,8 @@
 	        var datagrid = $('#excel_data').datagrid();  
 	        $("#excel_data").datagrid('hideColumn', 'id');        
 	        $("#excel_data").datagrid('hideColumn', 'fileId');  
+	        $("#excel_data").datagrid('hideColumn', 'treeId');  
+	        $("#excel_data").datagrid('hideColumn', 'templateId');  
 	        var editIndex = undefined;
 	        function endEditing(){
 	            if (editIndex == undefined){

@@ -13,21 +13,21 @@
         </foreach>
     </insert>
     
-    <select id="checkTableSchemaIfExists" parameterType="map"  resultType="int">
+    <select id="checkTableSchemaIfExists" parameterType="string"  resultType="int">
         select count(1) from report_table_schema where  tableName = #{tableName}
     </select>
     
-    <select id="checkTableIfExists" parameterType="map" resultType="int">
+    <select id="checkTableIfExists" parameterType="string" resultType="int">
         SELECT count( 1 ) 
                 FROM information_schema.TABLES
                 WHERE table_name = #{tableName}
     </select>
     
-    <select id="listColumnByTableFk" parameterType="map"  resultType="string" >
+    <select id="listColumnByTableFk" parameterType="string"  resultType="string" >
         select  columnName  from  report_table_schema  where  table_fk = #{table_fk};
     </select>
     
-    <select id="getUnit" parameterType="map"  resultType="string">
+    <select id="getUnit" parameterType="string"  resultType="string">
         select  unit  from  report_table_schema  where  columnName = #{columnName} limit 1
     </select>
 </mapper> 

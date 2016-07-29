@@ -12,8 +12,8 @@ $().ready(function() {
 	                digits: "只能输入整数"
 	            },  
 	            name : {  
-	                required : true,
-	                rangelength:[2, 50]
+	                required : false,
+	                rangelength:[0,50]
 	            },  
 	            memo : {  
 	            	required : false,
@@ -30,9 +30,8 @@ $().ready(function() {
 	                digits: "只能输入整数"
 	            },
 	            rule : {  
-	                required : true,
-	                isTableName: true,
-	                rangelength:[3, 20]
+	                required : false,
+	                rangelength:[0,50]
 	            }, 
 	            sort : {  
 	                required : true,
@@ -71,14 +70,11 @@ function save(){
 		    	var msg = data["message"];
 		    	var flag = data["status"];
 		    	if(flag=='S'){
-		    		bravoui.ui.msg.alert({
-		    			msg:msg,
-		    			ok: function(){
-		    				window.location = _path + "/dic/" + $("#dataFk").val() +"/sonlist";
-		    			}
-	    			});
-		    	} else{
-		    		bravoui.ui.msg.alert(msg);
+		    		alert(msg);
+	            	window.location = _path + "/dic/" + $("#dataFk").val() +"/sonlist";
+		    	}
+		    	else{
+		    		alert(msg);
 		    	}
 			},  
 		    error : function(data) {  

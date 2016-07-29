@@ -20,9 +20,9 @@
 
   function resizeContainer() {
       var height = $(window).height();
-      var offset = $("footer").offset();
-      if ((offset.top + 80) < height ) {
-          $(".dashboard-wrapper").css({"min-height": height - 240,"overflow": "auto"});
+      var container_height = $(".dashboard-container").height();
+      if ((container_height + 80) < height ) {
+          $(".dashboard-wrapper").css({"min-height": height - 200,"overflow": "auto"});
       }
   }
   resizeContainer();

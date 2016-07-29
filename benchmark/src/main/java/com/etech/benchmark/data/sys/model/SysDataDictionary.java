@@ -11,9 +11,6 @@ public class SysDataDictionary {
 
     private Integer max;
     
-    /**
-     * 设置为 table name
-     */
     private String rule; 
     
     private String memo;

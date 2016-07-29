@@ -1,23 +1,12 @@
-
-/**   
- * @Title: InfoCateControl.java 
- * @Package: com.etech.benchmark.backadmin.info 
- * @Description: TODO
- * @author DCJ  
- * @date 2015-9-28 下午4:57:12 
- * @version 1.0 
- */
-
-
-package com.etech.benchmark.backadmin.info;
+package com.etech.benchmark.backadmin.info.controller;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -43,19 +32,18 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.etech.benchmark.backadmin.info.service.BmTreeService;
 import com.etech.benchmark.backadmin.report.service.ReportService;
+import com.etech.benchmark.backadmin.report.service.ReportTemplateService;
 import com.etech.benchmark.backadmin.report.service.TableSchemaService;
 import com.etech.benchmark.backadmin.sys.service.DictionaryService;
 import com.etech.benchmark.constant.Constants;
 import com.etech.benchmark.data.info.model.BmFile;
 import com.etech.benchmark.data.info.model.BmTree;
-import com.etech.benchmark.data.sys.model.SysDataDictionary;
+import com.etech.benchmark.data.report.model.ReportTemplate;
 import com.etech.benchmark.data.ums.model.User;
 import com.etech.benchmark.exception.ServiceException;
-import com.etech.benchmark.exception.UtilException;
 import com.etech.benchmark.model.ResultEntity;
 import com.etech.benchmark.model.ResultEntityHashMapImpl;
 import com.etech.benchmark.model.ResultEntityLinkedHashMapImpl;
-import com.etech.benchmark.util.DateUtil;
 import com.etech.benchmark.util.ExcelUtil;
 import com.etech.benchmark.util.FileUtil;
 import com.etech.benchmark.util.StringUtil;
@@ -82,60 +70,156 @@ public class InfoController {
 	 @Autowired  
 	 private TableSchemaService tableSchemaService;
 	 
+	 @Resource
+     private ReportTemplateService templateService;
+	
+	 
+	 /** 
+     *  数据导入页面
+     */
+    @RequestMapping("/toTree")
+    public String toTree(Model model){
+        
+        List<ReportTemplate> templateList = templateService.listTemplate();
+        model.addAttribute("templateList",templateList);
+        return "info/tree_view";
+    }
+    
+    /**
+     *  树形结构数据
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/listTree", produces = "application/json", method = RequestMethod.POST)
+    public @ResponseBody ResponseEntity<ResultEntity> listTree(HttpServletResponse response, HttpServletRequest request){
+        ResultEntity result = new ResultEntityLinkedHashMapImpl();
+        List<Map<String, Object>> content = new ArrayList<Map<String, Object>>();
+        try {
+            List<BmTree> bmTrees = bmTreeService.find(null);
+            if (bmTrees != null) {
+                for (BmTree bmTree :bmTrees) {
+                    Map<String, Object> node = new HashMap<String, Object>();
+                    node.put("id", bmTree.getId());
+                    node.put("pId", bmTree.getParent_fk());
+                    node.put("name", bmTree.getName());
+                    node.put("treeFlag", true);
+                    content.add(node);
+                }
+                
+            }
+            result.setStatus(ResultEntity.KW_STATUS_SUCCESS);
+        } catch (ServiceException e) {
+            result.setStatus( ResultEntity.KW_STATUS_FAIL);
+            logger.error(e);
+        }
+        result.setResult(content);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        response.setCharacterEncoding("UTF-8");
+        return new ResponseEntity<ResultEntity>(result, headers, HttpStatus.OK);
+    }
+	    
 	 /**
-	  * 文件查找
+	  * 实验数据上传
+	  * @param file
+	  * @param template
+	  * @param request
 	  * @return
 	  */
-	@RequestMapping("/listall")
-    public String listall(){
-        return "info/info_list";
+    @RequestMapping( value = "/data/upload", method = RequestMethod.POST )
+    public ResponseEntity<Object> experiment_data_upload (@RequestParam(value="excelFile", required=false) MultipartFile[] excelFiles, 
+            @RequestParam(value="template", required=false) String[] templates, 
+            @RequestParam(value="otherFile", required=false) MultipartFile[] otherFiles, @RequestParam("categoryId") String categoryId, 
+            @RequestParam("categoryName") String categoryName, HttpServletRequest request) {
+        ResultEntity result = null;
+        try {
+            String path = Constants.UPLOAD_PATH;
+            User loginUser = (User) request.getSession().getAttribute(Constants.CURRENT_USER);
+            
+            if (otherFiles != null) {
+                for (MultipartFile otherFile : otherFiles) {
+                    String filename = otherFile.getOriginalFilename();
+                    String ext = filename.substring(filename.lastIndexOf(".") + 1);
+                    String filepath =  FileUtil.upload(otherFile, categoryName + "_" +filename, path);
+                    
+                    BmFile bmFile = new BmFile();
+                    bmFile.setId(StringUtil.createUUID());
+                    bmFile.setName(categoryName + "_" +filename);
+                    bmFile.setTree_id(categoryId);
+                    bmFile.setDic_id(0);
+                    bmFile.setSave_path(filepath);
+                    bmFile.setType(ext);
+                    bmFile.setCondition(bmTreeService.getConditions(categoryId).get("conditions").toString());
+                    bmFile.setUpdater_fk(loginUser.getId());
+                    bmFile.setCreator_fk(loginUser.getId());
+                    bmTreeService.insertFile(bmFile);
+                }
+            }
+            
+            if (excelFiles != null && templates != null) {
+                for (int i = 0; i < excelFiles.length; i++ ) {
+                    MultipartFile excelFile = excelFiles[i];
+                    String templateId = templates[i];
+                    String filename = excelFile.getOriginalFilename();
+                    String fileId = StringUtil.createUUID();
+                    ReportTemplate template = templateService.getById(templateId);
+                    List<Row> rows = ExcelUtil.readExcel(excelFile.getInputStream(), filename, 0);
+                    for (int j = 2; j < rows.size(); j++) {
+                        Row row = rows.get(j);
+                        Row title = rows.get(0);
+                        Map<String, Object>  map =  ExcelUtil.rowToMap(title, row, categoryId, templateId, fileId);
+                        
+                        reportService.insert(map, template.getTable_name());
+                    }
+                    
+                    String ext = filename.substring(filename.lastIndexOf(".") + 1);
+                    String filepath =  FileUtil.upload(excelFile, categoryName + "_" +filename, path);
+                    
+                    BmFile bmFile = new BmFile();
+                    bmFile.setId(fileId);
+                    bmFile.setName(categoryName + "_" +filename);
+                    bmFile.setTree_id(categoryId);
+                    bmFile.setOther(templateId);
+                    bmFile.setDic_id(template.getTemplate_type());
+                    bmFile.setSave_path(filepath);
+                    bmFile.setType(ext);
+                    bmFile.setCondition(bmTreeService.getConditions(categoryId).get("conditions").toString());
+                    bmFile.setUpdater_fk(loginUser.getId());
+                    bmFile.setCreator_fk(loginUser.getId());
+                    bmTreeService.insertFile(bmFile);
+                   
+                }
+            }
+            
+            result = new ResultEntityHashMapImpl(ResultEntity.KW_STATUS_SUCCESS,  "success");
+        } catch (Exception e) {
+            result = new ResultEntityHashMapImpl(ResultEntity.KW_STATUS_FAIL,  "Internal Server Error");
+            e.printStackTrace();
+        }
+        
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        return new ResponseEntity<Object>(result, headers, HttpStatus.OK);
     }
-	
-	/**
-	 * 文件列表
-	 * @return
-	 */
-	@RequestMapping(value = "/list")
-    public ResponseEntity<Map<String, Object>> getData(){
-        Map<String, Object> result = new HashMap<String, Object>();
-        List<Object> all = new ArrayList<Object>();
-        List<BmFile> bmList  = bmTreeService.pageExcelAll();
-        for (BmFile bmFile : bmList) {
-        	Map<String, Object> row = new HashMap<String, Object>();
-        	row.put("id", bmFile.getId());
-        	row.put("name", bmFile.getName());
-        	row.put("modal", bmFile.getModal());
-        	row.put("path", Constants.UPLOAD_PATH+"/"+bmFile.getSave_path());
-        	row.put("type", bmFile.getType());
-        	row.put("condition", bmFile.getCondition());
-        	row.put("addtime", DateUtil.dateToStringFull(bmFile.getDate_create()));
-        	row.put("fileuri", Constants.FILEPATH_PREFIX+File.separator+bmFile.getSave_path());
-        	all.add(row);
-		}
-        result.put("data", all);
-        HttpHeaders header = new HttpHeaders();
-        header.setContentType(MediaType.APPLICATION_JSON);
-        ResponseEntity<Map<String, Object>> entity = new ResponseEntity<Map<String, Object>>(result, header, HttpStatus.OK);
-        return entity;
-    }
-	
+    
 	 /**
      * Excel 数据详情
      * @return
      */
    @RequestMapping("/detail/{id}")
    public String showDetail(@PathVariable String id, Model model){
-       BmFile excel = bmTreeService.findOneFileById(id);
-       String tableName = dicService.findSysDataDicById(excel.getDic_id()).getRule();
+       BmFile file = bmTreeService.findOneFileById(id);
+       ReportTemplate template = templateService.getById(file.getOther());
        Map<String, Object> params = new HashMap<>();
+       params.put("treeId", file.getTree_id());
        params.put("fileId", id);
-       params.put("tableName", tableName);
+       params.put("tableName", template.getTable_name());
        List<Map<String, Object>> dataList =  reportService.findAllByFileId(params);
        model.addAttribute("dataList", dataList);
-       model.addAttribute("tableName", tableName);
+       model.addAttribute("tableName", template.getTable_name());
        model.addAttribute("fileId", id);
-       model.addAttribute("fileName", excel.getName());
-       model.addAttribute("category", excel.getCondition());
+       model.addAttribute("fileName", file.getName());
+       model.addAttribute("category", file.getCondition());
        return "info/info_detail";
    }
    
@@ -189,185 +273,42 @@ public class InfoController {
 	}
 	 
 	/**
-	 * 文件上传 或 新增树节点
-	 * @param myfiles
-	 * @param response
+	 * 新增分类
 	 * @param treeId
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/{treeId}/fileUpload")
-	public ResponseEntity<String> fileUpload(@RequestParam(value="uploadFile", required=false) MultipartFile myfile, HttpServletResponse response,
-	        @PathVariable String treeId, HttpServletRequest request, @RequestParam("addType") String addType,  @RequestParam(value="template", required=false) int template,
-	        @RequestParam(value="category", required=false) String category){
+	@RequestMapping("/{treeId}/addCategory")
+	public ResponseEntity<String> addCategory(@PathVariable("treeId") String treeId, HttpServletRequest request, @RequestParam(value="category") String category){
 	    User loginUser = (User) request.getSession().getAttribute(Constants.CURRENT_USER);
 		JSONObject result = new JSONObject();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        response.setCharacterEncoding("UTF-8");
-        if ( "1".equals(addType) ) {    // 新增分类或标签 
-            try {
-                BmTree treeNode = new BmTree();
-                treeNode.setId(StringUtil.createUUID());
-                treeNode.setParent_fk(treeId);
-                treeNode.setName(category);
-                treeNode.setUpdater_fk(loginUser.getId());
-                treeNode.setCreator_fk(loginUser.getId());
-                treeNode.setLevel("-1");
-                bmTreeService.insert(treeNode);
-                
-                Map<String, Object> node = new HashMap<String, Object>();
-                node.put("id", treeNode.getId());
-                node.put("pId", treeNode.getParent_fk());
-                node.put("name", treeNode.getName());
-                node.put("treeFlag", true);
-                result.put("node", node);
-                result.put("status", ResultEntity.KW_STATUS_SUCCESS);
-            } catch (ServiceException e) {
-                e.printStackTrace();
-            }
-        } else if ( "2".equals(addType) || "3".equals(addType) ) {  // 上传Excel 或 其他文件
-            String filePath = "";
-            if (myfile != null) {
-                String filename = myfile.getOriginalFilename();
-                // 获取扩展名
-                String ext = filename.substring(filename.lastIndexOf(".") + 1);
-                String fileId = StringUtil.createUUID();
-                int dic = 0;
-                if (ExcelUtil.isExcel(filename) && "2".equals(addType) ) {
-                    dic =template;
-                    try {
-                        Row rowTitle = ExcelUtil.readRow(myfile.getInputStream(), filename, 0, 0);
-                        SysDataDictionary tableInfo = dicService.findSysDataDicById(template);
-                        String tableName = tableInfo.getRule();
-                        if(rowTitle==null){
-                            result.put("msg", "无数据或不是Excel文件!");
-                            result.put("status", ResultEntity.KW_STATUS_FAIL);
-                            return new ResponseEntity<String>(result.toString(), headers, HttpStatus.OK);
-                        }
-                        List<Row>  rowList = ExcelUtil.readExcel(myfile.getInputStream(), filename, 0);
-                        for ( int j = 0; j < rowList.size(); j++) {
-                            if (j <= 1 ) {
-                                if (j == 1) {
-                                    if ( !tableSchemaService.checkTableSchemaIfExists(tableName) ) {
-                                        Map<String, Object> unit = ExcelUtil.rowToMap(rowTitle, rowList.get(1));
-                                        tableSchemaService.addReportTableColumn(unit, tableInfo.getId(), tableName);
-                                    }
-                                }
-                                continue;
-                            }
-                            Map<String, Object> params = ExcelUtil.rowToMap(rowTitle, rowList.get(j), fileId);
-                            reportService.creatTable(params, tableName);
-                            
-                            reportService.insert(params, tableName);
-                        }
-                    } catch (IOException e) {
-                        logger.error(e.getMessage());
-                    } catch (UtilException e) {
-                        logger.error(e.getMessage());
-                    }
-                } else if (ExcelUtil.isExcel(filename) && "3".equals(addType)) {
-                    result.put("msg", "导入Excel文件需要选择模板!");
-                    result.put("status", ResultEntity.KW_STATUS_FAIL);
-                    return new ResponseEntity<String>(result.toString(), headers, HttpStatus.OK);
-                }
-
-                filePath = FileUtil.upload(myfile, Constants.UPLOAD_PATH);
-                //insert bm_tree            
-                BmFile bmFile = new BmFile();
-                bmFile.setId(fileId);
-                bmFile.setName(filename);
-                bmFile.setTree_id(treeId);
-                bmFile.setDic_id(dic);
-                bmFile.setSave_path(filePath);
-                bmFile.setType(ext);
-                bmFile.setCondition(bmTreeService.getConditions(treeId).get("conditions").toString());
-                bmFile.setUpdater_fk(loginUser.getId());
-                bmFile.setCreator_fk(loginUser.getId());
-                if(!bmTreeService.insertFile(bmFile)){
-                    result.put("msg", "INSERT BM EXCEL TABLE ERROR!");
-                    result.put("status", ResultEntity.KW_STATUS_FAIL);
-                    return new ResponseEntity<String>(result.toString(), headers, HttpStatus.OK);
-                }
-                Map<String, Object> node = new HashMap<String, Object>();
-                node.put("id", bmFile.getId());
-                node.put("pId", bmFile.getTree_id());
-                node.put("name", bmFile.getName());
-                node.put("treeFlag", false);
-                node.put("fileUrl",Constants.FILEPATH_PREFIX+File.separator+bmFile.getSave_path());
-                result.put("node", node);
-                    
-                if(filePath.equals("error")){
-                    result.put("status", ResultEntity.KW_STATUS_FAIL);
-                }else{
-                    result.put("status", ResultEntity.KW_STATUS_SUCCESS);
-                }
-            }
-           
-        } 
+        try {
+            BmTree treeNode = new BmTree();
+            treeNode.setId(StringUtil.createUUID());
+            treeNode.setParent_fk(treeId);
+            treeNode.setName(category);
+            treeNode.setUpdater_fk(loginUser.getId());
+            treeNode.setCreator_fk(loginUser.getId());
+            treeNode.setLevel("-1");
+            bmTreeService.insert(treeNode);
+            
+            Map<String, Object> node = new HashMap<String, Object>();
+            node.put("id", treeNode.getId());
+            node.put("pId", treeNode.getParent_fk());
+            node.put("name", treeNode.getName());
+            node.put("treeFlag", true);
+            result.put("node", node);
+            result.put("status", ResultEntity.KW_STATUS_SUCCESS);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+            result.put("status", ResultEntity.KW_STATUS_FAIL);
+        }
        
 		return new ResponseEntity<String>(result.toString(), headers, HttpStatus.OK);
 	}
 	
-	
-	
-	
-	 /** 
-	 * @Description 树形结构显示页面
-	 * @author DCJ  
-	 */
-
-	@RequestMapping("/toTree")
-    public String toTree(Model model){
-		List<SysDataDictionary> dicList = dicService.findDictionaryByCode(Constants.DataDictionary.REPORT);
-		model.addAttribute("templateList",dicList);
-        return "info/tree_view";
-    }
-	
-    /**
-     *  多级树形结构数据
-     * @param response
-     * @return
-     */
-    @RequestMapping(value = "/listTree", produces = "application/json", method = RequestMethod.POST)
-    public @ResponseBody ResponseEntity<ResultEntity> listTree(HttpServletResponse response, HttpServletRequest request){
-        ResultEntity result = new ResultEntityLinkedHashMapImpl();
-        List<Map<String, Object>> content = new ArrayList<Map<String, Object>>();
-        try {
-            List<BmTree> bmTrees = bmTreeService.find(null);
-            if (bmTrees != null) {
-                for (BmTree bmTree :bmTrees) {
-                    Map<String, Object> node = new HashMap<String, Object>();
-                    node.put("id", bmTree.getId());
-                    node.put("pId", bmTree.getParent_fk());
-                    node.put("name", bmTree.getName());
-                    node.put("treeFlag", true);
-                    content.add(node);
-                }
-                List<BmFile> exList = bmTreeService.findExcelAll();
-                for (BmFile bmFile:exList) {
-                	Map<String, Object> node = new HashMap<String, Object>();
-                    node.put("id", bmFile.getId());
-                    node.put("pId", bmFile.getTree_id());
-                    node.put("name", bmFile.getName());
-                    node.put("treeFlag", false);
-                    node.put("fileUrl",Constants.FILEPATH_PREFIX+File.separator+bmFile.getSave_path());
-                    // node.put("icon",Constants.FILEPATH_PREFIX+File.separator+bmFile.getSave_path());
-                    content.add(node);
-    			}
-            }
-            result.setStatus(ResultEntity.KW_STATUS_SUCCESS);
-        } catch (ServiceException e) {
-            result.setStatus( ResultEntity.KW_STATUS_FAIL);
-            logger.error(e);
-        }
-        result.setResult(content);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        response.setCharacterEncoding("UTF-8");
-        return new ResponseEntity<ResultEntity>(result, headers, HttpStatus.OK);
-    }
-    
 	
     /**
      * 增加树节点
@@ -457,7 +398,7 @@ public class InfoController {
     /***********************************************************************************************************************
      **********************************************************************************************************************/
     /**
-     * 多级树形结构
+     * 多级树形结构数据 (递归)
      * @param response
      * @return
      */
@@ -496,7 +437,7 @@ public class InfoController {
             logger.error(e);
         }
         result.put("id", "");
-        result.put("text", "请选择父级树");
+        result.put("text", "请选择父级分类");
         result.put("iconCls","icon-save");
         result.put("children", content);
         list.put(result);

@@ -20,7 +20,6 @@
 <!--<context:property-placeholder ignore-resource-not-found="false" location="file:///E://config/jdbc.properties" />
 <util:properties id="appconfig" location="file:///E://config/config.properties"/>-->
 
- 
   
   <context:component-scan base-package="com.etech.benchmark.*">
     <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
@@ -57,6 +56,12 @@
         </props>
 	  </property>
   </bean>
+  
+    <!-- 扫描basePackage下所有以@MyBatisRepository标识的 接口 -->
+  <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+    <property name="basePackage" value="com.etech.benchmark.data.*.dao" />
+    <property name="annotationClass" value="com.etech.benchmark.data.MybatisRepository" />
+  </bean>
 	
   <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 	 <constructor-arg index="0" ref="sqlSessionFactory" />
@@ -67,40 +72,6 @@
   </bean>
   
   
-   <!-- 与金保接口数据直接写入金保数据库 -->
-	<!-- <bean id="dataSourceJB" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-		<property name="driverClass" value="${jdbc.driver}" />
-		<property name="jdbcUrl" value="${jdbc.jb.url}" />
-		<property name="user" value="${jdbc.jb.username}" />
-		<property name="password" value="${jdbc.jb.password}" />
-		<property name="maxPoolSize" value="${jdbc.maxPoolSize}" />
-		<property name="minPoolSize" value="${jdbc.minPoolSize}" />
-		<property name="initialPoolSize" value="${jdbc.initialPoolSize}" />
-		<property name="maxIdleTime" value="${jdbc.maxIdleTime}" />
-		<property name="idleConnectionTestPeriod" value="${jdbc.idleConnectionTestPeriod}" />
-	</bean>
-
-	<bean id="sqlSessionFactoryJB" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSourceJB" />
-		<property name="configLocation" value="classpath:sqlmap-config.xml" />
-		<property name="typeAliasesPackage" value="com.etech.benchmark.api.data.model" />
-		<property name="mapperLocations" value="classpath*:com/etech/benchmark/api/data/mapper/*.xml" />
-		<property name="plugins">
-			<array>
-				<ref bean="paginationInterceptor" />
-			</array>
-		</property>
-	</bean>
-	
-	  <bean id="sqlSessionTemplateJB" class="org.mybatis.spring.SqlSessionTemplate">
-		 <constructor-arg index="0" ref="sqlSessionFactoryJB" />
-	  </bean>
-	
-	  <bean id="sqlSessionDaoSupportJB" class="com.etech.benchmark.api.data.sqlSessionDaoSupportJB">
-		 <constructor-arg index="0" ref="sqlSessionTemplateJB" />
-	  </bean> -->
-  
-	
 	<!-- transaction manager, use JtaTransactionManager for global tx -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
@@ -130,4 +101,5 @@
   <bean id="springContextUtil" class="com.etech.benchmark.util.SpringContextUtil" />
 
   <bean class="org.springframework.web.client.RestTemplate" />
+  
 </beans>

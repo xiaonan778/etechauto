@@ -17,9 +17,9 @@
       }
     </style>
     <script type="text/javascript">
-	    $(function(){
-	    	$("#sys_config").parent().addClass("active");
-	    });
+    $(function(){
+        $("#sys_config").parent().addClass("active");
+    });
     </script>
 </head>
   
@@ -35,92 +35,109 @@
             <jsp:include page="../common/menu2.jsp" />
 
             <!-- Dashboard Wrapper Start -->
-            <div class="dashboard-wrapper">
-
-                <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <table style="width: 99%;">
-                                <tr>
-                                    <td style="width: 4%;text-align: left;" >
-                                    <a  class="btn btn-primary" type="button" href="javascript:window.history.back();" >返回</a></td>
-                                    <td class="panel-title" style="width: 96%;text-align: center;font-weight:bold">${sysdata.code}&nbsp;${sysdata.name}&nbsp;数据维护</td>
-                                </tr>
-                           </table>
-                        </div>
-                        <div class="panel-body">
-                          <div class="row">
-                            <form class="form" id="dicform" <c:if test="${action eq 'EDIT' }">action="${path }/dic/edit"</c:if><c:if test="${action eq 'SAVE' }">action="${path }/dic/save"</c:if> method="POST">
-                              <input type="hidden" value="${sysdata.id}" id="dataFk" name="dataFk"/>
-                              <div class="row">
-                                <div class="col-md-6">
+            <div class="dashboard-wrapper"> 
+            
+                    <div class="panel panel-default">
+			            <div class="panel-heading">
+			                <table style="width: 99%;">
+			                    <tr>
+			                        <td style="width: 4%;text-align: left;" nowrap="nowrap" >
+			                        <a  class="btn btn-primary" type="button" href="javascript:window.history.back();" >返回</a></td>
+			                        <td class="panel-title" style="width: 96%;text-align: center;font-weight:bold">${sysdata.code}&nbsp;${sysdata.name}&nbsp;数据维护</td>
+			                    </tr>
+			               </table>
+			            </div>
+			            <div class="panel-body">
+			              <div class="row">
+			                <form class="form" id="dicform" <c:if test="${action eq 'EDIT' }">action="${path }/dic/edit"</c:if><c:if test="${action eq 'SAVE' }">action="${path }/dic/save"</c:if> method="POST">
+			                  <input type="hidden" value="${sysdata.id}" id="dataFk" name="dataFk"/>
+			                  <div class="row">
+			                    <div class="col-md-6">
+			                      <div class="form-group">
+			                        <div class="input-group">
+			                          <div class="input-group-addon">ID</div>
+			                          <input class="form-control" id="id" name="id" value="${dicdata.id }" <c:if test="${action eq 'EDIT' }">readonly</c:if> />
+			                        </div>
+			                      </div>
+			                    </div>
+			                    <div class="col-md-6">
                                   <div class="form-group">
                                     <div class="input-group">
-                                      <div class="input-group-addon">ID</div>
-                                      <input class="form-control" id="id" name="id" value="${dicdata.id }" readonly  />
+                                      <div class="input-group-addon">规则</div>
+                                      <input class="form-control" id="rule" name="rule" value="${dicdata.rule }" />
                                     </div>
                                   </div>
                                 </div>
-                                <div class="col-md-6">
-                                  <div class="form-group">
-                                    <div class="input-group">
-                                      <div class="input-group-addon">表名</div>
-                                      <input class="form-control" id="rule" name="rule" value="${dicdata.rule }"  <c:if test="${action eq 'EDIT' }">readonly</c:if>  />
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-md-6">
-                                  <div class="form-group">
-                                    <div class="input-group">
-                                      <div class="input-group-addon">名称</div>
-                                      <input class="form-control" id="name" name="name" value="${dicdata.name }" />
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-md-6">
-                                  <div class="form-group">
-                                    <div class="input-group">
-                                      <div class="input-group-addon">对应</div>
-                                      <input class="form-control" id="memo" name="memo" value="${dicdata.memo }"></input>
-                                    </div>
-                                  </div>
-                                </div>                    
-                              </div>
-                              
-                               <div class="row">
-                                <div class="col-md-6">
-                                  <div class="form-group">
-                                    <div class="input-group">
-                                      <div class="input-group-addon">排序</div>
-                                      <input class="form-control" id="sort" name="sort" value="${dicdata.sort }"></input>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="col-md-6">
-                                  <div class="form-group">
-                                    <div class="input-group">
-                                      <div class="input-group-addon">状态</div>
-                                      <div class="form-control">
-                                          <input type="radio" id="valid-true" name="valid" value="1" <c:if test="${dicdata.valid eq 1 }">checked</c:if> /><label for="valid-true">启用</label>
-                                          <input type="radio" id="valid-false" name="valid" value="0" <c:if test="${dicdata.valid eq 0 }">checked</c:if> /><label for="valid-false">停用</label>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>  
-                              </div>              
-                              <div class="row">
-                                <div class="col-md-12 text-center">
-                                  <input type="button" class="btn btn-primary submit" onclick="save()" value="保存" />
-                                </div>
-                              </div>
-                            </form>
-                          </div>
-                        </div>
-                      </div>
-                
-            </div>
-            <!-- Dashboard Wrapper End -->
+			                  </div>
+			                  <div class="row">
+			                    <div class="col-md-6">
+			                      <div class="form-group">
+			                        <div class="input-group">
+			                          <div class="input-group-addon">名称</div>
+			                          <input class="form-control" id="name" name="name" value="${dicdata.name }" />
+			                        </div>
+			                      </div>
+			                    </div>
+			                    <div class="col-md-6">
+			                      <div class="form-group">
+			                        <div class="input-group">
+			                          <div class="input-group-addon">对应</div>
+			                          <input class="form-control" id="memo" name="memo" value="${dicdata.memo }"></input>
+			                        </div>
+			                      </div>
+			                    </div>                    
+			                  </div>
+			                  <div class="row">
+			                    <div class="col-md-6">
+			                      <div class="form-group">
+			                        <div class="input-group">
+			                          <div class="input-group-addon">最小值</div>
+			                          <input class="form-control" id="min" name="min" value="${dicdata.min }"></input>
+			                        </div>
+			                      </div>
+			                    </div>
+			                    <div class="col-md-6">
+			                      <div class="form-group">
+			                        <div class="input-group">
+			                          <div class="input-group-addon">最大值</div>
+			                          <input class="form-control" id="max" name="max" value="${dicdata.max }"></input>
+			                        </div>
+			                      </div>
+			                    </div>                    
+			                  </div>   
+			                   <div class="row">
+			                    <div class="col-md-6">
+			                      <div class="form-group">
+			                        <div class="input-group">
+			                          <div class="input-group-addon">排序</div>
+			                          <input class="form-control" id="sort" name="sort" value="${dicdata.sort }"></input>
+			                        </div>
+			                      </div>
+			                    </div>
+			                    <div class="col-md-6">
+			                      <div class="form-group">
+			                        <div class="input-group">
+			                          <div class="input-group-addon">状态</div>
+			                          <div class="form-control">
+			                              <input type="radio" id="valid-true" name="valid" value="1" <c:if test="${dicdata.valid eq 1 }">checked</c:if> /><label for="valid-true">启用</label>
+			                              <input type="radio" id="valid-false" name="valid" value="0" <c:if test="${dicdata.valid eq 0 }">checked</c:if> /><label for="valid-false">停用</label>
+			                          </div>
+			                        </div>
+			                      </div>
+			                    </div>  
+			                  </div>              
+			                  <div class="row">
+			                    <div class="col-md-12 text-center">
+			                      <input type="button" class="btn btn-primary submit" onclick="save()" value="保存" />
+			                    </div>
+			                  </div>
+			                </form>
+			              </div>
+			            </div>
+			          </div>
+                    
+                </div>
+                <!-- Dashboard Wrapper End -->
 
             <jsp:include page="../common/footer2.jsp" />
 

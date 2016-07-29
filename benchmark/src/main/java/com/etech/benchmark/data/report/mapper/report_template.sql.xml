@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.etech.benchmark.data.report.dao.ReportTemplateDao">
+    
+    <resultMap type="com.etech.benchmark.data.report.model.ReportTemplate" id="BaseResultMap">
+        <id property="id"  column="id"  javaType="java.lang.String" jdbcType="CHAR" />
+        <result property="template_name" column="template_name" javaType="java.lang.String"  jdbcType="VARCHAR" />
+        <result property="table_name" column="table_name" javaType="java.lang.String"  jdbcType="CHAR" />
+        <result property="template_type" column="template_type"  />
+        <result property="description" column="description" javaType="java.lang.String"  jdbcType="VARCHAR" />
+        <result property="date_update" column="date_update" javaType="java.util.Date"  />
+        <result property="date_create" column="date_create" javaType="java.util.Date"   />
+        <result property="updater_fk" column="updater_fk" javaType="java.lang.String"  jdbcType="CHAR" />
+        <result property="creator_fk" column="creator_fk" javaType="java.lang.String"  jdbcType="CHAR" />
+        <result property="updater" column="updater"  />
+        <result property="creator" column="creator"  />
+        <result property="is_valid" column="is_valid"  jdbcType="TINYINT" />
+    </resultMap>
+    
+    <insert id="addTemplate" parameterType="com.etech.benchmark.data.report.model.ReportTemplate"  >
+        insert into report_template (
+            id,
+		    template_name,
+		    template_type,
+		    table_name,
+		    description,
+		    date_update,
+		    date_create,
+		    updater_fk,
+		    creator_fk,
+		    is_valid
+        ) values (
+            #{ id},
+            #{template_name},
+            #{template_type},
+            #{table_name},
+            #{description},
+            now(),
+            now(),
+            #{updater_fk},
+            #{creator_fk},
+            1
+        )
+        
+    </insert>
+    
+    <select id="listTemplate" parameterType="com.etech.benchmark.backadmin.report.param.ReportTemplateParam"  resultMap="BaseResultMap">
+          select t.*, uu1.realName as updater, uu2.realName as creator  from report_template t
+            left join ums_user uu1 on uu1.id = t.updater_fk
+            left join ums_user uu2 on uu2.id = t.creator_fk
+            where  t.is_valid = 1 
+            <if test="template_name != null">
+                and t.template_name like concat('%', #{template_name}, '%')
+            </if>
+            <if test="template_type != null  and template_type != 0">
+                and t.template_type = #{template_type}
+            </if>
+            <if test="table_name != null">
+                and t.table_name like concat('%', #{table_name}, '%')
+            </if>
+    </select>
+    
+    <update id="updateTemplate" parameterType="com.etech.benchmark.data.report.model.ReportTemplate">
+        update report_template
+        <set>
+            updater_fk = now(),
+            updater_fk = #{updater_fk},
+            <if test="template_name != null ">
+                template_name = #{template_name},
+            </if>
+            <if test="description != null ">
+                description = #{description},
+            </if>
+            
+        </set>
+    </update>
+    
+    <select id="getById" parameterType="string" resultType="com.etech.benchmark.data.report.model.ReportTemplate">
+        select * from report_template where id = #{id}
+    </select>
+    
+</mapper> 

@@ -3,8 +3,12 @@ package com.etech.benchmark.data.info.model;
 import java.util.Date;
 
 public class BmFile {
+    
     private String id;
-
+    
+    /**
+     * 文件名称
+     */
     private String name;
     
     /**
@@ -13,16 +17,28 @@ public class BmFile {
     private String tree_id;
     
     /**
-     * 默认为0， 若导入文件为excel， 此字段代表导入的模板
+     * 默认为0， 1001: 实验信息， 1002: 基本信息
      */
     private Integer dic_id;
     
+    /**
+     * 文件保存路径
+     */
     private String save_path;
     
+    /**
+     * 文件类型
+     */
     private String type;
-
+    
+    /**
+     * 文件类目
+     */
 	private String condition;
-
+	
+	/**
+	 * 模板Id
+	 */
     private String other;
 
     private Byte valid;
@@ -35,15 +51,6 @@ public class BmFile {
 
     private Date date_create;
     
-    private String modal;
-    
-    public String getModal() {
-		return modal;
-	}
-
-	public void setModal(String modal) {
-		this.modal = modal;
-	}
 
 	public String getId() {
         return id;

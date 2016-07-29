@@ -63,10 +63,10 @@ public class BmFileDaoImpl implements BmFileDao {
     }
 
     @Override
-    public List<BmFile> searchByCondition(String keywords) {
+    public List<BmFile> searchByName(String keywords) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("keywords", keywords);
-        return dao.find(PREFIX + ".searchByCondition", params);
+        return dao.find(PREFIX + ".searchByName", params);
     }
 
 

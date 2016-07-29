@@ -32,21 +32,22 @@
 	
     <bean id="responseJsonMapper" class="com.etech.benchmark.util.ResponseJsonMapper"></bean>
     <mvc:annotation-driven>
-		<mvc:message-converters register-defaults="true" >
-		    <bean class="org.springframework.http.converter.StringHttpMessageConverter"> 
-				<constructor-arg value="UTF-8" />        
-			</bean>
-			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-			     <property name="supportedMediaTypes">  
+        <mvc:message-converters register-defaults="true" >
+            <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/> 
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter"> 
+                <constructor-arg value="UTF-8" />        
+            </bean>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                 <property name="supportedMediaTypes">  
                     <list>  
                         <value>text/html;charset=UTF-8</value>  
                         <value>application/json;charset=UTF-8</value>  
                     </list>  
                 </property>
-				<property name="objectMapper" ref="responseJsonMapper"/>
-			</bean>
-	    </mvc:message-converters>
-	</mvc:annotation-driven>
+                <property name="objectMapper" ref="responseJsonMapper"/>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
 	
 	<context:annotation-config />
 
@@ -59,12 +60,4 @@
 	<!-- 控制器异常处理 -->
 	<bean id="exceptionHandlerExceptionResolver" class="org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver"></bean>
 
-	<!-- 启动对@AspectJ注解的支持 -->
-	<aop:aspectj-autoproxy proxy-target-class="true" />
-
-	<aop:config proxy-target-class="true"></aop:config>
-
-	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
-		<property name="securityManager" ref="securityManager" />
-	</bean>
 </beans>

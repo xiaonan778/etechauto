@@ -40,21 +40,22 @@ $(function(){
 	        rules : {  
 	        	name : {  
 	                required : true,
-	                rangelength:[2, 10]
+	                rangelength:[2, 50]
 	            },
 	            sorter : {  
 	                required : true,
-	                rangelength:[2, 4],
+	                rangelength:[1, 3],
 	                digits: true
 	            }
 	        },  
 	        messages : {    
 	        	name : {  
-	                required : "必须填写菜单名称.",
-	                rangelength:jQuery.validator.format("请输入 一个长度介于 {0} 和 {1} 之间的字符串")
+	                required : "必须填写车型名称.",
+	                rangelength:jQuery.validator.format("请输入 一个长度介于 {0} 到 {1} 之间的字符")
 	            },
 	            sorter : {  
-	                required : 	"必须填写菜单排序."
+	                required : 	"必须填写排序.",
+	                rangelength:jQuery.validator.format("请输入 一个介于 0 到 999 之间的数字")
 	            }
 	        },
 	        highlight : function(element) {  
@@ -74,14 +75,14 @@ $(function(){
     	var level = $("#level").val();
     	if (level != "1") {
     		if(!$("input[name='parent_fk']").val()) {
-    			bravoui.ui.msg.alert("请选择父级节点！");
+    			bravoui.ui.msg.alert("请选择父级车型分类！");
     			return false;
     		}
     	} 
     	
     	if (validator.form()) {
     		bravoui.ui.msg.waiting({
-    			title : "正在更新树节点",
+    			title : "正在更新车型",
     			msg : "请稍等..."
     		});
     		$("#tree_edit_form").ajaxSubmit({
@@ -92,13 +93,13 @@ $(function(){
                 	bravoui.ui.msg.waiting.remove();
                 	if (data.msg == "S") {
                 		bravoui.ui.msg.alert({
-                			msg : "更新树节点成功！",
+                			msg : "更新车型成功！",
                 			ok : function(){
                 				window.location = _path + "/info/toTree";
                 			}
                 		});
                 	} else {
-                		bravoui.ui.msg.alert("更新树节点失败！");
+                		bravoui.ui.msg.alert("更新车型失败！");
                 	}
                 },  
                 error : function(xhr, msg, error) {  

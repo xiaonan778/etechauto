@@ -45,6 +45,28 @@ public class FileUtil {
 		}
 		return "error";
 	}
+	
+	/**
+     * 文件上传
+     * @param file
+     * @param path
+     * @return
+     */
+    public static String upload(MultipartFile file, String fileName, String path) {
+        SimpleDateFormat formater = new SimpleDateFormat("yyyyMMdd");
+        String date = formater.format(new Date());
+        String folderUrl = getFolder(path, date);
+        File outFile = new File(folderUrl + File.separatorChar + fileName );
+        try {
+            file.transferTo(outFile);
+            return date + "/" + fileName;
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "error";
+    }
 
 	/**
 	 *  获取文件后缀

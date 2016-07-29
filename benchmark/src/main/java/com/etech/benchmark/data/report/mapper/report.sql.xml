@@ -38,14 +38,6 @@
         where id = '${id}'
     </update>
     
-    <select id="getMaxTorqueByAlpha" parameterType="java.util.Map" statementType="STATEMENT" resultType="java.util.Map">
-        select max(TORQUE) as torque, alpha from ${tablename} where ALPHA &gt;= ${alpha_min} and ALPHA &lt;= ${alpha_max} LIMIT 1
-    </select> 
-    
-    <select id="listByAlpha"  parameterType="java.util.Map" statementType="STATEMENT" resultType="java.util.Map">
-        select torque, alpha, speed from ${tablename} where ALPHA &gt;= ${alpha_min} and ALPHA &lt;= ${alpha_max}
-    </select>
-    
     <select id="search" parameterType="java.util.Map" statementType="STATEMENT" resultType="java.util.Map">
         select  ${fields}  from ${tableName}  
         <if test="conditions != null">
@@ -53,8 +45,8 @@
         </if>
     </select> 
     
-    <select id="findAllByFileId"  parameterType="java.util.Map" statementType="STATEMENT" resultType="java.util.Map">
-        select * from ${tableName}   where fileId = '${fileId}'
+    <select id="findAllByFileId"  parameterType="java.util.Map"  resultType="java.util.Map">
+        select * from ${tableName}   where fileId = #{fileId} and treeId = #{treeId}
     </select>
     
     <delete id="deleteById" parameterType="java.util.Map" statementType="STATEMENT" >

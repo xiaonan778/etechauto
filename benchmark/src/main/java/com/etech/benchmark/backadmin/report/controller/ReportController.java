@@ -68,7 +68,7 @@ public class ReportController {
     @RequestMapping(value="/searchKeywords", method=RequestMethod.GET)
     public ResponseEntity<Object> searchKeywords (@RequestParam String keywords,  HttpServletRequest request) {
         ResultEntity result = null;
-        List<BmFile> excelList =  bmTreeService.searchByCondition(keywords);
+        List<BmFile> excelList =  bmTreeService.searchByName(keywords);
         if (excelList != null && excelList.size() > 0) {
             Set<Integer> templateList = new HashSet<Integer>();
             for (BmFile file : excelList) {

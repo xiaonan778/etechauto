@@ -85,8 +85,8 @@
         select * from bm_excel where tree_id = #{treeId} and type like 'xls%'
   </select>
   
-  <select id="searchByCondition" parameterType="map" resultType="com.etech.benchmark.data.info.model.BmFile">
-        select * from  `bm_excel`  where `condition`  like concat('%',  #{keywords}, '%' ) and  `type`  like 'xls%'
+  <select id="searchByName" parameterType="map" resultType="com.etech.benchmark.data.info.model.BmFile">
+        select * from  `bm_excel`  where `name`  like concat('%',  #{keywords}, '%' ) and  `type`  like 'xls%'
   </select>
   
 </mapper>

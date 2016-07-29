@@ -2,9 +2,10 @@ package com.etech.benchmark.data.report.dao;
 
 import java.util.List;
 
+import com.etech.benchmark.data.MybatisRepository;
+
+@MybatisRepository
 public interface TableSchemaDao {
-    
-    public String PREFIX = TableSchemaDao.class.getName();
     
     /**
      * 记录excel数据表列名信息

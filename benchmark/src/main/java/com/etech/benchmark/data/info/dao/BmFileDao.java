@@ -33,5 +33,5 @@ public interface BmFileDao {
 	 * @param keywords
 	 * @return
 	 */
-	List<BmFile> searchByCondition(String keywords);
+	List<BmFile> searchByName(String keywords);
 }

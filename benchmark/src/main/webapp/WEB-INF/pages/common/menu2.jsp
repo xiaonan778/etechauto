@@ -28,7 +28,11 @@
 				</shiro:hasPermission>
 				
 				<shiro:hasPermission name="menu:dictionary">
-				    <li><a href='${path }/dic/list'>模板管理</a></li>
+                    <li><a href='${path }/dic/list'>数据字典</a></li>
+                </shiro:hasPermission>
+				
+				<shiro:hasPermission name="menu:dictionary">
+				    <li><a href='${path }/template/toList'>模板管理</a></li>
 				</shiro:hasPermission>
 				
 			</ul>

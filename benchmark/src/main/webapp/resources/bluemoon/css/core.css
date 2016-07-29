@@ -1,13 +1,4 @@
-/* Theme Variables */
-/* Optional Variables  Ex- Success, Error, Info, Warning */
-/* Default Black and White Colors */
-/*   Mixins  */
-/*  Gradients  */
-/*  Transition  */
-/*  Box Sizing  */
-/*  Box Shadow  */
-/*  Border Radius  */
-/*  Opacity  */
+
 body {
 	margin: 0;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -1613,7 +1604,6 @@ ul.appointments li:first-child {
 .dashboard-wrapper {
 	position: relative;
 	background: #f7f7f7;
-	min-height: 500px;
 	padding: 15px;
 }
 

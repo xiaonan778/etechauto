@@ -34,8 +34,20 @@ public class Constants {
 	
 	
 	public class DataDictionary{
-		public final static String EXML = "EXML"; //Excel模版
-		public final static String REPORT = "REPORT"; //数据导入标识
+		
+		/**
+		 * 模板类型
+		 */
+		public final static String TEMPLATE_TYPE = "TEMPLATE_TYPE";
+		
+		/**
+		 * 实验数据
+		 */
+		public final static int EXPERIMENT_DATA = 1001;
+		/**
+		 * 基本信息
+		 */
+		public final static int BASIC_DATA = 1002;
 	}
 	
 	public class chart {
@@ -44,8 +56,8 @@ public class Constants {
 	}
 	
 	/** 有效 **/
-	public final static Byte VALID = 1;
+	public final static byte VALID = 1;
 	/** 无效 **/
-	public final static Byte INVALID = 0;
+	public final static byte INVALID = 0;
 	
 }
