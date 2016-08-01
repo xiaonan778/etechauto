@@ -1,30 +1,22 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<div class="navbar navbar-default navbar-fixed-top" id="navbar" style="height: 45px;">
-    <div class="navbar-container" id="navbar-container">
-        <div class="navbar-header pull-left">
-            <a href="${path}/" class="navbar-brand">
-                <small><i class="icon-cloud"></i> Bench Mark</small>
-            </a><!-- /.brand -->
-        </div><!-- /.navbar-header -->
-
-        <div class="navbar-header pull-right" role="navigation">
-            <ul class="nav ace-nav">
-
-                <li class="dark-gray">
-                    <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                        <img class="nav-user-photo" src="${path }/resources/ace/images/user.png"  alt="" />
-                        <span><small>您好,</small></span>
-                        <span><%=request.getUserPrincipal()%></span><small>&nbsp;!&nbsp;&nbsp;</small>  
-                        <i class="icon-caret-down"></i>
-                    </a>
-
-                    <ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-                        <li>
-                            <a href="${path}/logout"><i class="icon-off"></i>退出</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul><!-- /.ace-nav -->
-        </div><!-- /.navbar-header -->
-    </div><!-- /.container -->
-</div>
+<!-- Header Start -->
+<header>
+  <a href="${path}/" class="logo">
+    <span><i class="fa fa-cloud"></i> Bench Mark</span>
+  </a>
+  <div class="pull-right">
+    <ul id="mini-nav" class="clearfix">
+      <li class="list-box user-profile">
+        <a id="drop7" href="#"  class="dropdown-toggle user-avtar" data-toggle="dropdown">
+          <img src="${path }/images/user.png" alt="" />&nbsp;&nbsp;您好，<%=request.getUserPrincipal()%>！&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu server-activity">
+          <li>
+            <a href="${path}/logout"><i class="fa fa-power-off text-info"></i> 退出登录</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</header>
+<!-- Header End -->

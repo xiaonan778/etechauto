@@ -1,7 +1,32 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse" style="bottom: 2px; z-index: 10001;">
-    <i class="icon-double-angle-up icon-only bigger-110"></i>
-</a>
-<div style="position: fixed;bottom: 0px;left: 0px;z-index: 10000;width: 100%;background-color: #2f2725;border-top: 1px solid #ccc">
-  <p style="padding-left: 30px;height: 20px;color:white">&copy; EtechAuto 2015 v1.0.0</p>
-</div>
+<footer>
+  <p>&copy;&nbsp;&nbsp;Bench Mark 2016</p>
+</footer>
+
+<script type="text/javascript">
+  //ScrollUp
+  $(function () {
+    $.scrollUp({
+      scrollName: 'scrollUp', // Element ID
+      topDistance: '100', // Distance from top before showing element (px)
+      topSpeed: 300, // Speed back to top (ms)
+      animation: 'fade', // Fade, slide, none
+      animationInSpeed: 400, // Animation in speed (ms)
+      animationOutSpeed: 400, // Animation out speed (ms)
+      scrollText: 'Top', // Text for element
+      activeOverlay: false, // Set CSS color to display scrollUp active point, e.g '#00FFFF'
+    });
+  });
+
+  function resizeContainer() {
+      var height = $(window).height();
+      var container_height = $(".dashboard-container").height();
+      if ((container_height + 80) < height ) {
+          $(".dashboard-wrapper").css({"min-height": height - 200,"overflow": "auto"});
+      }
+  }
+  resizeContainer();
+  $(window).resize(function(){
+      resizeContainer();
+  });
+</script>

@@ -47,33 +47,6 @@ $(function(){
 					return false;
 				}
 				
-				if (data.columnList && data.columnList.length > 0 ) {
-					var columnContent = "<thead><tr><th style='width:250px;'>属性名</th><th>筛选条件</th></tr></thead><tbody>";
-					var reportContent = "<thead><tr><th style='width: 250px;'>报表要素</th><th>条件</th></tr></thead>";
-					var reportOptions = "";
-					for (var i = 0; i < data.columnList.length; i++) {
-						var citem = data.columnList[i];
-						columnContent = columnContent + "<tr><td>" +citem + "</td>"
-						+"<td><input type='hidden' name='queryAttribute' value='"+citem+"' >"
-						+"<select  class='condition' name='"+citem+"_rule' ><option value='1'>等于</option><option value='2'>介于</option></select>"
-						+"<input type='text' name='"+citem+"_eq'  id='"+citem+"_eq' /><input style='display:none;' type='text' name='"+citem+"_gt'  id='"+citem+"_gt' />"
-						+"<input style='display:none;'  type='text' name='"+citem+"_lt' id='"+citem+"_lt'></td></tr>";
-						
-						reportOptions = reportOptions + "<option>" + citem + "</option>";
-					}
-					
-					columnContent += "<tbody>"; 
-					$("#column_data").html(columnContent);
-					
-					reportContent = reportContent + "<tbody><tr><td>报表类型</td><td><select name='chartType'><option value='SCATTER'>散点图</option><option value='BAR'>柱状图</option></select></td></tr>";
-					reportContent = reportContent + "<tr><td>X轴</td><td><select name='xAxis' id='xAxis'>"+reportOptions+"</select></td></tr>";
-					reportContent = reportContent + "<tr><td>Y轴</td><td><select name='yAxis' id='yAxis' >"+reportOptions+"</select></td></tr></tbody>";
-					$("#report_data").html(reportContent);
-					$("#report_btn").show();
-					
-					initSelectOpt();
-				}
-				
 			} else {
 				$("#file_data").html("");
 				$("#column_data").html("");
@@ -95,24 +68,5 @@ $(function(){
 		});
 	});
 	
-	
-	function initSelectOpt() {
-		$(".condition").change(function(){
-			var temp = $(this).val();
-			var item = $(this).prev().val();
-			if ( temp == "1") {
-				$("#" + item + "_eq").show();
-				$("#" + item + "_gt").hide();
-				$("#" + item + "_lt").hide();
-			} else if ( temp == "2" ) {
-				$("#" + item + "_eq").hide();
-				$("#" + item + "_gt").show();
-				$("#" + item + "_lt").show();
-			}
-		});
-		
-		$("#xAxis").chosen({width: '300px'});
-		$("#yAxis").chosen({width: '300px'});
-	}
 	
 });

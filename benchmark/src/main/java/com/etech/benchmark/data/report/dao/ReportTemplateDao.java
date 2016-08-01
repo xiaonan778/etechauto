@@ -34,6 +34,13 @@ public interface ReportTemplateDao {
    public List<ReportTemplate> listTemplate ();
    
    /**
+    * 按条件获取模板
+    * @param param
+    * @return
+    */
+   public List<ReportTemplate> listTemplate (ReportTemplateParam param);
+   
+   /**
     * 更新模板
     * @param template
     * @return

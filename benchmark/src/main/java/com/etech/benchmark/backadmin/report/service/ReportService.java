@@ -69,6 +69,15 @@ public class ReportService {
     public <E, K, V> List<E> search(Map<String, Object> params) {
         return reportDao.search(params);
     }
+    
+    /**
+     * 根据条件筛选数据
+     * @param params
+     * @return
+     */
+    public <E, K, V> List<E> searchGroup(Map<String, Object> params) {
+        return reportDao.searchGroup(params);
+    }
 
     /**
      * 根据FileId查找数据

@@ -2,6 +2,8 @@ package com.etech.benchmark.data.report.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.etech.benchmark.data.MybatisRepository;
 
 @MybatisRepository
@@ -19,26 +21,26 @@ public interface TableSchemaDao {
      * @param tableName
      * @return
      */
-    public boolean checkTableSchemaIfExists (String tableName);
+    public int checkTableSchemaIfExists (@Param("tableName") String tableName);
     
     /**
      * 判断表是否已存在
      * @param tableName
      * @return
      */
-    public boolean checkTableIfExists (String tableName);
+    public int checkTableIfExists (@Param("tableName") String tableName);
     
     /**
      * 列出一张表的字段信息
      * @param table_fk
      * @return
      */
-    public  List<String> listColumnByTableFk (int table_fk);
+    public  List<String> listColumnByTableFk (@Param("table_fk") String table_fk);
     
     /**
      * 获取单位
      * @param columnName
      * @return
      */
-    public String getUnit(String columnName);
+    public String getUnit(@Param("columnName") String columnName);
 }

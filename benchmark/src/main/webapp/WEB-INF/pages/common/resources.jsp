@@ -17,7 +17,6 @@
   <script src="${path}/resources/bootstrap/datetime/js/bootstrap-datetimepicker.min.js"></script>
   <script src="${path}/resources/bootstrap/datetime/js/bootstrap-datetimepicker.zh-CN.js"></script>
   
-  
   <!-- 补充 CSS -->
   <link href="${path}/css/main.css" rel="stylesheet">
   
@@ -37,19 +36,17 @@
   <link href="${path}/resources/chosen/css/chosen.min.css" rel="stylesheet">
   <script src="${path}/resources/chosen/js/chosen.jquery.min.js"></script>
   
-  <!-- ace模板 -->
-  <link rel="stylesheet" href="${path}/resources/ace/css/ace.min.css" />
-  <link rel="stylesheet" href="${path}/resources/ace/css/font-awesome.min.css" />
-  <!--[if lte IE 8]>
-     <link rel="stylesheet" href="${path}/resources/ace/css/ace-ie.min.css" />
-  <![endif]-->
-  <script src="${path}/resources/ace/js/ace-extra.min.js"></script>
+  <!-- scroll up -->
+  <script src="${path}/resources/jquery/jquery.scrollUp.js"></script>
+  
+  <!-- blue moon 模板 -->
+  <link href="${path}/resources/bluemoon/css/core.css" rel="stylesheet"> 
+  <link href="${path}/resources/bluemoon/fonts/font-awesome.min.css" rel="stylesheet">
+  <!-- HTML5 shiv and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
-    <script src="${path}/resources/ace/js/html5shiv.js"></script>
-    <script src="${path}/resources/ace/js/respond.min.js"></script>
+    <script src="${path}/resources/bluemoon/js/html5shiv.js"></script>
+    <script src="${path}/resources/bluemoon/js/respond.min.js"></script>
   <![endif]-->
-  <script src="${path}/resources/ace/js/jquery.mobile.custom.min.js"></script>
-  <script src="${path}/resources/ace/js/typeahead-bs2.min.js"></script>
-  <script src="${path}/resources/ace/js/ace-elements.min.js"></script>
-  <script src="${path}/resources/ace/js/ace.min.js"></script>
- 
+  <script src="${path}/resources/bluemoon/js/menu.js"></script>
+  <script src="${path}/resources/bluemoon/js/custom.js"></script>
+  

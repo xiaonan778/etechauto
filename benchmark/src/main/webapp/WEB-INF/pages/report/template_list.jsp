@@ -4,7 +4,7 @@
 <html>
 <head>
     <jsp:include page="../common/meta.jsp" />
-    <jsp:include page="../common/resources2.jsp" />
+    <jsp:include page="../common/resources.jsp" />
     
 	<link rel="stylesheet" href="${path }/resources/datatables/css/dataTables.bootstrap.min.css" />
     <script src="${path }/resources/datatables/js/jquery.dataTables.min.js"></script>
@@ -28,17 +28,25 @@
 </head>
   
 <body>
-    <jsp:include page="../common/header2.jsp" />
+    <jsp:include page="../common/header.jsp" />
 
     <!-- Main Container start -->
     <div class="dashboard-container">
 
         <div class="container">
 
-            <jsp:include page="../common/menu2.jsp" />
+            <jsp:include page="../common/menu.jsp" />
 
             <!-- Dashboard Wrapper Start -->
             <div class="dashboard-wrapper">
+                    <div class="breadcrumbs" id="breadcrumbs">
+	                    <ul class="breadcrumb">
+	                        <li><i class="icon-home home-icon"></i> <a href="${path}/">首页</a></li>
+	                        <li class="active">设置</li>
+	                        <li class="active">模板管理</li>
+	                    </ul>
+	                    <!-- .breadcrumb -->
+	                </div>
                     <div class="panel panel-default">
                         <div class="panel-heading panel-title">
                             <div class="row">
@@ -57,7 +65,7 @@
              </div>
             <!-- Dashboard Wrapper End -->
 
-            <jsp:include page="../common/footer2.jsp" />
+            <jsp:include page="../common/footer.jsp" />
 
         </div>
     </div>
@@ -95,7 +103,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-group">
                                     <div class="input-group">
                                         <div class="input-group-addon">模板文件</div>

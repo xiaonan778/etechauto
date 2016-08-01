@@ -1,6 +1,8 @@
 
 /*--login page--*/
-
+body {
+	background-color: #e4e6e9!important;
+}
 .login-main {
     width: 40%;
     margin: 0 auto;
@@ -82,10 +84,3 @@
         width: 90%;
     }
 }
-
-
-
-
-
-
-

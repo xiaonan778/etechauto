@@ -10,7 +10,7 @@
 <html>
 <head>
     <jsp:include page="../common/meta.jsp" />
-    <jsp:include page="../common/resources2.jsp" />
+    <jsp:include page="../common/resources.jsp" />
     <style>
         .operation-column a {
           padding-right: 10px;
@@ -55,17 +55,25 @@
   
 <body>
 
-    <jsp:include page="../common/header2.jsp" />
+    <jsp:include page="../common/header.jsp" />
 
     <!-- Main Container start -->
     <div class="dashboard-container">
 
         <div class="container">
 
-            <jsp:include page="../common/menu2.jsp" />
+            <jsp:include page="../common/menu.jsp" />
             
             <!-- Dashboard Wrapper Start -->
             <div class="dashboard-wrapper">
+                    <div class="breadcrumbs" id="breadcrumbs">
+	                    <ul class="breadcrumb">
+	                        <li><i class="icon-home home-icon"></i> <a href="${path}/">首页</a></li>
+	                        <li class="active">设置</li>
+	                        <li class="active">数据字典</li>
+	                    </ul>
+	                    <!-- .breadcrumb -->
+	                </div>
                     
                     <div class="panel panel-default">
                         <div class="panel-heading panel-title">
@@ -95,7 +103,7 @@
                 </div>
                 <!-- Dashboard Wrapper End -->
 
-            <jsp:include page="../common/footer2.jsp" />
+            <jsp:include page="../common/footer.jsp" />
 
         </div>
     </div>

@@ -38,11 +38,25 @@
         where id = '${id}'
     </update>
     
-    <select id="search" parameterType="java.util.Map" statementType="STATEMENT" resultType="java.util.Map">
+    <select id="search" parameterType="java.util.Map"  resultType="java.util.Map">
         select  ${fields}  from ${tableName}  
+        <where>
+	        <if test="conditions != null">
+	           ${conditions}
+	        </if>
+	        <if test="treeId != null ">
+	          and  treeId = #{treeId}
+	        </if>
+        </where>
+        
+    </select> 
+    
+    <select id="searchGroup" parameterType="java.util.Map" statementType="STATEMENT" resultType="java.util.Map">
+        select  *  from ${tableName}  
         <if test="conditions != null">
             where ${conditions}
         </if>
+        group by treeId
     </select> 
     
     <select id="findAllByFileId"  parameterType="java.util.Map"  resultType="java.util.Map">

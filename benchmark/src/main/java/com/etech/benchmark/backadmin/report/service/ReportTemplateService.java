@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.etech.benchmark.backadmin.report.param.ReportTemplateParam;
+import com.etech.benchmark.constant.Constants;
 import com.etech.benchmark.data.report.dao.ReportTemplateDao;
 import com.etech.benchmark.data.report.model.ReportTemplate;
 import com.etech.benchmark.exception.ServiceException;
@@ -77,6 +78,18 @@ public class ReportTemplateService {
    public List<ReportTemplate> listTemplate () {
        return dao.listTemplate();
    }
+   
+   /**
+    * 获取所有试验数据模板
+    * @param template
+    * @return
+    */
+   public List<ReportTemplate> listDataTemplate () {
+       ReportTemplateParam param = new ReportTemplateParam();
+       param.setTemplate_type(Constants.DataDictionary.EXPERIMENT_DATA);
+       return dao.listTemplate(param);
+   }
+   
    
    /**
     * 更新模板

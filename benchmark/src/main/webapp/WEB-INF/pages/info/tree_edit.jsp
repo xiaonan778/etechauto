@@ -5,7 +5,7 @@
 <html>
 <head>
     <jsp:include page="../common/meta.jsp" />
-    <jsp:include page="../common/resources2.jsp" />
+    <jsp:include page="../common/resources.jsp" />
     
     <link rel="stylesheet" href="${path}/resources/easyui/themes/bootstrap/combo.css" />
     <link rel="stylesheet" href="${path}/resources/easyui/themes/bootstrap/combobox.css" />
@@ -22,16 +22,26 @@
 </head>
 
 <body>
-    <jsp:include page="../common/header2.jsp" />
+    <jsp:include page="../common/header.jsp" />
     <!-- Main Container start -->
     <div class="dashboard-container">
 
         <div class="container">
 
-            <jsp:include page="../common/menu2.jsp" />
+            <jsp:include page="../common/menu.jsp" />
 
             <!-- Dashboard Wrapper Start -->
             <div class="dashboard-wrapper">
+                  
+                  <div class="breadcrumbs" id="breadcrumbs">
+                       <ul class="breadcrumb">
+                           <li><i class="icon-home home-icon"></i> <a href="${path}/">首页</a></li>
+                           <li><a href="${path }/info/toTree">数据导入</a></li>
+                           <li class="active">编辑车型</li>
+                       </ul>
+                       <!-- .breadcrumb -->
+                   </div>
+            
                   <div class="panel panel-default">
                         <div class="panel-heading">
                             <table style="width: 99%;">
@@ -39,7 +49,7 @@
                                     <td style="width: 4%;text-align: left;">
                                        <a class="btn btn-primary" type="button" href="${path}/info/toTree">返回</a>
                                     </td>
-                                    <td class="panel-title" style="width: 96%;text-align: center;font-weight:bold">新增车型</td>
+                                    <td class="panel-title" style="width: 96%;text-align: center;font-weight:bold">编辑车型</td>
                                 </tr>
                             </table>
                         </div>
@@ -98,7 +108,7 @@
 
             </div>
             <!-- Dashboard Wrapper End -->
-            <jsp:include page="../common/footer2.jsp" />
+            <jsp:include page="../common/footer.jsp" />
          </div>
      </div>
     <!-- Main Container end -->

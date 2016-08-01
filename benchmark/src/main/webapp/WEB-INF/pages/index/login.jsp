@@ -8,9 +8,11 @@
 	<jsp:include page="../common/meta.jsp" />
 	<title>登录</title>
 	<jsp:include page="../common/resources.jsp" />
+	
+	<link rel="stylesheet" href="${path}/css/font-awesome.min.css" />
+	<link href="${path }/css/login.css" rel="stylesheet" type="text/css" media="all" />
 	<script src="${path }/scripts/sys/login.js" ></script>
 	
-	<link href="${path }/css/login.css" rel="stylesheet" type="text/css" media="all" />
 </head>
 <body>
 	<shiro:authenticated>

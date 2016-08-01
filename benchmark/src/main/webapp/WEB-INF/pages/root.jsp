@@ -3,14 +3,14 @@
 <html>
 <head>
 <jsp:include page="common/meta.jsp" />
-<jsp:include page="common/resources2.jsp" />
+<jsp:include page="common/resources.jsp" />
 <link rel="stylesheet" type="text/css" href="${path }/resources/imgcss/css/normalize.css" />
 <link rel="stylesheet" type="text/css" href="${path }/resources/imgcss/css/demo.css" />
 <link rel="stylesheet" type="text/css" href="${path }/resources/imgcss/css/set1.css" />
 </head>
 
 <body class="keBody">
-    <jsp:include page="common/header2.jsp" />
+    <jsp:include page="common/header.jsp" />
 	<div class="kePublic">
 		<!--效果html开始-->
 		<div class="container">

@@ -45,7 +45,7 @@ public class TableSchemaService {
      * @return
      */
     public boolean checkTableSchemaIfExists(String tableName) {
-        return tableSchemaDao.checkTableSchemaIfExists(tableName);
+        return tableSchemaDao.checkTableSchemaIfExists(tableName) > 0;
     }
 
     /**
@@ -54,7 +54,7 @@ public class TableSchemaService {
      * @return
      */
     public boolean checkTableIfExists(String tableName) {
-        return tableSchemaDao.checkTableIfExists(tableName);
+        return tableSchemaDao.checkTableIfExists(tableName) > 0;
     }
 
     /**
@@ -62,7 +62,7 @@ public class TableSchemaService {
      * @param table_fk
      * @return
      */
-    public List<String> listColumnByTableFk(int table_fk) {
+    public List<String> listColumnByTableFk(String table_fk) {
         return tableSchemaDao.listColumnByTableFk(table_fk);
     }
 

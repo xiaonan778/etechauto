@@ -48,38 +48,39 @@
 	      
 	    });
 	    
-	    $(function(){
-            $("#sys_permission").addClass("active");
-            $("#sys").addClass("open");
-            $("#sys").addClass("active");
-        });
+	   	 $(function(){
+	   	        $("#sys_config").parent().addClass("active");
+	   	 });
 	</script>
 </head>
   
-<body class="navbar-fixed">
+<body>
     <jsp:include page="../common/header.jsp" />
-    <div class="main-container">
-        <div class="main-container-inner">  
+
+    <!-- Main Container start -->
+    <div class="dashboard-container">
+
+        <div class="container">
+
             <jsp:include page="../common/menu.jsp" />
-            
-            <div class="main-content" id="mainContent">
-                <div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs">
+
+            <!-- Dashboard Wrapper Start -->
+            <div class="dashboard-wrapper">
+                <div class="breadcrumbs" id="breadcrumbs">
             
                     <ul class="breadcrumb">
                         <li>
                             <i class="icon-home home-icon"></i>
                             <a href="${path}/">首页</a>
                         </li>
-                        <li class="active">系统配置</li>
-                        <li><a href="${path}/role/list">角色权限管理</a></li>
+                        <li class="active">配置</li>
+                        <li><a href="${path}/role/list">权限管理</a></li>
                         <li class="active">关联权限</li>
                     </ul><!-- .breadcrumb -->
                 </div>
             
-                <div class="page-content">
-                    <div style="height: 40px;"></div>
-                    <div class="panel panel-default">
-			          <div class="panel-heading panel-title">关联权限</div>
+                <div class="panel panel-default">
+		            <div class="panel-heading panel-title">关联权限</div>
 			          <div class="panel-body">
 			
 			            <div class="row summary-banner">
@@ -129,13 +130,14 @@
 			          </div>
 			        </div>
                     
-                </div><!-- /.page-content -->
-            </div><!-- /.main-content -->
-            
+                </div>
+            <!-- Dashboard Wrapper End -->
+
+            <jsp:include page="../common/footer.jsp" />
+
         </div>
-        
-    </div><!-- /.main-container-inner -->
+    </div>
+    <!-- Main Container end -->
     
-    <jsp:include page="../common/footer.jsp" />
 </body>
 </html>
